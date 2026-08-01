@@ -1,0 +1,18 @@
+@use "../core/variables" as *;
+
+.welcome {
+  margin-bottom: 0.5rem;
+  text-align: center;
+
+  &__title {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: $desktop) {
+  .welcome {
+    &__title {
+      font-size: 1.25rem;
+    }
+  }
+}

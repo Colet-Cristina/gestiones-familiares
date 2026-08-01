@@ -1,0 +1,14 @@
+// Core
+@use "./core/variables";
+@use "./core/reset";
+
+// Partials
+@use "./partials/header";
+@use "./partials/welcome";
+@use "./partials/dashboard";
+@use "./partials/card";
+@use "./partials/detail";
+@use "./partials/appointments";
+@use "./partials/calendar";
+@use "./partials/modal";
+@use "./partials/footer";

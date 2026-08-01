@@ -1,0 +1,106 @@
+/* src/scss/partials/_card.scss */
+@use "../core/variables" as *;
+
+.card {
+  background-color: $color-white;
+  border-radius: $radius-medium;
+  padding: 1.5rem;
+  box-shadow: $shadow-md;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  border: $border-subtle;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: $shadow-hover;
+  }
+
+  &__content {
+    flex-grow: 1; // Que el botón siempre quede abajo si hay poco texto
+  }
+
+  &__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    color: $color-black;
+  }
+
+  &__description {
+    font-size: 0.9375rem;
+    color: $color-text;
+    line-height: 1.4;
+  }
+
+  &__btn {
+    background-color: $color-blue;
+    color: $color-white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      background-color $transition-fast,
+      filter $transition-fast;
+    width: 80%;
+
+    &:hover {
+      filter: brightness(1.3);
+    }
+  }
+
+  // --- Modificadores de color temáticos ---
+  &--appointments {
+    border-color: rgba($color-blue, 0.1);
+
+    .card__btn {
+      background-color: $color-blue;
+      &:hover {
+        filter: brightness(1.3);
+      }
+    }
+  }
+
+  &--meds {
+    $color-meds: $color-orange;
+    border-color: rgba($color-meds, 0.1);
+
+    .card__btn {
+      background-color: $color-meds;
+      &:hover {
+        filter: brightness(1.3);
+      }
+    }
+  }
+
+  &--contacts {
+    $color-contacts: $color-red;
+    border-color: rgba($color-contacts, 0.1);
+
+    .card__btn {
+      background-color: $color-contacts;
+      &:hover {
+        filter: brightness(1.3);
+      }
+    }
+  }
+
+  &--expenses {
+    $color-expenses: $color-green;
+    border-color: rgba($color-expenses, 0.1);
+
+    .card__btn {
+      background-color: $color-expenses;
+      &:hover {
+        filter: brightness(1.3);
+      }
+    }
+  }
+}

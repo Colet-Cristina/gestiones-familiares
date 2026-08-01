@@ -1,0 +1,17 @@
+@use "../core/variables" as *;
+
+.header {
+  border-bottom: solid 0.5rem $color-black;
+  text-align: center;
+  padding-block: 1rem;
+
+  &__title {
+    line-height: 2.5rem;
+    font-size: 2rem;
+  }
+
+  &__subtitle {
+    font-size: 1rem;
+    opacity: 0.8;
+  }
+}
