@@ -8,7 +8,7 @@ function Detail({
   onOpenModal,
 }) {
   return (
-    <section className="detail">
+    <section className={`detail detail--${sectionId}`}>
       <button className="detail__back-btn" type="button" onClick={onBack}>
         ← Volver
       </button>
@@ -21,10 +21,10 @@ function Detail({
             onOpenModal={onOpenModal}
           />
         )}
-
+        {/* ====   MEDICACIÓN ====*/}
         {sectionId === "meds" && (
           <>
-            <h2 className="detail__title">Gestión de Medicación</h2>
+            <h2 className="detail__title">Medicación</h2>
             <form className="detail__form" onSubmit={(e) => e.preventDefault()}>
               <input
                 type="text"
@@ -39,7 +39,7 @@ function Detail({
                 required
               />
               <button type="submit" className="detail__btn">
-                Añadir Medicamento
+                Añadir
               </button>
             </form>
             <ul className="detail__list">
@@ -47,10 +47,63 @@ function Detail({
             </ul>
           </>
         )}
-
+        {/* ====   INFORMACIÓN MÉDICA ====*/}
+        {sectionId === "medical-info" && (
+          <>
+            <h2 className="detail__title">Información Médica</h2>
+            <form className="detail__form" onSubmit={(e) => e.preventDefault()}>
+              <input
+                type="text"
+                placeholder="Dato clave (ej: Grupo sanguíneo, Alergias, Mutua)"
+                className="detail__input"
+                required
+              />
+              <input
+                type="text"
+                placeholder="Detalle (ej: A+, Alergia a la Penicilina)"
+                className="detail__input"
+                required
+              />
+              <button type="submit" className="detail__btn">
+                Guardar
+              </button>
+            </form>
+            <ul className="detail__list">
+              <li className="detail__item">Alergias: Penicilina</li>
+              <li className="detail__item">Grupo Sanguíneo: A+</li>
+            </ul>
+          </>
+        )}
+        {/* ====   TELEFONOS ====*/}
+        {sectionId === "contacts" && (
+          <>
+            <h2 className="detail__title">Teléfonos</h2>
+            <form className="detail__form" onSubmit={(e) => e.preventDefault()}>
+              <input
+                type="text"
+                placeholder="Nombre o Centro"
+                className="detail__input"
+                required
+              />
+              <input
+                type="tel"
+                placeholder="Teléfono"
+                className="detail__input"
+                required
+              />
+              <button type="submit" className="detail__btn">
+                Guardar
+              </button>
+            </form>
+            <ul className="detail__list">
+              <li className="detail__item">Urgencias - 112</li>
+            </ul>
+          </>
+        )}
+        {/* ====   GASTOS ====*/}
         {sectionId === "expenses" && (
           <>
-            <h2 className="detail__title">Gastos Familiares</h2>
+            <h2 className="detail__title">Gastos</h2>
             <form className="detail__form" onSubmit={(e) => e.preventDefault()}>
               <input
                 type="text"
@@ -66,7 +119,7 @@ function Detail({
                 required
               />
               <button type="submit" className="detail__btn">
-                Registrar Gasto
+                Registrar
               </button>
             </form>
             <ul className="detail__list">
@@ -75,28 +128,28 @@ function Detail({
           </>
         )}
 
-        {sectionId === "contacts" && (
+        {/* ====   DOCUMENTOS ====*/}
+        {sectionId === "documents" && (
           <>
-            <h2 className="detail__title">Teléfonos de Interés</h2>
+            <h2 className="detail__title">Documentos</h2>
             <form className="detail__form" onSubmit={(e) => e.preventDefault()}>
               <input
                 type="text"
-                placeholder="Nombre o Centro"
+                placeholder="Nombre del documento (ej: Analítica Sangre 2026)"
                 className="detail__input"
                 required
               />
               <input
-                type="tel"
-                placeholder="Teléfono"
+                type="file"
                 className="detail__input"
-                required
+                accept=".pdf,image/*"
               />
               <button type="submit" className="detail__btn">
-                Guardar Contacto
+                Subir Documento
               </button>
             </form>
             <ul className="detail__list">
-              <li className="detail__item">Urgencias - 112</li>
+              <li className="detail__item">📄 Informe_Cardiologia.pdf</li>
             </ul>
           </>
         )}

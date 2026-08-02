@@ -1,10 +1,13 @@
 export const initialCards = [
-  { id: "appointments", title: "Citas", description: "Citas y revisiones." },
-  {
-    id: "meds",
-    title: "Medicación",
-    description: "Horarios, pautas y control.",
-  },
-  { id: "contacts", title: "Teléfonos", description: "Teléfonos de interés." },
-  { id: "expenses", title: "Gastos", description: "Control de gastos." },
+  { id: "appointments", title: "Citas" },
+
+  { id: "meds", title: "Medicación" },
+
+  { id: "medical-info", title: "Información médica" },
+
+  { id: "contacts", title: "Teléfonos" },
+
+  { id: "expenses", title: "Gastos" },
+
+  { id: "documents", title: "Documentos" },
 ];

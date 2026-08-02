@@ -62,45 +62,46 @@
 
     .card__btn {
       background-color: $color-blue;
-      &:hover {
-        filter: brightness(1.3);
-      }
     }
   }
 
   &--meds {
-    $color-meds: $color-orange;
-    border-color: rgba($color-meds, 0.1);
+    border-color: rgba($color-orange, 0.1);
 
     .card__btn {
-      background-color: $color-meds;
-      &:hover {
-        filter: brightness(1.3);
-      }
+      background-color: $color-orange;
+    }
+  }
+
+  &--medical-info {
+    border-color: rgba($color-red, 0.1);
+
+    .card__btn {
+      background-color: $color-red;
     }
   }
 
   &--contacts {
-    $color-contacts: $color-red;
-    border-color: rgba($color-contacts, 0.1);
+    border-color: rgba($color-grey-slate, 0.1);
 
     .card__btn {
-      background-color: $color-contacts;
-      &:hover {
-        filter: brightness(1.3);
-      }
+      background-color: $color-grey-slate;
     }
   }
 
   &--expenses {
-    $color-expenses: $color-green;
-    border-color: rgba($color-expenses, 0.1);
+    border-color: rgba($color-green, 0.1);
 
     .card__btn {
-      background-color: $color-expenses;
-      &:hover {
-        filter: brightness(1.3);
-      }
+      background-color: $color-green;
+    }
+  }
+
+  &--documents {
+    border-color: rgba($color-purple, 0.1);
+
+    .card__btn {
+      background-color: $color-purple;
     }
   }
 }

@@ -1,9 +1,5 @@
 @use "../core/variables" as *;
 
-.is-hidden {
-  display: none;
-}
-
 .detail {
   padding: 1.5rem;
   background-color: $color-white;
@@ -13,8 +9,8 @@
 
   &__back-btn {
     background-color: transparent;
-    border: 0.0625rem solid $color-gray-800;
-    color: $color-gray-800;
+    border: 0.0625rem solid $color-grey-800;
+    color: $color-grey-800;
     padding: 0.5rem 1rem;
     border-radius: $radius-xs;
     font-weight: 600;
@@ -25,7 +21,7 @@
       color $transition-fast;
 
     &:hover {
-      background-color: $color-gray-500;
+      background-color: $color-grey-500;
       color: $color-white;
     }
   }
@@ -57,7 +53,7 @@
 
   &__input {
     padding: 0.625rem 0.875rem;
-    border: 0.0625rem solid $color-gray-300;
+    border: 0.0625rem solid $color-grey-300;
     border-radius: $radius-small;
     font-size: 0.875rem;
     flex: 1;
@@ -125,7 +121,32 @@
     transition: background-color $transition-fast;
 
     &:hover {
-      background-color: $color-gray-100;
+      background-color: $color-grey-100;
     }
+  }
+
+  // --- MODIFICADORES TEMÁTICOS PARA EL BOTÓN ---
+  &--appointments &__btn {
+    background-color: $color-blue;
+  }
+
+  &--meds &__btn {
+    background-color: $color-orange;
+  }
+
+  &--medical-info &__btn {
+    background-color: $color-red;
+  }
+
+  &--contacts &__btn {
+    background-color: $color-grey-slate;
+  }
+
+  &--expenses &__btn {
+    background-color: $color-green;
+  }
+
+  &--documents &__btn {
+    background-color: $color-purple;
   }
 }
