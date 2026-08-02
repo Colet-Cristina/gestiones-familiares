@@ -10,7 +10,7 @@ function Detail({
   return (
     <section className="detail">
       <button className="detail__back-btn" type="button" onClick={onBack}>
-        ← Volver al inicio
+        ← Volver
       </button>
 
       <div className="detail__content">
