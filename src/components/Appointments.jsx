@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Calendar from "./Calendar";
 
-function Appointments({ appointments, setAppointments, onOpenModal }) {
+function Appointments({ appointments = [], setAppointments, onOpenModal }) {
   const [spec, setSpec] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
@@ -79,7 +79,8 @@ function Appointments({ appointments, setAppointments, onOpenModal }) {
         </button>
       </form>
 
-      <Calendar />
+      {/* Le pasamos las citas al Calendario */}
+      <Calendar appointments={appointments} />
 
       <div className="appointments-summary">
         <h3 className="detail__subtitle">Todas las citas</h3>
@@ -88,20 +89,32 @@ function Appointments({ appointments, setAppointments, onOpenModal }) {
             <li className="detail__item">No hay citas programadas.</li>
           ) : (
             appointments.map((app) => {
-              const hasNoteClass =
-                app.note && app.note.trim() !== ""
-                  ? "detail__action-btn--active"
-                  : "";
+              const hasNote = Boolean(app.note && app.note.trim() !== "");
+              const itemHasNoteClass = hasNote ? "detail__item--has-note" : "";
+              const btnHasNoteClass = hasNote
+                ? "detail__action-btn--active"
+                : "";
+
+              // Formatear la fecha a DD/MM/YYYY para mostrarla al usuario
+              let formattedDate = app.date;
+              if (
+                app.date &&
+                app.date.includes("-") &&
+                app.date.split("-")[0].length === 4
+              ) {
+                const [y, m, d] = app.date.split("-");
+                formattedDate = `${d}/${m}/${y}`;
+              }
 
               return (
-                <li key={app.id} className="detail__item">
+                <li key={app.id} className={`detail__item ${itemHasNoteClass}`}>
                   <div className="detail__item-info">
-                    <strong>{app.spec}</strong> - {app.date} a las {app.time}h
+                    <strong>{app.spec}</strong> | {formattedDate} | {app.time}h
                   </div>
                   <div className="detail__item-actions">
                     <button
                       type="button"
-                      className={`detail__action-btn ${hasNoteClass}`}
+                      className={`detail__action-btn ${btnHasNoteClass}`}
                       onClick={() => onOpenModal(app.id)}
                       title="Ver/Añadir Notas"
                     >

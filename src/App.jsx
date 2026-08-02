@@ -1,11 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Header from "./components/Header";
 import Dashboard from "./components/Dashboard";
 import Detail from "./components/Detail";
 import ModalNote from "./components/ModalNote";
 import Footer from "./components/Footer";
-import { initialAppointments } from "./services/data";
 
 function App() {
   const [activeSection, setActiveSection] = useState(null); // 'appointments', 'meds', etc.
@@ -18,7 +17,15 @@ function App() {
   const [modalNoteText, setModalNoteText] = useState("");
 
   // Estado general de citas
-  const [appointments, setAppointments] = useState(initialAppointments);
+  const [appointments, setAppointments] = useState(() => {
+    const savedAppointments = localStorage.getItem("appointments");
+    // Si hay algo guardado en localStorage lo usamos, si no, empezamos con []
+    return savedAppointments ? JSON.parse(savedAppointments) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("appointments", JSON.stringify(appointments));
+  }, [appointments]);
 
   // Abrir Modal
   const handleOpenNoteModal = (id) => {

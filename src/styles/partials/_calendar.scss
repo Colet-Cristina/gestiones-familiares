@@ -102,6 +102,34 @@
   }
 }
 
+.calendar__day {
+  // Estilos base de los botones de cada día...
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+
+  // Día actual
+  &--today {
+    font-weight: bold;
+    border: 0.0625rem solid $color-blue;
+  }
+
+  // 1️⃣ Día que tiene CITA
+  &--has-appointment {
+    background-color: #e3f2fd;
+    color: #1976d2;
+    font-weight: bold;
+  }
+
+  // 2️⃣ Día que tiene CITA + NOTA (sobrescribe o añade al anterior)
+  &--has-note {
+    background-color: #fff3e0;
+    color: #e65100;
+    border: 0.125rem solid #ff9800;
+    font-weight: bold;
+  }
+}
+
 @media (min-width: 48rem) {
   .calendar {
     max-width: 30rem;

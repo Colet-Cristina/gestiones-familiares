@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Calendar() {
+function Calendar({ appointments = [] }) {
   const [displayedDate, setDisplayedDate] = useState(new Date());
 
   const year = displayedDate.getFullYear();
@@ -33,12 +33,12 @@ function Calendar() {
 
   // Cálculo de los días del mes
   const firstDayIndex = new Date(year, month, 1).getDay();
-  const startingDay = firstDayIndex === 0 ? 6 : firstDayIndex - 1; // Ajustar a Lunes = 0
+  const startingDay = firstDayIndex === 0 ? 6 : firstDayIndex - 1; // Lunes = 0
   const totalDaysInMonth = new Date(year, month + 1, 0).getDate();
 
   const daysOfWeek = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
 
-  // Comprobar si un día concreto es el día actual de hoy
+  // Comprobar si un día concreto es hoy
   const today = new Date();
   const isToday = (day) => {
     return (
@@ -46,6 +46,27 @@ function Calendar() {
       month === today.getMonth() &&
       year === today.getFullYear()
     );
+  };
+
+  // 🛡️ Busca la cita en cualquier formato de fecha posible
+  const getAppointmentForDay = (day) => {
+    if (!Array.isArray(appointments)) return null;
+
+    const formattedMonth = String(month + 1).padStart(2, "0");
+    const formattedDay = String(day).padStart(2, "0");
+
+    const isoDate = `${year}-${formattedMonth}-${formattedDay}`;
+    const esDateSlash = `${formattedDay}/${formattedMonth}/${year}`;
+    const esDateDash = `${formattedDay}-${formattedMonth}-${year}`;
+
+    return appointments.find((app) => {
+      if (!app.date) return false;
+      return (
+        app.date === isoDate ||
+        app.date === esDateSlash ||
+        app.date === esDateDash
+      );
+    });
   };
 
   return (
@@ -91,12 +112,18 @@ function Calendar() {
           {/* Días del mes */}
           {Array.from({ length: totalDaysInMonth }).map((_, index) => {
             const dayNumber = index + 1;
+
+            const app = getAppointmentForDay(dayNumber);
+            const hasApp = Boolean(app);
+            const hasNote = Boolean(app?.note && app.note.trim() !== "");
+
+            let dayClasses = "calendar__day";
+            if (isToday(dayNumber)) dayClasses += " calendar__day--today";
+            if (hasApp) dayClasses += " calendar__day--has-appointment";
+            if (hasNote) dayClasses += " calendar__day--has-note";
+
             return (
-              <button
-                key={dayNumber}
-                type="button"
-                className={`calendar__day ${isToday(dayNumber) ? "calendar__day--today" : ""}`}
-              >
+              <button key={dayNumber} type="button" className={dayClasses}>
                 {dayNumber}
               </button>
             );
