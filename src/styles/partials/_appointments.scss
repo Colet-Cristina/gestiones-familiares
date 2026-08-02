@@ -1,0 +1,29 @@
+@use "../core/variables" as *;
+
+.detail__item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.detail__item-title {
+  font-weight: bold;
+  font-size: 1rem;
+  color: $color-text;
+}
+
+.detail__item-date {
+  font-size: 0.875rem;
+  color: $color-gray-500;
+}
+
+.detail__item-date {
+  font-size: 0.875rem;
+  color: $color-gray-500;
+}
+
+.detail__item-divider {
+  color: $color-gray-800;
+  font-weight: bold;
+  margin: 0 0.25rem;
+}

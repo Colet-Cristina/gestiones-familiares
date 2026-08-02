@@ -88,58 +88,71 @@ function Appointments({ appointments = [], setAppointments, onOpenModal }) {
           {appointments.length === 0 ? (
             <li className="detail__item">No hay citas programadas.</li>
           ) : (
-            appointments.map((app) => {
-              const hasNote = Boolean(app.note && app.note.trim() !== "");
-              const itemHasNoteClass = hasNote ? "detail__item--has-note" : "";
-              const btnHasNoteClass = hasNote
-                ? "detail__action-btn--active"
-                : "";
+            [...appointments]
+              .sort((a, b) => new Date(a.date) - new Date(b.date))
+              .map((app) => {
+                const hasNote = Boolean(app.note && app.note.trim() !== "");
+                const itemHasNoteClass = hasNote
+                  ? "detail__item--has-note"
+                  : "";
+                const btnHasNoteClass = hasNote
+                  ? "detail__action-btn--active"
+                  : "";
 
-              // Formatear la fecha a DD/MM/YYYY para mostrarla al usuario
-              let formattedDate = app.date;
-              if (
-                app.date &&
-                app.date.includes("-") &&
-                app.date.split("-")[0].length === 4
-              ) {
-                const [y, m, d] = app.date.split("-");
-                formattedDate = `${d}/${m}/${y}`;
-              }
+                // Formatear la fecha a DD/MM/YYYY para mostrarla al usuario
+                let formattedDate = app.date;
+                if (
+                  app.date &&
+                  app.date.includes("-") &&
+                  app.date.split("-")[0].length === 4
+                ) {
+                  const [y, m, d] = app.date.split("-");
+                  formattedDate = `${d}/${m}/${y}`;
+                }
 
-              return (
-                <li key={app.id} className={`detail__item ${itemHasNoteClass}`}>
-                  <div className="detail__item-info">
-                    <strong>{app.spec}</strong> | {formattedDate} | {app.time}h
-                  </div>
-                  <div className="detail__item-actions">
-                    <button
-                      type="button"
-                      className={`detail__action-btn ${btnHasNoteClass}`}
-                      onClick={() => onOpenModal(app.id)}
-                      title="Ver/Añadir Notas"
-                    >
-                      📝
-                    </button>
-                    <button
-                      type="button"
-                      className="detail__action-btn"
-                      onClick={() => handleEdit(app)}
-                      title="Editar Cita"
-                    >
-                      ✏️
-                    </button>
-                    <button
-                      type="button"
-                      className="detail__action-btn"
-                      onClick={() => handleDelete(app.id)}
-                      title="Eliminar Cita"
-                    >
-                      🗑️
-                    </button>
-                  </div>
-                </li>
-              );
-            })
+                return (
+                  <li
+                    key={app.id}
+                    className={`detail__item ${itemHasNoteClass}`}
+                  >
+                    <div className="detail__item-info">
+                      <span className="detail__item-title">{app.spec}</span>
+
+                      <span className="detail__item-date">
+                        {formattedDate}{" "}
+                        <span className="detail__item-divider">|</span>{" "}
+                        {app.time}h
+                      </span>
+                    </div>
+                    <div className="detail__item-actions">
+                      <button
+                        type="button"
+                        className={`detail__action-btn ${btnHasNoteClass}`}
+                        onClick={() => onOpenModal(app.id)}
+                        title="Ver/Añadir Notas"
+                      >
+                        📝
+                      </button>
+                      <button
+                        type="button"
+                        className="detail__action-btn"
+                        onClick={() => handleEdit(app)}
+                        title="Editar Cita"
+                      >
+                        ✏️
+                      </button>
+                      <button
+                        type="button"
+                        className="detail__action-btn"
+                        onClick={() => handleDelete(app.id)}
+                        title="Eliminar Cita"
+                      >
+                        🗑️
+                      </button>
+                    </div>
+                  </li>
+                );
+              })
           )}
         </ul>
       </div>

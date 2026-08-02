@@ -103,7 +103,6 @@
 }
 
 .calendar__day {
-  // Estilos base de los botones de cada día...
   cursor: pointer;
   border-radius: 50%;
   transition: all 0.3s ease;
@@ -114,20 +113,61 @@
     border: 0.0625rem solid $color-blue;
   }
 
-  // 1️⃣ Día que tiene CITA
+  //  Día que tiene CITA
   &--has-appointment {
-    background-color: #e3f2fd;
-    color: #1976d2;
+    background-color: $color-green-light;
+    color: $color-blue;
     font-weight: bold;
   }
 
-  // 2️⃣ Día que tiene CITA + NOTA (sobrescribe o añade al anterior)
+  // Día que tiene CITA + NOTA
   &--has-note {
-    background-color: #fff3e0;
-    color: #e65100;
-    border: 0.125rem solid #ff9800;
+    background-color: $color-green-light;
+    color: $color-green;
+    border: 0.125rem solid $color-green;
     font-weight: bold;
   }
+}
+
+.calendar__legend {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 0.4rem;
+  padding-top: 0.75rem;
+  border-top: 0.0625rem solid $color-bg;
+}
+
+.calendar__legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.calendar__legend-color {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  display: inline-block;
+
+  &--today {
+    background-color: $color-blue;
+  }
+
+  &--appointment {
+    background-color: $color-green-light;
+  }
+
+  &--note {
+    background-color: $color-green-light;
+    border: 0.0625rem solid $color-green;
+  }
+}
+
+.calendar__legend-label {
+  font-size: 0.75rem;
+  color: #555555;
 }
 
 @media (min-width: 48rem) {

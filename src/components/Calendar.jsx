@@ -129,6 +129,23 @@ function Calendar({ appointments = [] }) {
             );
           })}
         </div>
+
+        <div className="calendar__legend">
+          <div className="calendar__legend-item">
+            <span className="calendar__legend-color calendar__legend-color--today"></span>
+            <span className="calendar__legend-label">Hoy</span>
+          </div>
+
+          <div className="calendar__legend-item">
+            <span className="calendar__legend-color calendar__legend-color--appointment"></span>
+            <span className="calendar__legend-label">Cita</span>
+          </div>
+
+          <div className="calendar__legend-item">
+            <span className="calendar__legend-color calendar__legend-color--note"></span>
+            <span className="calendar__legend-label">Cita con nota</span>
+          </div>
+        </div>
       </div>
     </div>
   );
