@@ -109,7 +109,7 @@ function Documents({ documents = [], setDocuments, onBack }) {
               {person}
             </option>
           ))}
-          <option value="NEW">➕ Añadir nueva persona...</option>
+          <option value="NEW"> + Añadir...</option>
         </select>
 
         {owner === "NEW" && (

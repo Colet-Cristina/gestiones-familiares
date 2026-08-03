@@ -1,75 +1,100 @@
-# 📅 # 📅 Family Today | Gestor de Citas y Organización
+# 📅 Family Today | Gestor de Citas y Organización
 
-## 🎯 Objetivo de la aplicación
-
-Crear una aplicación web para la gestión de citas y organización personal/familiar (salud, medicación, contactos, etc.). La aplicación permite:
-
-- **Ver tarjetas/secciones principales:** Citas, Medicación, Gastos, Contactos, Documentos/fotos/pdf, e Información médica.
-- **Consultar y añadir citas médicas:** Con fecha, hora y especialidad.
-- **Añadir/editar observaciones o notas:** Asociadas a cada cita usando un Modal flotante.
-- **Navegar por un calendario interactivo:** Y visualizar las próximas citas mediante una lista detallada.
+Una aplicación web modular, moderna y accesible orientada a la organización de tareas, documentos, contactos, medicación y gastos del hogar. Diseñada con una arquitectura limpia de componentes en **React** y organizada bajo estándares profesionales de **SCSS (BEM)**.
 
 ---
 
-## 🛠️ Tecnologías y Estructura
+## 🚀 Características Principales
 
-- **Framework:** React.
-- **Estilos:** SCSS organizados por componentes/partials en `src/styles/` (o `src/scss/`), utilizando variables, metodología BEM y medidas en `rem`.
-- **Metodología:** Componentes funcionales, uso de estado (`useState`) para controlar modales, formularios y listas, y manejo de arrays (`map`, `filter`).
-- **Control de versiones:** Git & GitHub.
+- **📅 Control de Citas y Calendario:** Visualización interactiva para el seguimiento de eventos y citas médicas.
+- **💳 Gastos Compartidos:** Vista tipo acordeón agrupada por persona con desglose de subtotales y cálculo automático del total conjunto.
+- **📄 Gestión de Documentación:** Registro de documentos con opción para adjuntar archivos en PDF o utilizar la cámara del dispositivo (`capture="environment"`) para fotografías instantáneas con previsualización.
+- **💊 Medicación y Ficha Médica:** Control de dosis, horarios y notas médicas importantes.
+- **📞 Contactos:** Directorio con acceso directo a llamadas.
+- **💾 Persistencia de Datos:** Uso de `localStorage` para el almacenamiento local inmutable mediante identificadores únicos (`crypto.randomUUID()`).
 
 ---
 
-## 📂 Estructura del proyecto
+## 🛠️ Tecnologías Utilizadas
 
-````text
+- **React (Vite):** Gestión del estado inmutable (`useState`, `useEffect`).
+- **Sass / SCSS:** Arquitectura modular basada en el patrón `core/` y `partials/` empleando la metodología de nombres **BEM**.
+- **JavaScript (ES6+):** Métodos inmutables de array (`map`, `filter`, `reduce`), `FileReader API` y manejo seguro del DOM.
+- **HTML5 Semántico:** Formularios accesibles, soporte de cámara y etiquetas nativas estructuradas.
+
+---
+
+## 🗂️ Estructura del Proyecto
+
+El código fuente sigue un patrón modular en el que los componentes globales y específicos están desacoplados de la capa de estilos de manera escalable:
+
+```text
 src/
-├── components/
-│   ├── Appointments.jsx   # Gestión y listado de citas
-│   ├── Calendar.jsx       # Calendario interactivo y leyenda
-│   ├── Card.jsx           # Tarjetas de las secciones principales
-│   ├── Dashboard.jsx      # Vista principal / Panel de control
-│   ├── Detail.jsx         # Vista detallada
-│   ├── Footer.jsx         # Pie de página
-│   ├── Header.jsx         # Cabecera de la aplicación
-│   ├── ModalNote.jsx      # Modal flotante para notas/observaciones
-│   └── Welcome.jsx       # Pantalla de bienvenida
-├── images/
-├── services/              # Servicios y datos (data.js)
-├── styles/                # Arquitectura modular de Sass (SCSS)
-│   ├── core/              # Estilos base y configuración
-│   │   ├── _reset.scss    # Reseteo de estilos globales
-│   │   └── _variables.scss# Variables (colores, fuentes, sombras)
-│   ├── partials/          # Modulos SCSS por componente
-│   │   ├── _appointments.scss
-│   │   ├── _calendar.scss
-│   │   ├── _card.scss
-│   │   ├── _dashboard.scss
-│   │   ├── _detail.scss
-│   │   ├── _footer.scss
-│   │   ├── _header.scss
-│   │   ├── _modal.scss
-│   │   └── _welcome.scss
-│   └── App.scss           # Importación global de partials
-├── App.jsx                # Componente principal
-└── main.jsx               # Punto de entrada de React
+├── components/          # Componentes independientes de React
+│   ├── Appointments.jsx
+│   ├── Calendar.jsx
+│   ├── Card.jsx
+│   ├── Contacts.jsx
+│   ├── Dashboard.jsx
+│   ├── Detail.jsx
+│   ├── Documents.jsx
+│   ├── Expenses.jsx
+│   ├── Footer.jsx
+│   ├── Header.jsx
+│   ├── MedicalInfo.jsx
+│   ├── Medication.jsx
+│   ├── ModalNote.jsx
+│   └── Welcome.jsx
+├── services/
+│   └── data.js          # Datos iniciales / de prueba
+└── styles/
+    ├── core/            # Configuración global
+    │   ├── _reset.scss
+    │   └── _variables.scss
+    ├── partials/        # Estilos específicos por módulo
+    │   ├── _appointments.scss
+    │   ├── _calendar.scss
+    │   ├── _card.scss
+    │   ├── _dashboard.scss
+    │   ├── _detail.scss   # Estilos base compartidos (DRY)
+    │   ├── _documents.scss
+    │   ├── _expenses.scss
+    │   ├── _footer.scss
+    │   ├── _header.scss
+    │   ├── _modal.scss
+    │   └── _welcome.scss
+    └── App.scss         # Importación centralizada
 
-## 🚀 Estado Actual del Proyecto (Características implementadas)
+```
 
-- [x] **Sección de Citas finalizada:**
-  - Creación, edición y eliminación de citas.
-  - Calendario interactivo con sistema de colores y leyenda.
-  - Ordenación automática y cronológica de la lista de citas.
-- [ ] Sección de Medicación.
-- [ ] Sección de Gastos.
-- [ ] Sección de Contactos.
-- [ ] Sección de Documentos e Información Médica.
+📦 Instalación y Uso Local
+Clonar el repositorio:
 
----
+```Bash
+git clone https://github.com/Colet-Cristina/gestiones-familiares.git
 
-## 📦 Instalación y ejecución local
+cd gestor-familiar
+```
 
-1. **Clonar el repositorio:**
-   ```bash
-   git clone [https://github.com/tu-usuario/tu-repositorio.git](https://github.com/tu-usuario/tu-repositorio.git)
-````
+Instalar dependencias:
+
+```Bash
+npm install
+```
+
+Iniciar el servidor de desarrollo:
+
+```Bash
+npm run dev
+```
+
+Compilar para producción:
+
+```Bash
+npm run build
+```
+
+📝 Próximos Pasos (Roadmap)
+[ ] Integración con Firebase / Supabase para la sincronización de datos en la nube en tiempo real entre múltiples dispositivos familiares.
+
+[ ] Compresión automática de imágenes antes de la persistencia para optimización de almacenamiento.
