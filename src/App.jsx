@@ -27,6 +27,48 @@ function App() {
     localStorage.setItem("appointments", JSON.stringify(appointments));
   }, [appointments]);
 
+  // Estado general de medicación
+  const [meds, setMeds] = useState(() => {
+    const savedMeds = localStorage.getItem("meds");
+    return savedMeds ? JSON.parse(savedMeds) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("meds", JSON.stringify(meds));
+  }, [meds]);
+
+  // Estado para Información Médica
+  const [medicalInfo, setMedicalInfo] = useState(() => {
+    const saved = localStorage.getItem("medical_info");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("medical_info", JSON.stringify(medicalInfo));
+  }, [medicalInfo]);
+
+  // Estado para Teléfonos
+  const [contacts, setContacts] = useState(() => {
+    const saved = localStorage.getItem("contacts");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("contacts", JSON.stringify(contacts));
+  }, [contacts]);
+
+  // Estado para Gastos
+  const [expenses, setExpenses] = useState(() => {
+    const saved = localStorage.getItem("expenses");
+    return saved
+      ? JSON.parse(saved)
+      : [{ id: "1", concept: "Farmacia - Medicinas", amount: "24.50" }];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("expenses", JSON.stringify(expenses));
+  }, [expenses]);
+
   // Abrir Modal
   const handleOpenNoteModal = (id) => {
     const app = appointments.find((a) => a.id === id);
@@ -63,6 +105,14 @@ function App() {
             onBack={() => setActiveSection(null)}
             appointments={appointments}
             setAppointments={setAppointments}
+            meds={meds}
+            setMeds={setMeds}
+            medicalInfo={medicalInfo}
+            setMedicalInfo={setMedicalInfo}
+            contacts={contacts}
+            setContacts={setContacts}
+            expenses={expenses}
+            setExpenses={setExpenses}
             onOpenModal={handleOpenNoteModal}
           />
         )}

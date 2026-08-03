@@ -66,10 +66,10 @@
   }
 
   &--meds {
-    border-color: rgba($color-orange, 0.1);
+    border-color: rgba($color-green, 0.1);
 
     .card__btn {
-      background-color: $color-orange;
+      background-color: $color-green;
     }
   }
 
@@ -82,18 +82,18 @@
   }
 
   &--contacts {
-    border-color: rgba($color-grey-slate, 0.1);
+    border-color: rgba($color-brown, 0.1);
 
     .card__btn {
-      background-color: $color-grey-slate;
+      background-color: $color-brown;
     }
   }
 
   &--expenses {
-    border-color: rgba($color-green, 0.1);
+    border-color: rgba($color-mustard, 0.1);
 
     .card__btn {
-      background-color: $color-green;
+      background-color: $color-mustard;
     }
   }
 

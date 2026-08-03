@@ -1,7 +1,12 @@
 import { useState } from "react";
 import Calendar from "./Calendar";
 
-function Appointments({ appointments = [], setAppointments, onOpenModal }) {
+function Appointments({
+  appointments = [],
+  setAppointments,
+  onOpenModal,
+  onBack,
+}) {
   const [spec, setSpec] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
@@ -49,7 +54,12 @@ function Appointments({ appointments = [], setAppointments, onOpenModal }) {
 
   return (
     <>
-      <h3 className="detail__title">Próximas Citas</h3>
+      <div className="detail__header">
+        <button className="detail__back-btn" type="button" onClick={onBack}>
+          ← Volver
+        </button>
+        <h3 className="detail__title">Próximas Citas</h3>
+      </div>
 
       <form className="detail__form" onSubmit={handleSubmit}>
         <input

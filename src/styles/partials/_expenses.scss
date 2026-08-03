@@ -1,0 +1,40 @@
+.expenses {
+  &__filters {
+    margin: 1.5rem 0 1rem 0;
+  }
+
+  &__filters-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  &__filter-item {
+    flex: 1;
+  }
+
+  &__item-payer {
+    font-weight: 600;
+  }
+
+  &__item-amount {
+    font-weight: 700;
+  }
+
+  &__total {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    background-color: $color-grey-100;
+    border: 0.0625rem solid $color-border;
+    border-radius: $radius-small;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+  }
+
+  &__total-amount {
+    font-size: 1.1rem;
+    color: $color-primary;
+  }
+}

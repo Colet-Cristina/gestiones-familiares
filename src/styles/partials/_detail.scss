@@ -7,14 +7,22 @@
   box-shadow: $shadow-lg;
   margin-top: 1rem;
 
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
   &__back-btn {
     background-color: transparent;
-    border: 0.0625rem solid $color-grey-800;
-    color: $color-grey-800;
-    padding: 0.5rem 1rem;
+    border: 0.06rem solid $color-grey-800;
     border-radius: $radius-xs;
+    padding: 0.5rem 1rem;
+    color: $color-grey-800;
     font-weight: 600;
     cursor: pointer;
+    flex-shrink: 0;
 
     transition:
       background-color $transition-fast,
@@ -27,6 +35,7 @@
   }
 
   &__title {
+    margin: 0.5rem;
     font-size: 1.1rem;
     color: $color-text;
     margin-bottom: 0.5rem;
@@ -34,7 +43,7 @@
   }
 
   &__subtitle {
-    font-size: 1.125rem;
+    font-size: 1rem;
     color: $color-text;
     margin-bottom: 0.75rem;
   }
@@ -95,7 +104,7 @@
     border: 0.07rem solid $color-border;
     border-left: 0.3rem solid transparent;
     border-radius: $radius-small;
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     color: $color-text;
     display: flex;
     justify-content: space-between;
@@ -106,9 +115,24 @@
     }
   }
 
+  &__item-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  &__item-title,
+  &__item-date {
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
   &__item-actions {
     display: flex;
     gap: 0.5rem;
+    flex-shrink: 0;
   }
 
   &__action-btn {
@@ -116,7 +140,7 @@
     border: none;
     cursor: pointer;
     font-size: 1rem;
-    padding: 0.25rem;
+    padding: 0.4rem;
     border-radius: $radius-xs;
     transition: background-color $transition-fast;
 
@@ -131,7 +155,7 @@
   }
 
   &--meds &__btn {
-    background-color: $color-orange;
+    background-color: $color-green;
   }
 
   &--medical-info &__btn {
@@ -139,11 +163,11 @@
   }
 
   &--contacts &__btn {
-    background-color: $color-grey-slate;
+    background-color: $color-brown;
   }
 
   &--expenses &__btn {
-    background-color: $color-green;
+    background-color: $color-mustard;
   }
 
   &--documents &__btn {

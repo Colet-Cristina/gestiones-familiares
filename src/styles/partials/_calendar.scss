@@ -86,94 +86,81 @@
         filter: brightness(0.9);
       }
     }
+  }
 
-    // Puntito indicador de cita
-    &.has-appointment::after {
-      content: "";
-      position: absolute;
-      bottom: 0.2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0.25rem;
-      height: 0.25rem;
-      background-color: $color-orange;
-      border-radius: 50%;
+  .calendar__day {
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+
+    // Día actual
+    &--today {
+      font-weight: bold;
+      border: 0.0625rem solid $color-blue;
+    }
+
+    //  Día que tiene CITA
+    &--has-appointment {
+      background-color: $color-green-light;
+      color: $color-green;
+      font-weight: bold;
+    }
+
+    // Día que tiene CITA + NOTA
+    &--has-note {
+      background-color: $color-green-light;
+      color: $color-green;
+      border: 0.125rem solid $color-green;
+      font-weight: bold;
     }
   }
-}
 
-.calendar__day {
-  cursor: pointer;
-  border-radius: 50%;
-  transition: all 0.3s ease;
-
-  // Día actual
-  &--today {
-    font-weight: bold;
-    border: 0.0625rem solid $color-blue;
+  .calendar__legend {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 0.4rem;
+    padding-top: 0.75rem;
+    border-top: 0.0625rem solid $color-bg;
   }
 
-  //  Día que tiene CITA
-  &--has-appointment {
-    background-color: $color-green-light;
-    color: $color-green;
-    font-weight: bold;
+  .calendar__legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
   }
 
-  // Día que tiene CITA + NOTA
-  &--has-note {
-    background-color: $color-green-light;
-    color: $color-green;
-    border: 0.125rem solid $color-green;
-    font-weight: bold;
-  }
-}
+  .calendar__legend-color {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    display: inline-block;
 
-.calendar__legend {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  margin-top: 0.4rem;
-  padding-top: 0.75rem;
-  border-top: 0.0625rem solid $color-bg;
-}
+    &--today {
+      background-color: $color-blue;
+    }
 
-.calendar__legend-item {
-  display: flex;
-  align-items: center;
-  gap: 0.375rem;
-}
+    &--appointment {
+      background-color: $color-green-light;
+    }
 
-.calendar__legend-color {
-  width: 0.75rem;
-  height: 0.75rem;
-  border-radius: 50%;
-  display: inline-block;
-
-  &--today {
-    background-color: $color-blue;
+    &--note {
+      background-color: $color-green-light;
+      border: 0.0625rem solid $color-green;
+    }
   }
 
-  &--appointment {
-    background-color: $color-green-light;
+  .calendar__legend-label {
+    font-size: 0.75rem;
+    color: #555555;
   }
 
-  &--note {
-    background-color: $color-green-light;
-    border: 0.0625rem solid $color-green;
-  }
-}
-
-.calendar__legend-label {
-  font-size: 0.75rem;
-  color: #555555;
-}
-
-@media (min-width: 48rem) {
-  .calendar {
-    max-width: 30rem;
-    margin-left: auto;
-    margin-right: auto;
+  @media (min-width: 48rem) {
+    .calendar {
+      max-width: 30rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 }
