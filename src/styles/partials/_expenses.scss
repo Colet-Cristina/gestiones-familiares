@@ -1,29 +1,84 @@
+@use "../core/variables" as *;
+
 .expenses {
   &__filters {
-    margin: 1.5rem 0 1rem 0;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
   }
 
-  &__filters-row {
+  &__group {
+    margin-bottom: 0.5rem;
+
+    // Estilos para la barra desplegable
+    details {
+      border: 0.0625rem solid $color-border;
+      border-radius: $radius-small;
+      background-color: $color-white;
+      overflow: hidden;
+
+      // Quitar el triángulo negro predeterminado de HTML
+      summary {
+        list-style: none;
+
+        &::-webkit-details-marker,
+        &::marker {
+          display: none;
+        }
+      }
+
+      &[open] {
+        .expenses__group-summary {
+          border-bottom: 0.0625rem solid $color-border;
+          background-color: $color-grey-100;
+        }
+
+        .expenses__summary-icon {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+
+  &__group-summary {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color $transition-fast;
+
+    &:hover {
+      background-color: $color-grey-100;
+    }
+  }
+
+  &__summary-info {
+    display: flex;
+    align-items: center;
     gap: 0.5rem;
-    flex-wrap: wrap;
   }
 
-  &__filter-item {
-    flex: 1;
-  }
-
-  &__item-payer {
-    font-weight: 600;
-  }
-
-  &__item-amount {
+  &__summary-total {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     font-weight: 700;
+    color: $color-text;
+  }
+
+  &__summary-icon {
+    font-size: 0.75rem;
+    transition: transform $transition-fast;
+  }
+
+  &__group-content {
+    padding: 0.75rem;
   }
 
   &__total {
-    margin-top: 1rem;
-    padding: 0.75rem 1rem;
+    margin-top: 1.5rem; // 👈 Separa el total conjunto de las tarjetas superiores
+    padding: 0.875rem 1rem;
     background-color: $color-grey-100;
     border: 0.0625rem solid $color-border;
     border-radius: $radius-small;
@@ -34,7 +89,7 @@
   }
 
   &__total-amount {
-    font-size: 1.1rem;
-    color: $color-primary;
+    font-size: 1.125rem;
+    color: $color-text;
   }
 }

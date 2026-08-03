@@ -10,11 +10,10 @@ function Expenses({ expenses = [], setExpenses, onBack }) {
   );
   const [editingId, setEditingId] = useState(null);
 
-  // Filtros
-  const [filterPayer, setFilterPayer] = useState("all");
+  // Filtro por mes
   const [filterMonth, setFilterMonth] = useState("all");
 
-  // Obtener lista única de pagadores
+  // Lista de personas guardadas
   const existingPayers = Array.from(
     new Set(expenses.map((exp) => exp.payer).filter(Boolean)),
   );
@@ -63,15 +62,23 @@ function Expenses({ expenses = [], setExpenses, onBack }) {
     setExpenses(expenses.filter((expense) => expense.id !== id));
   };
 
-  // Gastos filtrados
-  const filteredExpenses = expenses.filter((exp) => {
-    const matchesPayer = filterPayer === "all" || exp.payer === filterPayer;
-    const matchesMonth = filterMonth === "all" || exp.month === filterMonth;
-    return matchesPayer && matchesMonth;
-  });
+  // Filtrado por mes
+  const filteredExpenses = expenses.filter(
+    (exp) => filterMonth === "all" || exp.month === filterMonth,
+  );
 
-  // Total acumulado
-  const totalAmount = filteredExpenses.reduce(
+  // Agrupar por persona
+  const groupedExpenses = filteredExpenses.reduce((groups, expense) => {
+    const person = expense.payer || "Sin asignar";
+    if (!groups[person]) {
+      groups[person] = [];
+    }
+    groups[person].push(expense);
+    return groups;
+  }, {});
+
+  // Total conjunto de la app
+  const grandTotal = filteredExpenses.reduce(
     (sum, expense) => sum + (parseFloat(expense.amount) || 0),
     0,
   );
@@ -82,13 +89,13 @@ function Expenses({ expenses = [], setExpenses, onBack }) {
         <button className="detail__back-btn" type="button" onClick={onBack}>
           ← Volver
         </button>
-        <h3 className="detail__title">Gastos Familiares</h3>
+        <h3 className="detail__title">Gastos</h3>
       </div>
 
       <form className="detail__form" onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Concepto (ej: Farmacia, Silla de ruedas)"
+          placeholder="Concepto (ej: Farmacia)"
           className="detail__input"
           value={concept}
           onChange={(e) => setConcept(e.target.value)}
@@ -110,13 +117,13 @@ function Expenses({ expenses = [], setExpenses, onBack }) {
           onChange={(e) => setPayer(e.target.value)}
           required
         >
-          <option value="">-- Selecciona quién lo gasta --</option>
+          <option value="">-- Persona --</option>
           {existingPayers.map((member) => (
             <option key={member} value={member}>
               {member}
             </option>
           ))}
-          <option value="NEW">➕ Añadir nueva persona...</option>
+          <option value="NEW"> + Añadir nueva persona...</option>
         </select>
 
         {payer === "NEW" && (
@@ -143,85 +150,104 @@ function Expenses({ expenses = [], setExpenses, onBack }) {
         </button>
       </form>
 
-      {/* FILTROS */}
+      {/* FILTRO POR MES */}
       <div className="expenses__filters">
-        <h4 className="detail__subtitle">Filtrar por:</h4>
         <div className="expenses__filters-row">
-          <select
-            className="detail__input expenses__filter-item"
-            value={filterPayer}
-            onChange={(e) => setFilterPayer(e.target.value)}
-          >
-            <option value="all">Todas las personas</option>
-            {existingPayers.map((member) => (
-              <option key={member} value={member}>
-                {member}
-              </option>
-            ))}
-          </select>
-
           <input
             type="month"
             className="detail__input expenses__filter-item"
             value={filterMonth === "all" ? "" : filterMonth}
             onChange={(e) => setFilterMonth(e.target.value || "all")}
           />
+          {filterMonth !== "all" && (
+            <button
+              type="button"
+              className="detail__action-btn"
+              onClick={() => setFilterMonth("all")}
+            >
+              ❌ Ver todos
+            </button>
+          )}
         </div>
       </div>
 
-      {/* LISTADO DE GASTOS */}
+      {/* LISTA DE PESTAÑAS (ACORDEÓN POR PERSONA) */}
       <div className="expenses__summary">
-        <ul className="detail__list">
-          {filteredExpenses.length === 0 ? (
-            <li className="detail__item">
-              No hay gastos registrados para este filtro.
-            </li>
-          ) : (
-            filteredExpenses.map((expense) => (
-              <li key={expense.id} className="detail__item">
-                <div className="detail__item-info">
-                  <span className="detail__item-title">{expense.concept}</span>
-                  <span className="detail__item-date">
-                    👤{" "}
-                    <strong className="expenses__item-payer">
-                      {expense.payer}
-                    </strong>{" "}
-                    | 📅 {expense.month}
-                  </span>
-                  <span className="detail__item-date expenses__item-amount">
-                    {parseFloat(expense.amount).toFixed(2)} €
-                  </span>
-                </div>
+        {Object.keys(groupedExpenses).length === 0 ? (
+          <p className="detail__item">No hay gastos registrados.</p>
+        ) : (
+          Object.entries(groupedExpenses).map(([person, items]) => {
+            const personSubtotal = items.reduce(
+              (sum, item) => sum + (parseFloat(item.amount) || 0),
+              0,
+            );
 
-                <div className="detail__item-actions">
-                  <button
-                    type="button"
-                    className="detail__action-btn"
-                    onClick={() => handleEdit(expense)}
-                    title="Editar gasto"
-                  >
-                    ✏️
-                  </button>
-                  <button
-                    type="button"
-                    className="detail__action-btn"
-                    onClick={() => handleDelete(expense.id)}
-                    title="Eliminar gasto"
-                  >
-                    🗑️
-                  </button>
-                </div>
-              </li>
-            ))
-          )}
-        </ul>
+            return (
+              <div key={person} className="expenses__group">
+                <details>
+                  <summary className="expenses__group-summary">
+                    <span className="expenses__summary-info">
+                      👤 <strong>{person}</strong> ({items.length})
+                    </span>
+                    <span className="expenses__summary-total">
+                      {personSubtotal.toFixed(2)} €
+                      <span className="expenses__summary-icon">▼</span>
+                    </span>
+                  </summary>
 
-        <div className="expenses__total">
-          <span>Total mostrando:</span>
-          <span className="expenses__total-amount">
-            {totalAmount.toFixed(2)} €
-          </span>
-        </div>
+                  <div className="expenses__group-content">
+                    <ul className="detail__list">
+                      {items.map((expense) => (
+                        <li key={expense.id} className="detail__item">
+                          <div className="detail__item-info">
+                            <span className="detail__item-title">
+                              {expense.concept}
+                            </span>
+                            <span className="detail__item-date">
+                              📅 {expense.month}
+                            </span>
+                            <span className="detail__item-date expenses__item-amount">
+                              {parseFloat(expense.amount).toFixed(2)} €
+                            </span>
+                          </div>
+
+                          <div className="detail__item-actions">
+                            <button
+                              type="button"
+                              className="detail__action-btn"
+                              onClick={() => handleEdit(expense)}
+                              title="Editar gasto"
+                            >
+                              ✏️
+                            </button>
+                            <button
+                              type="button"
+                              className="detail__action-btn"
+                              onClick={() => handleDelete(expense.id)}
+                              title="Eliminar gasto"
+                            >
+                              🗑️
+                            </button>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </details>
+              </div>
+            );
+          })
+        )}
+
+        {/* TOTAL CONJUNTO DESTACADO */}
+        {filteredExpenses.length > 0 && (
+          <div className="expenses__total">
+            <span>Total Conjunto:</span>
+            <span className="expenses__total-amount">
+              {grandTotal.toFixed(2)} €
+            </span>
+          </div>
+        )}
       </div>
     </>
   );
