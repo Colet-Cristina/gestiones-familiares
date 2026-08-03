@@ -3,6 +3,7 @@ import Medication from "./Medication";
 import MedicalInfo from "./MedicalInfo";
 import Contacts from "./Contacts";
 import Expenses from "./Expenses";
+import Documents from "./Documents";
 
 function Detail({
   sectionId,
@@ -17,6 +18,8 @@ function Detail({
   setContacts,
   expenses,
   setExpenses,
+  documents,
+  setDocuments,
   onOpenModal,
 }) {
   return (
@@ -64,30 +67,13 @@ function Detail({
           />
         )}
 
-        {/* ====   DOCUMENTOS ====*/}
+        {/* ==== DOCUMENTOS ==== */}
         {sectionId === "documents" && (
-          <>
-            <h2 className="detail__title">Documentos</h2>
-            <form className="detail__form" onSubmit={(e) => e.preventDefault()}>
-              <input
-                type="text"
-                placeholder="Nombre del documento (ej: Analítica Sangre 2026)"
-                className="detail__input"
-                required
-              />
-              <input
-                type="file"
-                className="detail__input"
-                accept=".pdf,image/*"
-              />
-              <button type="submit" className="detail__btn">
-                Subir Documento
-              </button>
-            </form>
-            <ul className="detail__list">
-              <li className="detail__item">📄 Informe_Cardiologia.pdf</li>
-            </ul>
-          </>
+          <Documents
+            documents={documents}
+            setDocuments={setDocuments}
+            onBack={onBack}
+          />
         )}
       </div>
     </section>

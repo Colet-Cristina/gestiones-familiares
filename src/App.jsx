@@ -69,6 +69,26 @@ function App() {
     localStorage.setItem("expenses", JSON.stringify(expenses));
   }, [expenses]);
 
+  // Estado para Documentos
+  const [documents, setDocuments] = useState(() => {
+    const saved = localStorage.getItem("documents");
+    return saved
+      ? JSON.parse(saved)
+      : [
+          {
+            id: "1",
+            title: "DNI",
+            owner: "Mamá",
+            location: "Carpeta roja de la entrada",
+            expirationDate: "2028-10-15",
+          },
+        ];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("documents", JSON.stringify(documents));
+  }, [documents]);
+
   // Abrir Modal
   const handleOpenNoteModal = (id) => {
     const app = appointments.find((a) => a.id === id);
@@ -113,6 +133,8 @@ function App() {
             setContacts={setContacts}
             expenses={expenses}
             setExpenses={setExpenses}
+            documents={documents}
+            setDocuments={setDocuments}
             onOpenModal={handleOpenNoteModal}
           />
         )}
