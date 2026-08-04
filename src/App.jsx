@@ -1,43 +1,58 @@
 import { useState, useEffect } from "react";
 
+// ============ IMPORTACIÓN DE COMPONENTES ============
+
+import Login from "./components/Login";
 import Header from "./components/Header";
 import Dashboard from "./components/Dashboard";
 import Detail from "./components/Detail";
 import ModalNote from "./components/ModalNote";
 import Footer from "./components/Footer";
 
+/**
+ * Componente principal de la aplicación.
+ * Administra el estado global de autenticación, navegación entre módulos
+ * y la persistencia de datos en almacenamiento local (localStorage).
+ */
 function App() {
-  const [activeSection, setActiveSection] = useState(null); // 'appointments', 'meds', etc.
-  const [familyName] = useState(
-    () => localStorage.getItem("familyName") || "familiar",
-  );
+  // ============ ESTADO DE AUTENTICACIÓN Y SESIÓN ============
 
-  // Estado para la modal
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem("app_user");
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
+
+  // ============ ESTADOS DE NAVEGACIÓN  ============
+
+  const [activeSection, setActiveSection] = useState(null);
+
+  // Control del estado para la ventana modal de notas
   const [activeModalId, setActiveModalId] = useState(null);
   const [modalNoteText, setModalNoteText] = useState("");
 
-  // Estado general de citas
+  // ============ ESTADOS DE DOMINIO (PERSISTENCIA LOCAL) ============
+
+  // --- Citas Médicas ---
   const [appointments, setAppointments] = useState(() => {
-    const savedAppointments = localStorage.getItem("appointments");
-    // Si hay algo guardado en localStorage lo usamos, si no, empezamos con []
-    return savedAppointments ? JSON.parse(savedAppointments) : [];
+    const saved = localStorage.getItem("appointments");
+    return saved ? JSON.parse(saved) : [];
   });
 
   useEffect(() => {
     localStorage.setItem("appointments", JSON.stringify(appointments));
   }, [appointments]);
 
-  // Estado general de medicación
+  // --- Medicación ---
   const [meds, setMeds] = useState(() => {
-    const savedMeds = localStorage.getItem("meds");
-    return savedMeds ? JSON.parse(savedMeds) : [];
+    const saved = localStorage.getItem("meds");
+    return saved ? JSON.parse(saved) : [];
   });
 
   useEffect(() => {
     localStorage.setItem("meds", JSON.stringify(meds));
   }, [meds]);
 
-  // Estado para Información Médica
+  // --- Información Médica General ---
   const [medicalInfo, setMedicalInfo] = useState(() => {
     const saved = localStorage.getItem("medical_info");
     return saved ? JSON.parse(saved) : [];
@@ -47,7 +62,7 @@ function App() {
     localStorage.setItem("medical_info", JSON.stringify(medicalInfo));
   }, [medicalInfo]);
 
-  // Estado para Teléfonos
+  // --- Contactos / Directorio ---
   const [contacts, setContacts] = useState(() => {
     const saved = localStorage.getItem("contacts");
     return saved ? JSON.parse(saved) : [];
@@ -57,7 +72,7 @@ function App() {
     localStorage.setItem("contacts", JSON.stringify(contacts));
   }, [contacts]);
 
-  // Estado para Gastos
+  // --- Control de Gastos ---
   const [expenses, setExpenses] = useState(() => {
     const saved = localStorage.getItem("expenses");
     return saved
@@ -69,7 +84,7 @@ function App() {
     localStorage.setItem("expenses", JSON.stringify(expenses));
   }, [expenses]);
 
-  // Estado para Documentos
+  // --- Documentación ---
   const [documents, setDocuments] = useState(() => {
     const saved = localStorage.getItem("documents");
     return saved
@@ -89,7 +104,27 @@ function App() {
     localStorage.setItem("documents", JSON.stringify(documents));
   }, [documents]);
 
-  // Abrir Modal
+  // ============ MANEJADORES DE EVENTOS (HANDLERS) ============
+
+  /**
+   * Registra la sesión activa del usuario y actualiza el storage.
+   */
+  const handleLogin = (userData) => {
+    setUser(userData);
+    localStorage.setItem("app_user", JSON.stringify(userData));
+  };
+
+  /**
+   * Cierra la sesión activa y limpia las credenciales guardadas.
+   */
+  const handleLogout = () => {
+    setUser(null);
+    localStorage.removeItem("app_user");
+  };
+
+  /**
+   * Abre el modal de edición de notas para una cita específica.
+   */
   const handleOpenNoteModal = (id) => {
     const app = appointments.find((a) => a.id === id);
     if (app) {
@@ -98,10 +133,12 @@ function App() {
     }
   };
 
-  // Guardar Nota
+  /**
+   * Guarda los cambios de la nota editada dentro del estado de citas.
+   */
   const handleSaveNote = () => {
-    setAppointments(
-      appointments.map((app) =>
+    setAppointments((prevAppointments) =>
+      prevAppointments.map((app) =>
         app.id === activeModalId ? { ...app, note: modalNoteText } : app,
       ),
     );
@@ -110,11 +147,20 @@ function App() {
 
   const selectedAppointment = appointments.find((a) => a.id === activeModalId);
 
+  // ============ RENDERIZADO CONDICIONAL (GUARDA AUTENTICACIÓN) ============
+
+  if (!user) {
+    return <Login onLogin={handleLogin} />;
+  }
+
+  // ============ RENDERIZADO PRINCIPAL DE LA APLICACIÓN ============
+
   return (
     <div className="page">
-      <Header familyName={familyName} />
+      <Header familyName={user?.name} onLogout={handleLogout} />
 
       <main className="main">
+        {/* Vista dinámica: Dashboard o Vista Detallada */}
         {!activeSection ? (
           <Dashboard
             onSelectCard={(sectionId) => setActiveSection(sectionId)}
@@ -139,6 +185,7 @@ function App() {
           />
         )}
 
+        {/* Modal global de notas */}
         <ModalNote
           isOpen={Boolean(activeModalId)}
           appointment={selectedAppointment}

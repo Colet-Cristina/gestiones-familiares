@@ -46,7 +46,7 @@ src/
 │   ├── ModalNote.jsx
 │   └── Welcome.jsx
 ├── services/
-│   └── data.js          # Datos iniciales / de prueba
+│   └── data.jsx          # Datos iniciales / de prueba
 └── styles/
     ├── core/            # Configuración global
     │   ├── _reset.scss

@@ -1,6 +1,6 @@
 import Welcome from "./Welcome";
 import Card from "./Card";
-import { initialCards } from "../services/data";
+import { initialCards } from "../services/data.jsx";
 
 function Dashboard({ onSelectCard }) {
   return (

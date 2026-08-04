@@ -3,6 +3,7 @@
 @use "./core/reset";
 
 // Partials
+@use "./partials/login";
 @use "./partials/header";
 @use "./partials/welcome";
 @use "./partials/dashboard";
@@ -10,6 +11,9 @@
 @use "./partials/detail";
 @use "./partials/appointments";
 @use "./partials/calendar";
+@use "./partials/medication";
+@use "./partials/medical-info";
+@use "./partials/contacts";
 @use "./partials/expenses";
 @use "./partials/documents";
 @use "./partials/modal";

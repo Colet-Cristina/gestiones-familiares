@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FaWallet, FaEdit, FaTrash, FaFilter } from "react-icons/fa";
 
 function Expenses({ expenses = [], setExpenses, onBack }) {
   const [concept, setConcept] = useState("");
@@ -85,13 +86,21 @@ function Expenses({ expenses = [], setExpenses, onBack }) {
 
   return (
     <>
+      {/* CABECERA CON ICONO */}
       <div className="detail__header">
         <button className="detail__back-btn" type="button" onClick={onBack}>
-          ← Volver
+          &larr; Volver
         </button>
-        <h3 className="detail__title">Gastos</h3>
+
+        <div className="detail__title-box">
+          <h3 className="detail__title">Gastos</h3>
+          <div className="detail__icon-box detail__icon-box--expenses">
+            <FaWallet />
+          </div>
+        </div>
       </div>
 
+      {/* FORMULARIO */}
       <form className="detail__form" onSubmit={handleSubmit}>
         <input
           type="text"
@@ -165,7 +174,7 @@ function Expenses({ expenses = [], setExpenses, onBack }) {
               className="detail__action-btn"
               onClick={() => setFilterMonth("all")}
             >
-              ❌ Ver todos
+              <FaFilter /> Ver todos
             </button>
           )}
         </div>
@@ -214,19 +223,19 @@ function Expenses({ expenses = [], setExpenses, onBack }) {
                           <div className="detail__item-actions">
                             <button
                               type="button"
-                              className="detail__action-btn"
+                              className="detail__action-btn detail__action-btn--edit"
                               onClick={() => handleEdit(expense)}
                               title="Editar gasto"
                             >
-                              ✏️
+                              <FaEdit />
                             </button>
                             <button
                               type="button"
-                              className="detail__action-btn"
+                              className="detail__action-btn detail__action-btn--delete"
                               onClick={() => handleDelete(expense.id)}
                               title="Eliminar gasto"
                             >
-                              🗑️
+                              <FaTrash />
                             </button>
                           </div>
                         </li>

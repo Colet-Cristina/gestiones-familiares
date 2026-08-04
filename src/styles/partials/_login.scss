@@ -1,0 +1,114 @@
+@use "../core/variables" as *;
+
+.login {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.25rem;
+  background-color: $color-grey-100;
+
+  &__card {
+    background-color: $color-white;
+    padding: 2rem;
+    border-radius: $radius-small;
+    border: 0.0625rem solid $color-border;
+    width: 100%;
+    max-width: 25rem;
+    box-shadow: $shadow-lg;
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: $color-text;
+  }
+
+  &__tabs {
+    display: flex;
+    margin-bottom: 1.5rem;
+    border-bottom: 0.0625rem solid $color-border;
+  }
+
+  &__tab {
+    flex: 1;
+    padding: 0.625rem;
+    background: transparent;
+    border: none;
+    border-bottom: 0.125rem solid transparent;
+    cursor: pointer;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: $color-text;
+    transition: all $transition-fast;
+
+    &--active {
+      color: $color-text;
+      border-bottom-color: $color-text;
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  &__label {
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  &__error {
+    color: $color-red;
+    font-size: 0.8125rem;
+    font-weight: 600;
+  }
+
+  // ============ ESTILOS DEL INPUT DE CONTRASEÑA Y OJO ============
+  &__password-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  &__input--password {
+    width: 100%;
+    padding-right: 2.75rem;
+    box-sizing: border-box;
+  }
+
+  &__eye-btn {
+    position: absolute;
+    right: 0.625rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.8;
+    transition:
+      opacity $transition-fast,
+      transform $transition-fast;
+
+    &:hover {
+      opacity: 1;
+      transform: translateY(-50%) scale(1.1); // Mantiene el centrado vertical y hace zoom
+    }
+  }
+}

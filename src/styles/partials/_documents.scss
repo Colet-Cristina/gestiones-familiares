@@ -1,22 +1,199 @@
 @use "../core/variables" as *;
 
+.detail {
+  background-color: $color-white;
+  border-radius: $radius-large;
+  box-shadow: $shadow-md;
+  border: $border-subtle;
+  padding: 1.25rem;
+  margin: 1rem auto;
+  width: 100%;
+  max-width: 34rem;
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  &__back-btn {
+    background: transparent;
+    border: none;
+    color: $color-grey-500;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+    align-self: flex-start;
+    transition: color $transition-fast;
+
+    &:hover {
+      color: $color-blue-hover;
+    }
+  }
+
+  &__title-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  &__title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: $color-text;
+    margin: 0;
+  }
+
+  // Cajita icono temático
+  &__icon-box {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: $radius-medium;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+
+    &--documents {
+      background-color: rgba($color-purple-soft, 0.2);
+      color: $color-purple;
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__input {
+    border: 0.0625rem solid $color-border;
+    border-radius: $radius-medium;
+    padding: 0.75rem;
+    font-size: 0.95rem;
+    color: $color-text;
+    background-color: $color-white;
+    width: 100%;
+
+    &:focus {
+      outline: none;
+      border-color: $color-blue;
+    }
+  }
+
+  // BOTÓN AZUL UNIFICADO
+  &__btn {
+    background-color: $color-blue;
+    color: $color-white;
+    border: none;
+    border-radius: $radius-medium;
+    padding: 0.85rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color $transition-fast;
+
+    &:hover {
+      background-color: $color-blue-hover;
+    }
+  }
+
+  // LISTADO E ITEMS
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  &__item {
+    background-color: $color-grey-100;
+    border-radius: $radius-medium;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__item-title {
+    font-weight: 700;
+    display: block;
+    color: $color-text;
+  }
+
+  &__item-date {
+    font-size: 0.8rem;
+    color: $color-grey-500;
+    margin-top: 0.25rem;
+    display: block;
+  }
+
+  &__item-actions {
+    display: flex;
+    gap: 0.5rem;
+
+    .detail__action-btn {
+      background: transparent;
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition:
+        color $transition-fast,
+        transform $transition-fast;
+
+      &--purple {
+        color: $color-purple;
+      }
+
+      &:hover {
+        opacity: 0.8;
+        transform: translateY(-0.0625rem);
+      }
+
+      &--delete:hover {
+        color: $color-red-bright;
+      }
+    }
+  }
+}
+
+// ESTILOS ESPECÍFICOS DE DOCUMENTOS
 .documents {
-  &__file-input-wrapper {
-    margin-bottom: 0.75rem;
+  &__filters {
+    margin-top: 1.25rem;
+  }
+
+  &__filters-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
   }
 
   &__file-label {
-    display: block;
-    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
     background-color: $color-grey-100;
-    border: 0.0625rem dashed $color-border;
-    border-radius: $radius-small;
-    text-align: center;
+    border: 0.125rem dashed $color-grey-300;
+    border-radius: $radius-medium;
+    padding: 1rem;
+    color: $color-grey-500;
     cursor: pointer;
+    font-size: 0.9rem;
     font-weight: 600;
+    transition:
+      border-color $transition-fast,
+      color $transition-fast;
 
     &:hover {
-      background-color: lighten($color-grey-100, 2%);
+      border-color: $color-purple;
+      color: $color-purple;
     }
   }
 
@@ -25,40 +202,67 @@
   }
 
   &__preview {
-    margin-bottom: 1rem;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    background-color: $color-grey-100;
+    border-radius: $radius-small;
   }
 
   &__preview-img {
-    max-width: 100%;
-    max-height: 9.375rem;
+    max-height: 8rem;
     border-radius: $radius-small;
-    border: 0.0625rem solid $color-border;
+    object-fit: contain;
   }
 
   &__preview-pdf {
-    font-size: 0.875rem;
-    color: $color-text;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: $color-purple;
     font-weight: 600;
-  }
-
-  &__file-container {
-    margin-top: 0.5rem;
+    font-size: 0.9rem;
   }
 
   &__thumb {
-    width: 3.75rem;
-    height: 3.75rem;
+    width: 3.5rem;
+    height: 3.5rem;
     object-fit: cover;
     border-radius: $radius-small;
+    margin-top: 0.5rem;
     border: 0.0625rem solid $color-border;
-    cursor: pointer;
   }
 
   &__pdf-link {
-    font-size: 0.875rem;
-    color: $color-text;
-    text-decoration: underline;
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: $color-purple;
     font-weight: 600;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// ============ Media Queries ============
+
+@media (min-width: $tablet) {
+  .detail {
+    padding: 2rem;
+    margin: 2rem auto;
+
+    &__header {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &__title {
+      font-size: 1.5rem;
+    }
   }
 }

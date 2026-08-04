@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FaCalendarAlt, FaStickyNote, FaEdit, FaTrash } from "react-icons/fa";
 import Calendar from "./Calendar";
 
 function Appointments({
@@ -25,7 +26,7 @@ function Appointments({
       setEditingId(null);
     } else {
       const newAppointment = {
-        id: Date.now().toString(),
+        id: crypto.randomUUID(),
         spec,
         date,
         time,
@@ -56,9 +57,15 @@ function Appointments({
     <>
       <div className="detail__header">
         <button className="detail__back-btn" type="button" onClick={onBack}>
-          ← Volver
+          &larr; Volver
         </button>
-        <h3 className="detail__title">Próximas Citas</h3>
+
+        <div className="detail__title-box">
+          <h3 className="detail__title">Próximas Citas</h3>
+          <div className="detail__icon-box detail__icon-box--appointments">
+            <FaCalendarAlt />
+          </div>
+        </div>
       </div>
 
       <form className="detail__form" onSubmit={handleSubmit}>
@@ -134,6 +141,7 @@ function Appointments({
                         {app.time}h
                       </span>
                     </div>
+
                     <div className="detail__item-actions">
                       <button
                         type="button"
@@ -141,23 +149,23 @@ function Appointments({
                         onClick={() => onOpenModal(app.id)}
                         title="Ver/Añadir Notas"
                       >
-                        📝
+                        <FaStickyNote />
                       </button>
                       <button
                         type="button"
-                        className="detail__action-btn"
+                        className="detail__action-btn detail__action-btn--edit"
                         onClick={() => handleEdit(app)}
                         title="Editar Cita"
                       >
-                        ✏️
+                        <FaEdit />
                       </button>
                       <button
                         type="button"
-                        className="detail__action-btn"
+                        className="detail__action-btn detail__action-btn--delete"
                         onClick={() => handleDelete(app.id)}
                         title="Eliminar Cita"
                       >
-                        🗑️
+                        <FaTrash />
                       </button>
                     </div>
                   </li>

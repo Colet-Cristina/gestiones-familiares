@@ -139,38 +139,14 @@
     background: transparent;
     border: none;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1.1rem;
     padding: 0.4rem;
     border-radius: $radius-xs;
+    color: $color-blue;
     transition: background-color $transition-fast;
 
     &:hover {
       background-color: $color-grey-100;
     }
-  }
-
-  // --- MODIFICADORES TEMÁTICOS PARA EL BOTÓN ---
-  &--appointments &__btn {
-    background-color: $color-blue;
-  }
-
-  &--meds &__btn {
-    background-color: $color-green;
-  }
-
-  &--medical-info &__btn {
-    background-color: $color-red;
-  }
-
-  &--contacts &__btn {
-    background-color: $color-brown;
-  }
-
-  &--expenses &__btn {
-    background-color: $color-mustard;
-  }
-
-  &--documents &__btn {
-    background-color: $color-purple;
   }
 }

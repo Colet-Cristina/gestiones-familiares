@@ -1,17 +1,59 @@
 @use "../core/variables" as *;
 
 .header {
-  border-bottom: solid 0.5rem $color-black;
-  text-align: center;
-  padding-block: 1rem;
+  background-color: $color-white;
+  border-bottom: 0.2rem solid $color-grey-500;
+  padding: 1.25rem 2rem;
+  width: 100%;
+
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 60rem;
+    margin: 0 auto;
+    gap: 1rem;
+  }
+
+  &__titles {
+    display: flex;
+    flex-direction: column;
+    align-items: center; // Centra los elementos hijos si tienen anchos distintos
+    text-align: center;
+    gap: 0.25rem;
+  }
 
   &__title {
-    line-height: 2.5rem;
-    font-size: 2rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $color-text;
+    margin: 0;
+    line-height: 1.2;
   }
 
   &__subtitle {
-    font-size: 1rem;
-    opacity: 0.8;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    color: $color-grey-800;
+    letter-spacing: 0.05rem;
+    margin: 0;
+  }
+
+  &__logout-btn {
+    background-color: transparent;
+    color: $color-red-bright;
+    border: 0.0625rem solid $color-grey-500;
+    padding: 0.5rem 0.5rem;
+    border-radius: $radius-small;
+    font-size: 0.8rem;
+    font-weight: 500;
+    white-space: nowrap; // Evita que el texto del botón se rompa en dos líneas
+    cursor: pointer;
+    transition: all $transition-fast;
+
+    &:hover {
+      background-color: $color-red-light;
+      border-color: $color-red-soft;
+    }
   }
 }

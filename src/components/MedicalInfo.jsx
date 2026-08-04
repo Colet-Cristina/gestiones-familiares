@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FaNotesMedical, FaEdit, FaTrash } from "react-icons/fa";
 
 function MedicalInfo({ medicalInfo = [], setMedicalInfo, onBack }) {
   const [title, setTitle] = useState("");
@@ -17,7 +18,7 @@ function MedicalInfo({ medicalInfo = [], setMedicalInfo, onBack }) {
       setEditingId(null);
     } else {
       const newInfo = {
-        id: Date.now().toString(),
+        id: crypto.randomUUID(),
         title,
         detail,
       };
@@ -40,17 +41,25 @@ function MedicalInfo({ medicalInfo = [], setMedicalInfo, onBack }) {
 
   return (
     <>
+      {/* CABECERA TEMÁTICA */}
       <div className="detail__header">
         <button className="detail__back-btn" type="button" onClick={onBack}>
-          ← Volver
+          &larr; Volver
         </button>
-        <h3 className="detail__title">Información Médica</h3>
+
+        <div className="detail__title-box">
+          <h3 className="detail__title">Información Médica</h3>
+          <div className="detail__icon-box detail__icon-box--medical-info">
+            <FaNotesMedical />
+          </div>
+        </div>
       </div>
 
+      {/* FORMULARIO PRINCIPAL */}
       <form className="detail__form" onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Dato clave (ej: Grupo sanguíneo,  Alergias)"
+          placeholder="Dato clave (ej: Grupo sanguíneo, Alergias)"
           className="detail__input"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -69,6 +78,7 @@ function MedicalInfo({ medicalInfo = [], setMedicalInfo, onBack }) {
         </button>
       </form>
 
+      {/* LISTADO DE INFORMACIÓN */}
       <div className="info-summary">
         <h3 className="detail__subtitle">Datos guardados</h3>
         <ul className="detail__list">
@@ -85,19 +95,19 @@ function MedicalInfo({ medicalInfo = [], setMedicalInfo, onBack }) {
                 <div className="detail__item-actions">
                   <button
                     type="button"
-                    className="detail__action-btn"
+                    className="detail__action-btn detail__action-btn--edit"
                     onClick={() => handleEdit(info)}
                     title="Editar información"
                   >
-                    ✏️
+                    <FaEdit />
                   </button>
                   <button
                     type="button"
-                    className="detail__action-btn"
+                    className="detail__action-btn detail__action-btn--delete"
                     onClick={() => handleDelete(info.id)}
                     title="Eliminar información"
                   >
-                    🗑️
+                    <FaTrash />
                   </button>
                 </div>
               </li>

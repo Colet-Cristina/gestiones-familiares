@@ -1,107 +1,129 @@
-/* src/scss/partials/_card.scss */
 @use "../core/variables" as *;
 
 .card {
   background-color: $color-white;
-  border-radius: $radius-medium;
-  padding: 1.5rem;
+  border-radius: $radius-large;
+  padding: 1.25rem 1.5rem;
   box-shadow: $shadow-md;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 1rem;
   border: $border-subtle;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none; // Por si la tarjeta es un enlace <a>
+  transition:
+    transform $transition-fast,
+    box-shadow $transition-fast;
+  cursor: pointer;
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: $shadow-hover;
-  }
+    transform: translateY(-0.2rem);
+    box-shadow: $shadow-lg;
 
-  &__content {
-    flex-grow: 1; // Que el botón siempre quede abajo si hay poco texto
-  }
-
-  &__title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 0.25rem;
-    color: $color-black;
-  }
-
-  &__description {
-    font-size: 0.9375rem;
-    color: $color-text;
-    line-height: 1.4;
-  }
-
-  &__btn {
-    background-color: $color-blue;
-    color: $color-white;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: $radius-xs;
-    font-weight: 600;
-    cursor: pointer;
-    transition:
-      background-color $transition-fast,
-      filter $transition-fast;
-    width: 80%;
-
-    &:hover {
-      filter: brightness(1.3);
+    .card__arrow {
+      color: $color-blue-hover;
+      transform: translateX(0.25rem);
     }
   }
 
-  // --- Modificadores de color temáticos ---
-  &--appointments {
-    border-color: rgba($color-blue, 0.1);
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
 
-    .card__btn {
-      background-color: $color-blue;
+  // Cajita con fondo pastel para el icono
+  &__icon-box {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: $radius-medium;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    flex-shrink: 0; // Evita que se aplaste en pantallas pequeñas
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+
+  &__title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin: 0;
+    color: $color-text;
+  }
+
+  &__description {
+    font-size: 0.85rem;
+    color: $color-grey-500;
+    margin: 0.2rem 0 0 0;
+    line-height: 1.3;
+  }
+
+  &__arrow {
+    font-size: 1.25rem;
+    color: $color-grey-300;
+    font-weight: bold;
+    transition:
+      transform $transition-fast,
+      color $transition-fast;
+  }
+
+  // --- Modificadores temáticos aplicados al ICONO ---
+  &--appointments {
+    .card__icon-box {
+      background-color: rgba($color-blue-soft, 0.2);
+      color: $color-blue-hover;
     }
   }
 
   &--meds {
-    border-color: rgba($color-green, 0.1);
-
-    .card__btn {
-      background-color: $color-green;
+    .card__icon-box {
+      background-color: $color-green-light;
+      color: $color-green;
     }
   }
 
   &--medical-info {
-    border-color: rgba($color-red, 0.1);
-
-    .card__btn {
-      background-color: $color-red;
+    .card__icon-box {
+      background-color: $color-red-light;
+      color: $color-red-bright;
     }
   }
 
   &--contacts {
-    border-color: rgba($color-brown, 0.1);
-
-    .card__btn {
-      background-color: $color-brown;
+    .card__icon-box {
+      background-color: rgba($color-brown-soft, 0.2);
+      color: $color-brown-soft;
     }
   }
 
   &--expenses {
-    border-color: rgba($color-mustard, 0.1);
-
-    .card__btn {
-      background-color: $color-mustard;
+    .card__icon-box {
+      background-color: rgba($color-mustard-soft, 0.3);
+      color: $color-mustard;
     }
   }
 
   &--documents {
-    border-color: rgba($color-purple, 0.1);
+    .card__icon-box {
+      background-color: rgba($color-purple-soft, 0.2);
+      color: $color-purple;
+    }
+  }
+}
 
-    .card__btn {
-      background-color: $color-purple;
+// ============ Media Queries ============
+
+@media (min-width: $tablet) {
+  .card {
+    padding: 1.5rem 2rem;
+
+    &__title {
+      font-size: 1.25rem;
     }
   }
 }

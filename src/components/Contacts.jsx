@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FaPhoneAlt, FaEdit, FaTrash } from "react-icons/fa";
 
 function Contacts({ contacts = [], setContacts, onBack }) {
   const [name, setName] = useState("");
@@ -17,7 +18,7 @@ function Contacts({ contacts = [], setContacts, onBack }) {
       setEditingId(null);
     } else {
       const newContact = {
-        id: Date.now().toString(),
+        id: crypto.randomUUID(),
         name,
         phone,
       };
@@ -40,13 +41,21 @@ function Contacts({ contacts = [], setContacts, onBack }) {
 
   return (
     <>
+      {/* CABECERA CON ICONO */}
       <div className="detail__header">
         <button className="detail__back-btn" type="button" onClick={onBack}>
-          ← Volver
+          &larr; Volver
         </button>
-        <h3 className="detail__title">Teléfonos</h3>
+
+        <div className="detail__title-box">
+          <h3 className="detail__title">Teléfonos</h3>
+          <div className="detail__icon-box detail__icon-box--contacts">
+            <FaPhoneAlt />
+          </div>
+        </div>
       </div>
 
+      {/* FORMULARIO */}
       <form className="detail__form" onSubmit={handleSubmit}>
         <input
           type="text"
@@ -69,6 +78,7 @@ function Contacts({ contacts = [], setContacts, onBack }) {
         </button>
       </form>
 
+      {/* LISTADO DE CONTACTOS */}
       <div className="contacts-summary">
         <h3 className="detail__subtitle">Lista de contactos</h3>
         <ul className="detail__list">
@@ -80,32 +90,31 @@ function Contacts({ contacts = [], setContacts, onBack }) {
                 <div className="detail__item-info">
                   <span className="detail__item-title">{contact.name}</span>
 
-                  {/*desde un teléfono móvil si se toca el número abre la app de llamadas del móvil*/}
                   <a
                     href={`tel:${contact.phone}`}
-                    className="detail__item-date"
-                    style={{ textDecoration: "none", color: "inherit" }}
+                    className="detail__item-phone-link"
                   >
-                    📞 {contact.phone}
+                    <FaPhoneAlt className="detail__phone-icon" />{" "}
+                    {contact.phone}
                   </a>
                 </div>
 
                 <div className="detail__item-actions">
                   <button
                     type="button"
-                    className="detail__action-btn"
+                    className="detail__action-btn detail__action-btn--edit"
                     onClick={() => handleEdit(contact)}
                     title="Editar contacto"
                   >
-                    ✏️
+                    <FaEdit />
                   </button>
                   <button
                     type="button"
-                    className="detail__action-btn"
+                    className="detail__action-btn detail__action-btn--delete"
                     onClick={() => handleDelete(contact.id)}
                     title="Eliminar contacto"
                   >
-                    🗑️
+                    <FaTrash />
                   </button>
                 </div>
               </li>

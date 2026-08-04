@@ -1,29 +1,77 @@
 @use "../core/variables" as *;
 
-.detail__item-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
+.detail {
+  &__subtitle {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: $color-text;
+    margin: 1.5rem 0 0.75rem 0;
+  }
+
+  // Estilo específico para el icono de la cabecera en Citas
+  &__icon-box--appointments {
+    background-color: rgba($color-blue-soft, 0.2);
+    color: $color-blue;
+    margin-right: 0.5rem;
+  }
+
+  &__item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  &__item-title {
+    font-weight: 700;
+    font-size: 1rem;
+    color: $color-text;
+  }
+
+  &__item-date {
+    font-size: 0.875rem;
+    color: $color-grey-500;
+  }
+
+  &__item-divider {
+    color: $color-grey-300;
+    font-weight: 700;
+    margin: 0 0.25rem;
+  }
+  .appointments-summary {
+    margin-top: 1.5rem;
+
+    &__item-actions {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    // Indicador visual en caso de tener una nota registrada
+    &__item--has-note {
+      border-left: 4px solid $color-green;
+    }
+
+    // Modificadores de color para los botones de acción
+    &__item-actions {
+      .detail__action-btn {
+        transition:
+          color $transition-fast,
+          transform $transition-fast;
+
+        &:hover {
+          color: $color-blue-hover;
+          transform: translateY(-0.0625rem);
+        }
+
+        &--delete:hover {
+          color: $color-red-bright;
+        }
+      }
+    }
+  }
 }
 
-.detail__item-title {
-  font-weight: bold;
-  font-size: 1rem;
-  color: $color-text;
-}
+// ============ Media Queries ============
 
-.detail__item-date {
-  font-size: 0.875rem;
-  color: $color-grey-500;
-}
-
-.detail__item-date {
-  font-size: 0.875rem;
-  color: $color-grey-500;
-}
-
-.detail__item-divider {
-  color: $color-grey-800;
-  font-weight: bold;
-  margin: 0 0.25rem;
+@media (min-width: $tablet) {
 }

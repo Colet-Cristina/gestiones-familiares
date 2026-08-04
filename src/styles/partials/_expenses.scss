@@ -6,6 +6,24 @@
     margin-bottom: 1rem;
   }
 
+  &__summary {
+    // Aplicamos el color temático de gastos a las acciones de la lista
+    .detail__item-actions {
+      .detail__action-btn {
+        color: $color-blue; // Cambia por la variable de color asignada a Gastos (ej: $color-orange)
+
+        &:hover {
+          opacity: 0.8;
+          transform: translateY(-0.0625rem);
+        }
+
+        &--delete:hover {
+          color: $color-red-bright;
+        }
+      }
+    }
+  }
+
   &__group {
     margin-bottom: 0.5rem;
 
@@ -77,7 +95,7 @@
   }
 
   &__total {
-    margin-top: 1.5rem; // 👈 Separa el total conjunto de las tarjetas superiores
+    margin-top: 1.5rem;
     padding: 0.875rem 1rem;
     background-color: $color-grey-100;
     border: 0.0625rem solid $color-border;
@@ -91,5 +109,19 @@
   &__total-amount {
     font-size: 1.125rem;
     color: $color-text;
+  }
+}
+
+.detail {
+  &__title-box {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  // Estilos de cabecera para gastos
+  &__icon-box--expenses {
+    background-color: rgba($color-mustard-soft, 0.2);
+    color: $color-mustard;
   }
 }

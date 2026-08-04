@@ -1,0 +1,35 @@
+@use "../core/variables" as *;
+
+.info-summary {
+  margin-top: 1.5rem;
+}
+
+.detail {
+  &__title-box {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  // Fondo pastel para el icono de información médica
+  &__icon-box--medical-info {
+    background-color: $color-red-light;
+    color: $color-red-bright;
+  }
+
+  .info-summary {
+    margin-top: 1.5rem;
+
+    .detail__action-btn {
+      color: $color-red;
+      &:hover {
+        color: $color-blue-hover;
+        transform: translateY(-0.0625rem);
+      }
+
+      &--delete:hover {
+        color: $color-red-bright;
+      }
+    }
+  }
+}

@@ -1,4 +1,12 @@
 import { useState } from "react";
+import {
+  FaFolderOpen,
+  FaEdit,
+  FaTrash,
+  FaCamera,
+  FaFilePdf,
+  FaFilter,
+} from "react-icons/fa";
 
 function Documents({ documents = [], setDocuments, onBack }) {
   const [title, setTitle] = useState("");
@@ -15,7 +23,7 @@ function Documents({ documents = [], setDocuments, onBack }) {
     new Set(documents.map((doc) => doc.owner).filter(Boolean)),
   );
 
-  // 📷 Convertir el archivo/foto a Base64 para guardarlo en la app
+  // Convertir el archivo/foto a Base64 para guardarlo en la app
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -79,14 +87,23 @@ function Documents({ documents = [], setDocuments, onBack }) {
   );
 
   return (
-    <>
+    <section className="detail detail--documents">
+      {/* CABECERA TEMÁTICA */}
       <div className="detail__header">
         <button className="detail__back-btn" type="button" onClick={onBack}>
-          ← Volver
+          &larr; Volver
         </button>
-        <h3 className="detail__title">Documentación</h3>
+
+        <div className="detail__title-box">
+          <h3 className="detail__title">Documentación</h3>
+          {/* Cajita icono temático pastel */}
+          <div className="detail__icon-box detail__icon-box--documents">
+            <FaFolderOpen />
+          </div>
+        </div>
       </div>
 
+      {/* FORMULARIO */}
       <form className="detail__form" onSubmit={handleSubmit}>
         <input
           type="text"
@@ -123,10 +140,11 @@ function Documents({ documents = [], setDocuments, onBack }) {
           />
         )}
 
-        {/* 📸 Input para subir documento o HACER FOTO con la cámara */}
+        {/* INPUT DE ARCHIVOS */}
         <div className="documents__file-input-wrapper">
           <label className="documents__file-label" htmlFor="doc-file">
-            📸 Hacer foto o subir imagen/PDF
+            <FaCamera className="documents__camera-icon" /> Hacer foto o subir
+            imagen/PDF
           </label>
           <input
             id="doc-file"
@@ -138,7 +156,7 @@ function Documents({ documents = [], setDocuments, onBack }) {
           />
         </div>
 
-        {/* Previsualización rápida de la foto elegida */}
+        {/* PREVISUALIZACIÓN */}
         {fileData && (
           <div className="documents__preview">
             {fileType.includes("image") ? (
@@ -149,36 +167,48 @@ function Documents({ documents = [], setDocuments, onBack }) {
               />
             ) : (
               <span className="documents__preview-pdf">
-                📄 PDF adjuntado correctamente
+                <FaFilePdf /> PDF adjuntado correctamente
               </span>
             )}
           </div>
         )}
 
+        {/* BOTÓN AZUL UNIFICADO */}
         <button type="submit" className="detail__btn">
           {editingId ? "Guardar Cambios" : "Añadir Documento"}
         </button>
       </form>
 
-      {/* FILTRO */}
+      {/* FILTRO POR PERSONA */}
       {existingOwners.length > 0 && (
         <div className="documents__filters">
-          <select
-            className="detail__input"
-            value={filterOwner}
-            onChange={(e) => setFilterOwner(e.target.value)}
-          >
-            <option value="all">Ver todos los documentos</option>
-            {existingOwners.map((person) => (
-              <option key={person} value={person}>
-                {person}
-              </option>
-            ))}
-          </select>
+          <div className="documents__filters-row">
+            <select
+              className="detail__input"
+              value={filterOwner}
+              onChange={(e) => setFilterOwner(e.target.value)}
+            >
+              <option value="all">Ver todos los documentos</option>
+              {existingOwners.map((person) => (
+                <option key={person} value={person}>
+                  {person}
+                </option>
+              ))}
+            </select>
+            {filterOwner !== "all" && (
+              <button
+                type="button"
+                className="detail__action-btn"
+                onClick={() => setFilterOwner("all")}
+              >
+                <FaFilter /> Ver todos
+              </button>
+            )}
+          </div>
         </div>
       )}
 
-      {/* LISTADO DE DOCUMENTOS CON SU FOTO */}
+      {/* LISTADO DE DOCUMENTOS */}
       <div className="documents__summary">
         <ul className="detail__list">
           {filteredDocuments.length === 0 ? (
@@ -189,12 +219,11 @@ function Documents({ documents = [], setDocuments, onBack }) {
             filteredDocuments.map((doc) => (
               <li key={doc.id} className="detail__item documents__item">
                 <div className="detail__item-info">
-                  <span className="detail__item-title">📄 {doc.title}</span>
+                  <span className="detail__item-title">{doc.title}</span>
                   <span className="detail__item-date">
                     👤 <strong>{doc.owner}</strong> | 📅 {doc.createdAt}
                   </span>
 
-                  {/* Mostramos la foto o el botón de abrir PDF directamente */}
                   {doc.fileData && (
                     <div className="documents__file-container">
                       {doc.fileType?.includes("image") ? (
@@ -227,19 +256,19 @@ function Documents({ documents = [], setDocuments, onBack }) {
                 <div className="detail__item-actions">
                   <button
                     type="button"
-                    className="detail__action-btn"
+                    className="detail__action-btn detail__action-btn--edit detail__action-btn--purple"
                     onClick={() => handleEdit(doc)}
                     title="Editar documento"
                   >
-                    ✏️
+                    <FaEdit />
                   </button>
                   <button
                     type="button"
-                    className="detail__action-btn"
+                    className="detail__action-btn detail__action-btn--delete"
                     onClick={() => handleDelete(doc.id)}
                     title="Eliminar documento"
                   >
-                    🗑️
+                    <FaTrash />
                   </button>
                 </div>
               </li>
@@ -247,7 +276,7 @@ function Documents({ documents = [], setDocuments, onBack }) {
           )}
         </ul>
       </div>
-    </>
+    </section>
   );
 }
 
