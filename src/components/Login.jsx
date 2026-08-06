@@ -1,4 +1,5 @@
 import { useState } from "react";
+import logo from "../images/logo-family-today.png";
 
 /**
  * Componente para autenticación y registro de usuarios.
@@ -42,7 +43,10 @@ function Login({ onLogin }) {
   return (
     <div className="login">
       <div className="login__card">
-        <h1 className="login__title">Family Today</h1>
+        <div className="login__brand">
+          <img src={logo} alt="" className="login__logo" />
+          <h1 className="login__title visually-hidden">Family Today</h1>
+        </div>
 
         {/* Pestañas de selección */}
         <div className="login__tabs">

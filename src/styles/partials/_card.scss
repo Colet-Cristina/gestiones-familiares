@@ -21,7 +21,7 @@
     box-shadow: $shadow-lg;
 
     .card__arrow {
-      color: $color-blue-hover;
+      color: $color-primary-hover;
       transform: translateX(0.25rem);
     }
   }
@@ -32,7 +32,6 @@
     gap: 1rem;
   }
 
-  // Cajita con fondo pastel para el icono
   &__icon-box {
     width: 2.75rem;
     height: 2.75rem;
@@ -66,7 +65,7 @@
 
   &__arrow {
     font-size: 1.25rem;
-    color: $color-grey-300;
+    color: $color-primary;
     font-weight: bold;
     transition:
       transform $transition-fast,

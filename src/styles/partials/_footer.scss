@@ -12,15 +12,40 @@
   align-items: flex-end;
   justify-content: center;
   color: $color-white;
-  height: 8rem;
+  height: auto;
   padding-bottom: 1.25rem;
   margin-top: 3rem;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  &__logo {
+    height: 2rem;
+    width: auto;
+    opacity: 0.9;
+  }
 
   &__text {
     font-size: 0.875rem;
     font-weight: 500;
     margin: 0;
   }
+}
+
+visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 // ============ Media Queries ============

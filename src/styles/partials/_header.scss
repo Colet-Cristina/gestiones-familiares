@@ -2,28 +2,29 @@
 
 .header {
   background: $color-white;
-  // box-shadow: 0 0.25rem 0.75rem $color-sakura-warm;
   border-bottom: 0.3rem solid $color-sakura-warm;
-  padding: 1.25rem 1rem;
+  padding: 0.5rem 1rem;
   position: relative;
   z-index: 10;
 
   &__content {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     position: relative;
     margin: 0 auto;
     width: 100%;
   }
 
-  &__titles {
+  &__brand {
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
-    gap: 0.15rem;
-    padding-right: 4.5rem;
+  }
+
+  &__logo {
+    height: 5rem;
+    width: auto;
   }
 
   &__title {
@@ -39,8 +40,7 @@
     font-size: 1rem;
     color: $color-text;
     letter-spacing: 0.05rem;
-    margin: 0;
-    margin-top: 0.4rem;
+    align-items: center;
   }
 
   &__logout-btn {
@@ -63,6 +63,17 @@
       border-color: $color-primary-hover;
     }
   }
+}
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 // ============ Media Queries ============

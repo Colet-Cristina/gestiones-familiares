@@ -3,13 +3,17 @@
  * Muestra el título del proyecto, el nombre de la familia actual y el botón para cerrar sesión.
  */
 
+import logo from "../images/logo-family-today.png";
+
 function Header({ familyName, onLogout }) {
   // ============ RENDERIZADO ============
   return (
     <header className="header">
       <div className="header__content">
-        <div className="header__titles">
-          <h1 className="header__title">Family Today</h1>
+        <div className="header__brand">
+          <img src={logo} alt="Family Today" className="header__logo" />
+
+          <h1 className="header__title visually-hidden">Family Today</h1>
           <p className="header__subtitle">{familyName || "Familia"}</p>
         </div>
         <button
