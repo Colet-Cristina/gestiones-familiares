@@ -11,6 +11,7 @@ function ModalNote({
   onClose,
 }) {
   // Guardas de seguridad para evitar renderizar si está cerrado o falta la cita
+
   if (!isOpen || !appointment) return null;
 
   // ============ RENDERIZADO ============
@@ -18,10 +19,12 @@ function ModalNote({
   return (
     <div className="modal" onClick={onClose}>
       {/* stopPropagation evita cerrar el modal al pulsar dentro de la tarjeta blanca */}
+
       <div className="modal__content" onClick={(e) => e.stopPropagation()}>
         <button type="button" className="modal__close" onClick={onClose}>
           &times;
         </button>
+
         <h3 className="modal__title">Notas: {appointment.spec}</h3>
 
         <textarea

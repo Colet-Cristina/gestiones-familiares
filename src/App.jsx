@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 
-// ============ IMPORTACIÓN DE COMPONENTES ============
-
 import Login from "./components/Login";
 import Header from "./components/Header";
 import Dashboard from "./components/Dashboard";

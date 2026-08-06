@@ -1,4 +1,3 @@
-// ============ IMPORTACIÓN DE DEPENDENCIAS ============
 import { useState } from "react";
 import { FaCalendarAlt, FaStickyNote, FaEdit, FaTrash } from "react-icons/fa";
 import Calendar from "./Calendar";
@@ -112,7 +111,10 @@ function Appointments({
       </form>
 
       {/* Calendario interactivo integrado */}
-      <Calendar appointments={appointments} />
+      <Calendar
+        appointments={appointments}
+        onSelectAppointment={(app) => onOpenModal(app.id)}
+      />
 
       <div className="appointments-summary">
         <h3 className="detail__subtitle">Todas las citas</h3>
