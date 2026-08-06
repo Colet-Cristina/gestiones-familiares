@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { db } from "./services/firebase";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 
 import Login from "./components/Login";
 import Header from "./components/Header";
@@ -18,71 +20,68 @@ function App() {
   const [activeModalId, setActiveModalId] = useState(null);
   const [modalNoteText, setModalNoteText] = useState("");
 
-  const [appointments, setAppointments] = useState(() => {
-    const saved = localStorage.getItem("appointments");
-    return saved ? JSON.parse(saved) : [];
-  });
+  // Estados iniciales vacíos
+  const [appointments, setAppointments] = useState([]);
+  const [meds, setMeds] = useState([]);
+  const [medicalInfo, setMedicalInfo] = useState([]);
+  const [contacts, setContacts] = useState([]);
+  const [expenses, setExpenses] = useState([
+    { id: "1", concept: "Farmacia - Medicinas", amount: "24.50" },
+  ]);
+  const [documents, setDocuments] = useState([
+    {
+      id: "1",
+      title: "DNI",
+      owner: "Mamá",
+      location: "Carpeta roja de la entrada",
+      expirationDate: "2028-10-15",
+    },
+  ]);
 
+  // Cargar datos de Firebase al iniciar
   useEffect(() => {
-    localStorage.setItem("appointments", JSON.stringify(appointments));
-  }, [appointments]);
-
-  const [meds, setMeds] = useState(() => {
-    const saved = localStorage.getItem("meds");
-    return saved ? JSON.parse(saved) : [];
-  });
-
-  useEffect(() => {
-    localStorage.setItem("meds", JSON.stringify(meds));
-  }, [meds]);
-
-  const [medicalInfo, setMedicalInfo] = useState(() => {
-    const saved = localStorage.getItem("medical_info");
-    return saved ? JSON.parse(saved) : [];
-  });
-
-  useEffect(() => {
-    localStorage.setItem("medical_info", JSON.stringify(medicalInfo));
-  }, [medicalInfo]);
-
-  const [contacts, setContacts] = useState(() => {
-    const saved = localStorage.getItem("contacts");
-    return saved ? JSON.parse(saved) : [];
-  });
-
-  useEffect(() => {
-    localStorage.setItem("contacts", JSON.stringify(contacts));
-  }, [contacts]);
-
-  const [expenses, setExpenses] = useState(() => {
-    const saved = localStorage.getItem("expenses");
-    return saved
-      ? JSON.parse(saved)
-      : [{ id: "1", concept: "Farmacia - Medicinas", amount: "24.50" }];
-  });
-
-  useEffect(() => {
-    localStorage.setItem("expenses", JSON.stringify(expenses));
-  }, [expenses]);
-
-  const [documents, setDocuments] = useState(() => {
-    const saved = localStorage.getItem("documents");
-    return saved
-      ? JSON.parse(saved)
-      : [
-          {
-            id: "1",
-            title: "DNI",
-            owner: "Mamá",
-            location: "Carpeta roja de la entrada",
-            expirationDate: "2028-10-15",
-          },
+    if (user) {
+      const fetchData = async () => {
+        const collections = [
+          "appointments",
+          "meds",
+          "medical_info",
+          "contacts",
+          "expenses",
+          "documents",
         ];
-  });
+        const setters = [
+          setAppointments,
+          setMeds,
+          setMedicalInfo,
+          setContacts,
+          setExpenses,
+          setDocuments,
+        ];
 
+        for (let i = 0; i < collections.length; i++) {
+          const docRef = doc(db, "data", collections[i]);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            setters[i](docSnap.data().items);
+          }
+        }
+      };
+      fetchData();
+    }
+  }, [user]);
+
+  // Guardar en Firebase cuando cambia el estado
   useEffect(() => {
-    localStorage.setItem("documents", JSON.stringify(documents));
-  }, [documents]);
+    if (user) {
+      setDoc(doc(db, "data", "appointments"), { items: appointments });
+      setDoc(doc(db, "data", "meds"), { items: meds });
+      setDoc(doc(db, "data", "medical_info"), { items: medicalInfo });
+      setDoc(doc(db, "data", "contacts"), { items: contacts });
+      setDoc(doc(db, "data", "expenses"), { items: expenses });
+      setDoc(doc(db, "data", "documents"), { items: documents });
+    }
+  }, [appointments, meds, medicalInfo, contacts, expenses, documents, user]);
 
   const handleLogin = (userData) => {
     setUser(userData);
@@ -130,7 +129,6 @@ function App() {
   return (
     <div className="page">
       <Header familyName={user?.name} onLogout={handleLogout} />
-
       <main className="main">
         {!activeSection ? (
           <Dashboard
@@ -155,7 +153,6 @@ function App() {
             onOpenModal={handleOpenNoteModal}
           />
         )}
-
         <ModalNote
           isOpen={Boolean(activeModalId)}
           appointment={selectedAppointment}
@@ -165,7 +162,6 @@ function App() {
           onClose={() => setActiveModalId(null)}
         />
       </main>
-
       <Footer />
       <ScrollTopButton />
     </div>
