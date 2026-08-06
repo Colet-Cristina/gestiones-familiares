@@ -5,8 +5,7 @@ import logo from "../images/logo-family-today.png";
  * Componente para autenticación y registro de usuarios.
  * Permite alternar entre inicio de sesión y registro, validando campos básicos.
  */
-
-function Login({ onLogin }) {
+function Login({ onLogin, onGuestLogin }) {
   // ============ ESTADOS Y UI ============
   const [isRegistering, setIsRegistering] = useState(false);
   const [name, setName] = useState("");
@@ -139,6 +138,16 @@ function Login({ onLogin }) {
             {isRegistering ? "Crear Cuenta Familiar" : "Entrar"}
           </button>
         </form>
+
+        <div className="login__guest-container">
+          <button
+            type="button"
+            className="detail__btn detail__btn--secondary"
+            onClick={onGuestLogin}
+          >
+            Probar sin registrarse
+          </button>
+        </div>
       </div>
     </div>
   );

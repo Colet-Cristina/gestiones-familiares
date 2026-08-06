@@ -66,7 +66,7 @@
       border-bottom-color: $color-primary;
     }
   }
-  // --- FORMULARIO Y CAMPOS ---
+  // --- Formulario
   &__form {
     display: flex;
     flex-direction: column;
@@ -90,7 +90,7 @@
     font-weight: 600;
   }
 
-  // ============ ESTILOS DEL INPUT DE CONTRASEÑA ============
+  // --- Estilos input contraseña
   &__password-wrapper {
     position: relative;
     width: 100%;
@@ -126,6 +126,26 @@
     &:hover {
       opacity: 1;
       transform: translateY(-50%) scale(1.1);
+    }
+  }
+
+  // --- Estilos botón invitado/a
+  &__guest-container {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 0.06rem solid rgba($color-primary-md, 0.4);
+    text-align: center;
+  }
+
+  .detail__btn--secondary {
+    background-color: transparent;
+    color: $color-primary;
+    border: 0.06rem solid $color-primary;
+
+    &:hover {
+      background-color: $color-primary-md;
+      color: $color-primary-hover;
+      border-color: $color-primary-hover;
     }
   }
 }

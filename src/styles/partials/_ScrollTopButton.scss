@@ -1,0 +1,35 @@
+@use "../core/variables" as *;
+
+.scroll-top-btn {
+  position: fixed;
+  bottom: 6rem;
+  right: 2rem;
+  width: 3rem;
+  height: 3rem;
+  background-color: $color-primary;
+  color: $color-white;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: $shadow-lg;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(1rem);
+  transition: all $transition-fast;
+
+  &--visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  &:hover {
+    background-color: $color-primary-hover;
+    transform: translateY(-0.2rem);
+  }
+}
