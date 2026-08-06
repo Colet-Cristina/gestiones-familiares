@@ -1,10 +1,17 @@
 import { useState } from "react";
 import { FaNotesMedical, FaEdit, FaTrash } from "react-icons/fa";
 
+/**
+ * Componente para la gestión de información médica.
+ * Permite agregar, editar y eliminar datos clave como grupo sanguíneo, alergias o condiciones.
+ */
+
 function MedicalInfo({ medicalInfo = [], setMedicalInfo, onBack }) {
   const [title, setTitle] = useState("");
   const [detail, setDetail] = useState("");
   const [editingId, setEditingId] = useState(null);
+
+  // ============ MANEJADORES DE EVENTOS (HANDLERS) ============
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,9 +46,10 @@ function MedicalInfo({ medicalInfo = [], setMedicalInfo, onBack }) {
     setMedicalInfo(medicalInfo.filter((info) => info.id !== id));
   };
 
+  // ============ RENDERIZADO ============
   return (
     <>
-      {/* CABECERA TEMÁTICA */}
+      {/* Cabecera temática */}
       <div className="detail__header">
         <button className="detail__back-btn" type="button" onClick={onBack}>
           &larr; Volver
@@ -55,7 +63,7 @@ function MedicalInfo({ medicalInfo = [], setMedicalInfo, onBack }) {
         </div>
       </div>
 
-      {/* FORMULARIO PRINCIPAL */}
+      {/* Formulario principal */}
       <form className="detail__form" onSubmit={handleSubmit}>
         <input
           type="text"
@@ -78,7 +86,7 @@ function MedicalInfo({ medicalInfo = [], setMedicalInfo, onBack }) {
         </button>
       </form>
 
-      {/* LISTADO DE INFORMACIÓN */}
+      {/* Listado de información */}
       <div className="info-summary">
         <h3 className="detail__subtitle">Datos guardados</h3>
         <ul className="detail__list">

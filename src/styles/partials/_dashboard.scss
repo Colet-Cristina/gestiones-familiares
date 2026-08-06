@@ -1,9 +1,9 @@
 @use "../core/variables" as *;
 
 .main {
-  padding: 1rem;
   width: 100%;
   margin: 0 auto;
+  padding: 1rem;
   flex-grow: 1;
 }
 
@@ -13,11 +13,9 @@
   gap: 1rem;
 }
 
-// Media Queries
-
 @media (min-width: $tablet) {
   .main {
-    padding: 1.5rem;
+    padding: 2rem 1.5rem;
   }
 
   .dashboard {
@@ -27,8 +25,9 @@
   }
 }
 
+// ============ Media Queries ============
 @media (min-width: $desktop) {
   .main {
-    max-width: 75rem;
+    max-width: 100%;
   }
 }

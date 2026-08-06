@@ -1,168 +1,14 @@
 @use "../core/variables" as *;
 
 .detail {
-  background-color: $color-white;
-  border-radius: $radius-large;
-  box-shadow: $shadow-md;
-  border: $border-subtle;
-  padding: 1.25rem;
-  margin: 1rem auto;
-  width: 100%;
-  max-width: 34rem;
-
-  &__header {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
-  }
-
-  &__back-btn {
-    background: transparent;
-    border: none;
-    color: $color-grey-500;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-    padding: 0;
-    align-self: flex-start;
-    transition: color $transition-fast;
-
-    &:hover {
-      color: $color-blue-hover;
-    }
-  }
-
-  &__title-box {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-  }
-
-  &__title {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: $color-text;
-    margin: 0;
-  }
-
-  // Cajita icono temático
-  &__icon-box {
-    width: 2.75rem;
-    height: 2.75rem;
-    border-radius: $radius-medium;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.25rem;
-
-    &--documents {
+  &--documents {
+    .detail__icon-box {
       background-color: rgba($color-purple-soft, 0.2);
       color: $color-purple;
     }
   }
-
-  &__form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  &__input {
-    border: 0.0625rem solid $color-border;
-    border-radius: $radius-medium;
-    padding: 0.75rem;
-    font-size: 0.95rem;
-    color: $color-text;
-    background-color: $color-white;
-    width: 100%;
-
-    &:focus {
-      outline: none;
-      border-color: $color-blue;
-    }
-  }
-
-  // BOTÓN AZUL UNIFICADO
-  &__btn {
-    background-color: $color-blue;
-    color: $color-white;
-    border: none;
-    border-radius: $radius-medium;
-    padding: 0.85rem;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color $transition-fast;
-
-    &:hover {
-      background-color: $color-blue-hover;
-    }
-  }
-
-  // LISTADO E ITEMS
-  &__list {
-    list-style: none;
-    padding: 0;
-    margin: 1.5rem 0 0 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  &__item {
-    background-color: $color-grey-100;
-    border-radius: $radius-medium;
-    padding: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  &__item-title {
-    font-weight: 700;
-    display: block;
-    color: $color-text;
-  }
-
-  &__item-date {
-    font-size: 0.8rem;
-    color: $color-grey-500;
-    margin-top: 0.25rem;
-    display: block;
-  }
-
-  &__item-actions {
-    display: flex;
-    gap: 0.5rem;
-
-    .detail__action-btn {
-      background: transparent;
-      border: none;
-      font-size: 1.1rem;
-      cursor: pointer;
-      transition:
-        color $transition-fast,
-        transform $transition-fast;
-
-      &--purple {
-        color: $color-purple;
-      }
-
-      &:hover {
-        opacity: 0.8;
-        transform: translateY(-0.0625rem);
-      }
-
-      &--delete:hover {
-        color: $color-red-bright;
-      }
-    }
-  }
 }
 
-// ESTILOS ESPECÍFICOS DE DOCUMENTOS
 .documents {
   &__filters {
     margin-top: 1.25rem;
@@ -225,6 +71,22 @@
     font-size: 0.9rem;
   }
 
+  &__view-btn {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin-top: 0.5rem;
+    cursor: pointer;
+    display: inline-block;
+    line-height: 0;
+    outline: none;
+
+    &:focus-visible {
+      outline: 0.125rem solid $color-purple;
+      border-radius: $radius-small;
+    }
+  }
+
   &__thumb {
     width: 3.5rem;
     height: 3.5rem;
@@ -244,25 +106,6 @@
 
     &:hover {
       text-decoration: underline;
-    }
-  }
-}
-
-// ============ Media Queries ============
-
-@media (min-width: $tablet) {
-  .detail {
-    padding: 2rem;
-    margin: 2rem auto;
-
-    &__header {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    &__title {
-      font-size: 1.5rem;
     }
   }
 }

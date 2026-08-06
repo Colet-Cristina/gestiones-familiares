@@ -1,7 +1,10 @@
-// ============ IMPORTACIÓN DE DEPENDENCIAS ============
 import { useState } from "react";
 
-// ============ COMPONENTE LOGIN ============
+/**
+ * Componente para autenticación y registro de usuarios.
+ * Permite alternar entre inicio de sesión y registro, validando campos básicos.
+ */
+
 function Login({ onLogin }) {
   // ============ ESTADOS Y UI ============
   const [isRegistering, setIsRegistering] = useState(false);
@@ -39,7 +42,7 @@ function Login({ onLogin }) {
   return (
     <div className="login">
       <div className="login__card">
-        <h1 className="login__title">Gestiones Familiares</h1>
+        <h1 className="login__title">Family Today</h1>
 
         {/* Pestañas de selección */}
         <div className="login__tabs">
@@ -79,6 +82,7 @@ function Login({ onLogin }) {
                 placeholder="Ej: Mamá"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                autoComplete="name"
               />
             </div>
           )}
@@ -94,6 +98,7 @@ function Login({ onLogin }) {
               placeholder="ejemplo@correo.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              autoComplete="email"
             />
           </div>
           {/* Contraseña */}
@@ -109,6 +114,9 @@ function Login({ onLogin }) {
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                autoComplete={
+                  isRegistering ? "new-password" : "current-password"
+                }
               />
               <button
                 type="button"

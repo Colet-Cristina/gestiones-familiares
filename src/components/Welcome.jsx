@@ -1,4 +1,10 @@
+/**
+ * Componente que muestra un saludo dinámico ("¡Buenos días!", "¡Buenas tardes!", "¡Buenas noches!")
+ * en función de la hora local del dispositivo.
+ */
+
 function Welcome() {
+  // ============ Lógica / cálculo de saludo ============
   const currentHour = new Date().getHours();
   let greeting = "¡Buenas noches!";
 
@@ -8,6 +14,7 @@ function Welcome() {
     greeting = "¡Buenas tardes!";
   }
 
+  // ============ RENDERIZADO ============
   return (
     <section className="welcome">
       <h2 className="welcome__title">{greeting}</h2>

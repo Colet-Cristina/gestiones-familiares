@@ -1,3 +1,7 @@
+/**
+ * Componente modal para escribir y editar observaciones o notas sobre una cita médica.
+ */
+
 function ModalNote({
   isOpen,
   appointment,
@@ -6,7 +10,10 @@ function ModalNote({
   onSave,
   onClose,
 }) {
+  // Guardas de seguridad para evitar renderizar si está cerrado o falta la cita
   if (!isOpen || !appointment) return null;
+
+  // ============ RENDERIZADO ============
 
   return (
     <div className="modal" onClick={onClose}>

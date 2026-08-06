@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { FaWallet, FaEdit, FaTrash, FaFilter } from "react-icons/fa";
 
+/**
+ * Componente para la gestión de gastos compartidos o individuales,
+ * agrupados por pagador con desplegables (acordeón) y total acumulado.
+ */
+
 function Expenses({ expenses = [], setExpenses, onBack }) {
   const [concept, setConcept] = useState("");
   const [amount, setAmount] = useState("");
@@ -18,6 +23,8 @@ function Expenses({ expenses = [], setExpenses, onBack }) {
   const existingPayers = Array.from(
     new Set(expenses.map((exp) => exp.payer).filter(Boolean)),
   );
+
+  // ============ MANEJADORES DE EVENTOS (HANDLERS) ============
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -63,7 +70,9 @@ function Expenses({ expenses = [], setExpenses, onBack }) {
     setExpenses(expenses.filter((expense) => expense.id !== id));
   };
 
-  // Filtrado por mes
+  // ============ CÁLCULOS Y FILTROS ============
+
+  // Filtrado de gastos por el mes seleccionado
   const filteredExpenses = expenses.filter(
     (exp) => filterMonth === "all" || exp.month === filterMonth,
   );
@@ -84,9 +93,11 @@ function Expenses({ expenses = [], setExpenses, onBack }) {
     0,
   );
 
+  // ============ RENDERIZADO ============
+
   return (
     <>
-      {/* CABECERA CON ICONO */}
+      {/* Cabecera con icono */}
       <div className="detail__header">
         <button className="detail__back-btn" type="button" onClick={onBack}>
           &larr; Volver
@@ -100,7 +111,7 @@ function Expenses({ expenses = [], setExpenses, onBack }) {
         </div>
       </div>
 
-      {/* FORMULARIO */}
+      {/* Formulario */}
       <form className="detail__form" onSubmit={handleSubmit}>
         <input
           type="text"
@@ -159,7 +170,7 @@ function Expenses({ expenses = [], setExpenses, onBack }) {
         </button>
       </form>
 
-      {/* FILTRO POR MES */}
+      {/* Filtro por mes */}
       <div className="expenses__filters">
         <div className="expenses__filters-row">
           <input
@@ -180,7 +191,7 @@ function Expenses({ expenses = [], setExpenses, onBack }) {
         </div>
       </div>
 
-      {/* LISTA DE PESTAÑAS (ACORDEÓN POR PERSONA) */}
+      {/* Lista de pestañas (acordeón por persona) */}
       <div className="expenses__summary">
         {Object.keys(groupedExpenses).length === 0 ? (
           <p className="detail__item">No hay gastos registrados.</p>
@@ -248,7 +259,7 @@ function Expenses({ expenses = [], setExpenses, onBack }) {
           })
         )}
 
-        {/* TOTAL CONJUNTO DESTACADO */}
+        {/* Total conjunto destacado */}
         {filteredExpenses.length > 0 && (
           <div className="expenses__total">
             <span>Total Conjunto:</span>

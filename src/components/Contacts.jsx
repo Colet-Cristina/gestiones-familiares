@@ -1,10 +1,17 @@
 import { useState } from "react";
 import { FaPhoneAlt, FaEdit, FaTrash } from "react-icons/fa";
 
+/**
+ * Componente para la gestión de la agenda de contactos telefónicos.
+ * Permite añadir, editar, eliminar y llamar directamente a los contactos.
+ */
+
 function Contacts({ contacts = [], setContacts, onBack }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [editingId, setEditingId] = useState(null);
+
+  // ============ MANEJADORES DE EVENTOS (HANDLERS) ============
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,6 +46,8 @@ function Contacts({ contacts = [], setContacts, onBack }) {
     setContacts(contacts.filter((contact) => contact.id !== id));
   };
 
+  // ============ RENDERIZADO ============
+
   return (
     <>
       {/* CABECERA CON ICONO */}
@@ -59,7 +68,7 @@ function Contacts({ contacts = [], setContacts, onBack }) {
       <form className="detail__form" onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Nombre o Centro (ej: Urgencias, Doctor Robles)"
+          placeholder="Nombre (ej: centro dr día)"
           className="detail__input"
           value={name}
           onChange={(e) => setName(e.target.value)}

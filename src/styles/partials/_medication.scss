@@ -5,7 +5,6 @@
 }
 
 .detail {
-  // Ajuste de separación del título e icono en este módulo
   &__title-box {
     display: flex;
     align-items: center;
@@ -16,22 +15,5 @@
   &__icon-box--medication {
     background-color: rgba($color-green, 0.2);
     color: $color-green;
-  }
-
-  .medication-summary {
-    margin-top: 1.5rem;
-
-    // Sobrescribe el azul base para que en medicación sea verde
-    .detail__action-btn {
-      color: $color-green; // O la variable de verde que estés usando
-      &:hover {
-        color: $color-blue-hover;
-        transform: translateY(-0.0625rem);
-      }
-
-      &--delete:hover {
-        color: $color-red-bright;
-      }
-    }
   }
 }

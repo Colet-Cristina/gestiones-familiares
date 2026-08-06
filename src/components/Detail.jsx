@@ -5,6 +5,11 @@ import Contacts from "./Contacts";
 import Expenses from "./Expenses";
 import Documents from "./Documents";
 
+/**
+ * Componente contenedor que renderiza dinámicamente la sección de detalle
+ * seleccionada por el usuario (Citas, Medicación, Info Médica, etc.).
+ */
+
 function Detail({
   sectionId,
   onBack,
@@ -22,10 +27,11 @@ function Detail({
   setDocuments,
   onOpenModal,
 }) {
+  // ============ RENDERIZADO ============
   return (
     <section className={`detail detail--${sectionId}`}>
       <div className="detail__content">
-        {/* ====   CITAS ====*/}
+        {/* ==== Citas ==== */}
         {sectionId === "appointments" && (
           <Appointments
             appointments={appointments}
@@ -35,12 +41,12 @@ function Detail({
           />
         )}
 
-        {/* ====   MEDICACIÓN ====*/}
+        {/* ==== Medicación ==== */}
         {sectionId === "meds" && (
           <Medication meds={meds} setMeds={setMeds} onBack={onBack} />
         )}
 
-        {/* ====   INFORMACIÓN MÉDICA ====*/}
+        {/* ==== Información médica ==== */}
         {sectionId === "medical-info" && (
           <MedicalInfo
             medicalInfo={medicalInfo}
@@ -49,7 +55,7 @@ function Detail({
           />
         )}
 
-        {/* ==== TELÉFONOS  ==== */}
+        {/* ==== Teléfonos ==== */}
         {sectionId === "contacts" && (
           <Contacts
             contacts={contacts}
@@ -58,7 +64,7 @@ function Detail({
           />
         )}
 
-        {/* ==== GASTOS ==== */}
+        {/* ==== Gastos ==== */}
         {sectionId === "expenses" && (
           <Expenses
             expenses={expenses}
@@ -67,7 +73,7 @@ function Detail({
           />
         )}
 
-        {/* ==== DOCUMENTOS ==== */}
+        {/* ==== Documentos ==== */}
         {sectionId === "documents" && (
           <Documents
             documents={documents}

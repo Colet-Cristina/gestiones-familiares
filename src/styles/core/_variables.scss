@@ -1,8 +1,17 @@
 // Fuente
 $font-main: "Inter", sans-serif;
 
+//  Marca (Sakura) ---
+$color-primary: #db2777;
+$color-primary-hover: #be185d;
+$color-primary-soft: #ffd7ed;
+$color-primary-md: #ffa1d5;
+$color-sakura-warm: #f784bf;
+
+$color-body: #fff2f9;
+
 // Principales
-$color-bg: #f3f4f6;
+
 $color-text: #2c3e50;
 $color-white: #ffffff;
 $color-black: #000000;
@@ -18,9 +27,7 @@ $color-green-soft: #57b891;
 
 $color-red: #e74c3c;
 $color-red-light: #fef2f2;
-$color-red-soft: #fca5a5;
-$color-red-medium: #fc6767;
-$color-red-bright: #ef4444;
+$color-red-bright: #e63946;
 
 $color-brown: #503209;
 $color-brown-soft: #cc9a3e;
@@ -38,7 +45,7 @@ $color-grey-500: #6b7280;
 $color-grey-800: #1f2937;
 
 // Bordes y Radios
-$color-border: #e5e7eb;
+$color-border: #cdcecf;
 
 $radius-xs: 0.25rem;
 $radius-small: 0.3rem;
@@ -48,14 +55,13 @@ $radius-large: 0.8rem;
 $border-subtle: 0.0625rem solid rgba(0, 0, 0, 0.05);
 
 // Sombras
-$shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.05);
+$shadow: 0.5rem 0.3rem 0.8rem rgba(0, 0, 0, 0.3);
 $shadow-md: 0 0.25rem 0.3rem rgba(0, 0, 0, 0.1);
-$shadow-lg: 0 0.625rem 0.9rem rgba(0, 0, 0, 0.1);
-$shadow-hover: 0 0.625rem 0.9rem rgba(0, 0, 0, 0.5);
+$shadow-lg: 0 0.6rem 0.9rem rgba(0, 0, 0, 0.1);
+$shadow-st: 0 1rem 1.5rem rgba(0, 0, 0, 0.2);
 
 // Transiciones
 $transition-fast: 0.2s ease;
-$transition-normal: 0.3s ease;
 
 // Breakpoints
 $tablet: 48rem; // 768px

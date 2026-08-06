@@ -1,5 +1,6 @@
 @use "../core/variables" as *;
 
+// ============ ESTILOS DEL CALENDARIO ============
 .calendar {
   background-color: $color-white;
   border: 0.0625rem solid $color-border;
@@ -14,10 +15,9 @@
     margin-bottom: 1rem;
   }
 
-  // Botones calendario
   &__btn-nav {
     background: transparent;
-    border: 0.02rem solid $color-black;
+    border: 0.0625rem solid $color-black;
     border-radius: $radius-small;
     padding: 0.25rem 0.6rem;
     cursor: pointer;
@@ -26,7 +26,7 @@
     transition: background-color $transition-fast;
 
     &:hover {
-      background-color: $color-bg;
+      background-color: $color-blue-soft;
     }
   }
 
@@ -55,7 +55,7 @@
     aspect-ratio: 1;
     border: none;
     background: none;
-    border-radius: $radius-small;
+    border-radius: 50%;
     font-size: 0.875rem;
     color: $color-text;
     cursor: pointer;
@@ -63,75 +63,51 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.3s ease;
 
-    &:hover {
-      background-color: $color-bg;
-    }
-
-    // Huecos vacíos antes del día 1
+    // Deshabilita el puntero en los huecos previos al inicio del mes
     &--empty {
       cursor: default;
-      &:hover {
-        background-color: transparent;
-      }
     }
 
-    // Resaltar el día de HOY
     &--today {
       background-color: $color-blue;
       color: $color-white;
-      font-weight: 600;
-
-      &:hover {
-        filter: brightness(0.9);
-      }
-    }
-  }
-
-  .calendar__day {
-    cursor: pointer;
-    border-radius: 50%;
-    transition: all 0.3s ease;
-
-    // Día actual
-    &--today {
-      font-weight: bold;
+      font-weight: 700;
       border: 0.0625rem solid $color-blue;
     }
 
-    //  Día que tiene CITA
     &--has-appointment {
-      background-color: $color-green-light;
-      color: $color-green;
-      font-weight: bold;
+      background-color: $color-primary-soft;
+      color: $color-primary;
+      font-weight: 700;
     }
 
-    // Día que tiene CITA + NOTA
     &--has-note {
-      background-color: $color-green-light;
-      color: $color-green;
-      border: 0.125rem solid $color-green;
-      font-weight: bold;
+      background-color: $color-primary-soft;
+      color: $color-primary;
+      border: 0.125rem solid $color-primary;
+      font-weight: 700;
     }
   }
 
-  .calendar__legend {
+  &__legend {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 2rem;
     margin-top: 0.4rem;
     padding-top: 0.75rem;
-    border-top: 0.0625rem solid $color-bg;
+    border-top: 0.0625rem solid $color-grey-300;
   }
 
-  .calendar__legend-item {
+  &__legend-item {
     display: flex;
     align-items: center;
     gap: 0.375rem;
   }
 
-  .calendar__legend-color {
+  &__legend-color {
     width: 0.75rem;
     height: 0.75rem;
     border-radius: 50%;
@@ -142,25 +118,26 @@
     }
 
     &--appointment {
-      background-color: $color-green-light;
+      background-color: $color-primary-soft;
     }
 
     &--note {
-      background-color: $color-green-light;
-      border: 0.0625rem solid $color-green;
+      background-color: $color-primary-soft;
+      border: 0.0625rem solid $color-primary;
     }
   }
 
-  .calendar__legend-label {
+  &__legend-label {
     font-size: 0.75rem;
-    color: #555555;
+    color: $color-grey-500;
   }
+}
 
-  @media (min-width: 48rem) {
-    .calendar {
-      max-width: 30rem;
-      margin-left: auto;
-      margin-right: auto;
-    }
+// ============ Media Queries ============
+@media (min-width: $tablet) {
+  .calendar {
+    max-width: 30rem;
+    margin-left: auto;
+    margin-right: auto;
   }
 }

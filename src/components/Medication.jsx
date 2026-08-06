@@ -1,11 +1,18 @@
 import { useState } from "react";
 import { FaPills, FaEdit, FaTrash } from "react-icons/fa";
 
+/**
+ * Componente para la gestión de medicamentos.
+ * Permite agregar, editar y eliminar medicamentos y sus dosis.
+ */
+
 function Medication({ meds = [], setMeds, onBack }) {
   // Estados para los inputs del formulario
   const [name, setName] = useState("");
   const [dose, setDose] = useState("");
   const [editingId, setEditingId] = useState(null);
+
+  // ============ MANEJADORES DE EVENTOS (HANDLERS) ============
 
   // Añadir o editar medicamento
   const handleSubmit = (e) => {
@@ -47,7 +54,7 @@ function Medication({ meds = [], setMeds, onBack }) {
 
   return (
     <>
-      {/* CABECERA TEMÁTICA */}
+      {/* Cabecera temática */}
       <div className="detail__header">
         <button className="detail__back-btn" type="button" onClick={onBack}>
           &larr; Volver
@@ -61,7 +68,7 @@ function Medication({ meds = [], setMeds, onBack }) {
         </div>
       </div>
 
-      {/* FORMULARIO PRINCIPAL (Añadir / Editar) */}
+      {/* Formulario principal (añadir / editar) */}
       <form className="detail__form" onSubmit={handleSubmit}>
         <input
           type="text"
@@ -84,7 +91,7 @@ function Medication({ meds = [], setMeds, onBack }) {
         </button>
       </form>
 
-      {/* LISTADO DE MEDICAMENTOS */}
+      {/* Listado de medicamentos */}
       <div className="medication-summary">
         <ul className="detail__list">
           {meds.length === 0 ? (

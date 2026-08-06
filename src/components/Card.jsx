@@ -1,4 +1,9 @@
+/**
+ * Componente interactivo para mostrar accesos rápidos o módulos en formato tarjeta.
+ */
+
 function Card({ cardData, onSelectCard }) {
+  // ============ RENDERIZADO ============
   return (
     <article
       className={`card card--${cardData.id}`}

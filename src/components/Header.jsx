@@ -1,4 +1,10 @@
+/**
+ * Componente para la cabecera principal de la aplicación.
+ * Muestra el título del proyecto, el nombre de la familia actual y el botón para cerrar sesión.
+ */
+
 function Header({ familyName, onLogout }) {
+  // ============ RENDERIZADO ============
   return (
     <header className="header">
       <div className="header__content">

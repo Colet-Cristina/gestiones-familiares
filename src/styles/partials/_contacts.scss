@@ -1,24 +1,5 @@
 @use "../core/variables" as *;
 
-.contacts-summary {
-  margin-top: 1.5rem;
-
-  .detail__item-actions {
-    .detail__action-btn {
-      color: $color-brown;
-
-      &:hover {
-        opacity: 0.8;
-        transform: translateY(-0.0625rem);
-      }
-
-      &--delete:hover {
-        color: $color-red-bright;
-      }
-    }
-  }
-}
-
 .detail {
   &__title-box {
     display: flex;

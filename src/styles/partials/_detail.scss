@@ -1,71 +1,110 @@
 @use "../core/variables" as *;
 
 .detail {
-  padding: 1.5rem;
+  padding: 1.25rem;
+  margin: 2rem auto 1rem auto;
   background-color: $color-white;
   border-radius: $radius-large;
-  box-shadow: $shadow-lg;
-  margin-top: 1rem;
+  box-shadow: $shadow-st;
+  border: $border-subtle;
 
+  // Modificadores de color por sección
+  &--appointments {
+    border-color: rgba($color-blue, 0.8);
+  }
+  &--medication {
+    border-color: rgba($color-blue, 0.8);
+  }
+  &--medical-info {
+    border-color: rgba($color-red, 0.8);
+  }
+  &--contacts {
+    border-color: rgba($color-brown, 0.8);
+  }
+  &--expenses {
+    border-color: rgba($color-mustard, 0.8);
+  }
+  &--documents {
+    border-color: rgba($color-purple, 0.8);
+  }
+
+  // --- CABECERA Y CENTRADO DE TÍTULO ---
   &__header {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: 0.75rem;
     margin-bottom: 1.25rem;
+    position: relative; // Permite fijar el botón a la izquierda sin desplazar el centro
   }
 
   &__back-btn {
     background-color: transparent;
-    border: 0.06rem solid $color-grey-800;
-    border-radius: $radius-xs;
-    padding: 0.5rem 1rem;
-    color: $color-grey-800;
+    border: none;
+    color: $color-primary;
+    font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
-    flex-shrink: 0;
-
+    padding: 0;
+    align-self: flex-start;
     transition:
-      background-color $transition-fast,
-      color $transition-fast;
+      color $transition-fast,
+      font-size $transition-fast;
 
     &:hover {
-      background-color: $color-grey-500;
-      color: $color-white;
+      color: $color-blue-hover;
     }
   }
 
+  &__title-box {
+    display: flex;
+    align-items: center;
+    justify-content: center; // Centra título e icono horizontalmente
+    gap: 0.75rem;
+    width: 100%;
+  }
+
   &__title {
-    margin: 0.5rem;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    font-weight: 700;
     color: $color-text;
-    margin-bottom: 0.5rem;
-    text-align: center;
+    margin: 0;
+    text-align: center; // Asegura el centrado del texto
   }
 
   &__subtitle {
     font-size: 1rem;
     color: $color-text;
     margin-bottom: 0.75rem;
+    text-align: center;
+  }
+
+  &__icon-box {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: $radius-medium;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    flex-shrink: 0;
   }
 
   // --- FORMULARIOS ---
   &__form {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 1rem;
     margin-bottom: 1.5rem;
-
-    @media (min-width: 48rem) {
-      flex-direction: row;
-    }
   }
 
   &__input {
-    padding: 0.625rem 0.875rem;
-    border: 0.0625rem solid $color-grey-300;
-    border-radius: $radius-small;
-    font-size: 0.875rem;
-    flex: 1;
+    padding: 0.75rem;
+    border: 0.0625rem solid $color-border;
+    border-radius: $radius-medium;
+    font-size: 0.95rem;
+    color: $color-text;
+    background-color: $color-white;
+    width: 100%;
 
     &:focus {
       outline: none;
@@ -74,17 +113,18 @@
   }
 
   &__btn {
-    background-color: $color-blue;
+    background-color: $color-sakura-warm;
     color: $color-white;
     border: none;
-    padding: 0.625rem 1.25rem;
-    border-radius: $radius-small;
+    padding: 0.85rem;
+    border-radius: $radius-medium;
+    font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: filter $transition-fast;
+    transition: background-color $transition-fast;
 
     &:hover {
-      filter: brightness(0.9);
+      background-color: $color-primary-hover;
     }
   }
 
@@ -92,27 +132,22 @@
   &__list {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 1.5rem 0 0 0;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.75rem;
   }
 
   &__item {
-    padding: 0.75rem 1rem;
-    background-color: $color-white;
-    border: 0.07rem solid $color-border;
-    border-left: 0.3rem solid transparent;
-    border-radius: $radius-small;
+    padding: 1rem;
+    background-color: $color-grey-100;
+    box-shadow: $shadow;
+    border-radius: $radius-medium;
     font-size: 0.9rem;
     color: $color-text;
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    &--has-note {
-      border-left-color: $color-green;
-    }
   }
 
   &__item-info {
@@ -123,8 +158,19 @@
     word-break: break-word;
   }
 
-  &__item-title,
+  &__item-title {
+    font-weight: 700;
+    display: block;
+    color: $color-text;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
   &__item-date {
+    font-size: 0.8rem;
+    color: $color-grey-500;
+    margin-top: 0.25rem;
+    display: block;
     overflow-wrap: break-word;
     word-break: break-word;
   }
@@ -135,18 +181,68 @@
     flex-shrink: 0;
   }
 
+  // --- BOTONES DE ACCIÓN ---
   &__action-btn {
     background: transparent;
     border: none;
-    cursor: pointer;
     font-size: 1.1rem;
+    cursor: pointer;
     padding: 0.4rem;
     border-radius: $radius-xs;
-    color: $color-blue;
-    transition: background-color $transition-fast;
+    color: $color-primary-md;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+      color $transition-fast,
+      transform $transition-fast,
+      background-color $transition-fast;
 
     &:hover {
+      transform: translateY(-0.2rem);
       background-color: $color-grey-100;
+      color: $color-red-bright;
+    }
+
+    &--delete {
+      color: $color-red;
+
+      &:hover {
+        color: $color-red-bright;
+      }
+    }
+  }
+}
+
+// ============ Media Queries ============
+@media (min-width: $tablet) {
+  .detail {
+    padding: 2rem;
+    margin: 2rem auto;
+
+    &__header {
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      min-height: 3rem;
+    }
+
+    &__back-btn {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.25rem;
+      padding: 0.5rem 0.75rem;
+    }
+
+    &__title {
+      font-size: 1.6rem;
+    }
+
+    &__action-btn {
+      font-size: 1.4rem;
+      padding: 0.5rem;
     }
   }
 }

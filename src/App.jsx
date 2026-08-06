@@ -22,7 +22,7 @@ function App() {
     return savedUser ? JSON.parse(savedUser) : null;
   });
 
-  // ============ ESTADOS DE NAVEGACIÓN  ============
+  // ============ ESTADOS DE NAVEGACIÓN ============
 
   const [activeSection, setActiveSection] = useState(null);
 
@@ -111,6 +111,7 @@ function App() {
    */
   const handleLogin = (userData) => {
     setUser(userData);
+    setActiveSection(null); // Vuelve siempre al Dashboard principal al entrar
     localStorage.setItem("app_user", JSON.stringify(userData));
   };
 
@@ -119,6 +120,8 @@ function App() {
    */
   const handleLogout = () => {
     setUser(null);
+    setActiveSection(null); // Vuelve a la landing/dashboard al salir
+    setActiveModalId(null);
     localStorage.removeItem("app_user");
   };
 
@@ -160,7 +163,6 @@ function App() {
       <Header familyName={user?.name} onLogout={handleLogout} />
 
       <main className="main">
-        {/* Vista dinámica: Dashboard o Vista Detallada */}
         {!activeSection ? (
           <Dashboard
             onSelectCard={(sectionId) => setActiveSection(sectionId)}

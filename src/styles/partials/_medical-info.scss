@@ -16,20 +16,4 @@
     background-color: $color-red-light;
     color: $color-red-bright;
   }
-
-  .info-summary {
-    margin-top: 1.5rem;
-
-    .detail__action-btn {
-      color: $color-red;
-      &:hover {
-        color: $color-blue-hover;
-        transform: translateY(-0.0625rem);
-      }
-
-      &--delete:hover {
-        color: $color-red-bright;
-      }
-    }
-  }
 }

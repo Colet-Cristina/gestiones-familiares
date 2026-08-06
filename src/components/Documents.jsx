@@ -6,7 +6,14 @@ import {
   FaCamera,
   FaFilePdf,
   FaFilter,
+  FaEye,
+  FaTimes,
 } from "react-icons/fa";
+
+/**
+ * Componente para gestionar documentos adjuntos (imágenes o PDF),
+ * permitiendo subir archivos mediante cámara o archivo local, visualizarlos y filtrarlos.
+ */
 
 function Documents({ documents = [], setDocuments, onBack }) {
   const [title, setTitle] = useState("");
@@ -16,12 +23,16 @@ function Documents({ documents = [], setDocuments, onBack }) {
   const [fileType, setFileType] = useState(""); // Saber si es imagen o PDF
   const [editingId, setEditingId] = useState(null);
 
+  const [selectedDoc, setSelectedDoc] = useState(null);
+
   // Filtro por persona
   const [filterOwner, setFilterOwner] = useState("all");
 
   const existingOwners = Array.from(
     new Set(documents.map((doc) => doc.owner).filter(Boolean)),
   );
+
+  // ============ MANEJADORES DE EVENTOS (HANDLERS) ============
 
   // Convertir el archivo/foto a Base64 para guardarlo en la app
   const handleFileChange = (e) => {
@@ -86,9 +97,10 @@ function Documents({ documents = [], setDocuments, onBack }) {
     (doc) => filterOwner === "all" || doc.owner === filterOwner,
   );
 
+  // ============ RENDERIZADO ============
   return (
-    <section className="detail detail--documents">
-      {/* CABECERA TEMÁTICA */}
+    <>
+      {/* Cabecera con icono */}
       <div className="detail__header">
         <button className="detail__back-btn" type="button" onClick={onBack}>
           &larr; Volver
@@ -96,18 +108,18 @@ function Documents({ documents = [], setDocuments, onBack }) {
 
         <div className="detail__title-box">
           <h3 className="detail__title">Documentación</h3>
-          {/* Cajita icono temático pastel */}
+
           <div className="detail__icon-box detail__icon-box--documents">
             <FaFolderOpen />
           </div>
         </div>
       </div>
 
-      {/* FORMULARIO */}
+      {/* Formulario */}
       <form className="detail__form" onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Nombre (ej: Receta Sintrom, Tarjeta Sanitaria)"
+          placeholder="Nombre (ej: Recetas, Tarjeta Sanitaria)"
           className="detail__input"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -140,7 +152,7 @@ function Documents({ documents = [], setDocuments, onBack }) {
           />
         )}
 
-        {/* INPUT DE ARCHIVOS */}
+        {/* Input de archivos */}
         <div className="documents__file-input-wrapper">
           <label className="documents__file-label" htmlFor="doc-file">
             <FaCamera className="documents__camera-icon" /> Hacer foto o subir
@@ -156,7 +168,7 @@ function Documents({ documents = [], setDocuments, onBack }) {
           />
         </div>
 
-        {/* PREVISUALIZACIÓN */}
+        {/* Previsualización */}
         {fileData && (
           <div className="documents__preview">
             {fileType.includes("image") ? (
@@ -173,13 +185,12 @@ function Documents({ documents = [], setDocuments, onBack }) {
           </div>
         )}
 
-        {/* BOTÓN AZUL UNIFICADO */}
+        {/* Botón añadir */}
         <button type="submit" className="detail__btn">
           {editingId ? "Guardar Cambios" : "Añadir Documento"}
         </button>
       </form>
 
-      {/* FILTRO POR PERSONA */}
       {existingOwners.length > 0 && (
         <div className="documents__filters">
           <div className="documents__filters-row">
@@ -208,7 +219,7 @@ function Documents({ documents = [], setDocuments, onBack }) {
         </div>
       )}
 
-      {/* LISTADO DE DOCUMENTOS */}
+      {/* Listado de documentos */}
       <div className="documents__summary">
         <ul className="detail__list">
           {filteredDocuments.length === 0 ? (
@@ -226,34 +237,38 @@ function Documents({ documents = [], setDocuments, onBack }) {
 
                   {doc.fileData && (
                     <div className="documents__file-container">
-                      {doc.fileType?.includes("image") ? (
-                        <a
-                          href={doc.fileData}
-                          target="_blank"
-                          rel="noreferrer"
-                          title="Haz clic para ver foto completa"
-                        >
+                      <button
+                        type="button"
+                        className="documents__view-btn"
+                        onClick={() => setSelectedDoc(doc)}
+                      >
+                        {doc.fileType?.includes("image") ? (
                           <img
                             src={doc.fileData}
                             alt={doc.title}
                             className="documents__thumb"
                           />
-                        </a>
-                      ) : (
-                        <a
-                          href={doc.fileData}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="documents__pdf-link"
-                        >
-                          🔗 Ver documento PDF
-                        </a>
-                      )}
+                        ) : (
+                          <span className="documents__pdf-link">
+                            <FaFilePdf /> Ver documento PDF
+                          </span>
+                        )}
+                      </button>
                     </div>
                   )}
                 </div>
 
                 <div className="detail__item-actions">
+                  {doc.fileData && (
+                    <button
+                      type="button"
+                      className="detail__action-btn detail__action-btn--purple"
+                      onClick={() => setSelectedDoc(doc)}
+                      title="Ver documento"
+                    >
+                      <FaEye />
+                    </button>
+                  )}
                   <button
                     type="button"
                     className="detail__action-btn detail__action-btn--edit detail__action-btn--purple"
@@ -276,7 +291,41 @@ function Documents({ documents = [], setDocuments, onBack }) {
           )}
         </ul>
       </div>
-    </section>
+
+      {/* ================= MODAL VISTA PREVIA ================= */}
+      {selectedDoc && (
+        <div className="modal modal--doc" onClick={() => setSelectedDoc(null)}>
+          <div className="modal__content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal__header">
+              <h4 className="modal__title">{selectedDoc.title}</h4>
+              <button
+                type="button"
+                className="modal__close"
+                onClick={() => setSelectedDoc(null)}
+              >
+                <FaTimes />
+              </button>
+            </div>
+
+            <div className="modal__body">
+              {selectedDoc.fileType?.includes("image") ? (
+                <img
+                  src={selectedDoc.fileData}
+                  alt={selectedDoc.title}
+                  className="modal__img"
+                />
+              ) : (
+                <iframe
+                  src={selectedDoc.fileData}
+                  title={selectedDoc.title}
+                  className="modal__iframe"
+                />
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 

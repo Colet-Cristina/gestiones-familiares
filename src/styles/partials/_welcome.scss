@@ -1,7 +1,7 @@
 @use "../core/variables" as *;
 
 .welcome {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
   text-align: center;
 
   &__title {
@@ -9,10 +9,11 @@
   }
 }
 
-@media (min-width: $desktop) {
+// ============ Media Queries ============
+@media (min-width: $tablet) {
   .welcome {
     &__title {
-      font-size: 1.25rem;
+      font-size: 1.6rem;
     }
   }
 }

@@ -1,19 +1,29 @@
+// ============ IMPORTACIÓN DE DEPENDENCIAS ============
 import { useState } from "react";
 import { FaCalendarAlt, FaStickyNote, FaEdit, FaTrash } from "react-icons/fa";
 import Calendar from "./Calendar";
 
+/**
+ * Componente para la gestión completa de Citas Médicas.
+ * Permite añadir, editar, eliminar y visualizar citas en lista y calendario.
+ */
 function Appointments({
   appointments = [],
   setAppointments,
   onOpenModal,
   onBack,
 }) {
+  // ============ ESTADOS Y UI ============
   const [spec, setSpec] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [editingId, setEditingId] = useState(null);
 
-  // Añadir o editar cita
+  // ============ MANEJADORES DE EVENTOS (HANDLERS) ============
+
+  /**
+   * Procesa el envío del formulario para crear una nueva cita o guardar cambios en una existente.
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -40,7 +50,9 @@ function Appointments({
     setTime("");
   };
 
-  // Preparar edición
+  /**
+   * Carga los datos de una cita existente en el formulario para editarla.
+   */
   const handleEdit = (app) => {
     setSpec(app.spec);
     setDate(app.date);
@@ -48,11 +60,14 @@ function Appointments({
     setEditingId(app.id);
   };
 
-  // Eliminar cita
+  /**
+   * Elimina una cita médica por su ID.
+   */
   const handleDelete = (id) => {
     setAppointments(appointments.filter((app) => app.id !== id));
   };
 
+  // ============ RENDERIZADO ============
   return (
     <>
       <div className="detail__header">
@@ -71,7 +86,7 @@ function Appointments({
       <form className="detail__form" onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Cita"
+          placeholder="Cita / Especialidad"
           className="detail__input"
           value={spec}
           onChange={(e) => setSpec(e.target.value)}
@@ -96,7 +111,7 @@ function Appointments({
         </button>
       </form>
 
-      {/* Le pasamos las citas al Calendario */}
+      {/* Calendario interactivo integrado */}
       <Calendar appointments={appointments} />
 
       <div className="appointments-summary">
@@ -116,7 +131,7 @@ function Appointments({
                   ? "detail__action-btn--active"
                   : "";
 
-                // Formatear la fecha a DD/MM/YYYY para mostrarla al usuario
+                // Formatear fecha a formato de lectura DD/MM/YYYY
                 let formattedDate = app.date;
                 if (
                   app.date &&

@@ -1,6 +1,11 @@
+// ============ IMPORTACIÓN DE DEPENDENCIAS ============
 import { useState } from "react";
 
+/**
+ * Componente de Calendario interactivo para el marcado mensual de citas.
+ */
 function Calendar({ appointments = [] }) {
+  // ============ ESTADOS Y CONFIGURACIÓN ============
   const [displayedDate, setDisplayedDate] = useState(new Date());
 
   const year = displayedDate.getFullYear();
@@ -21,25 +26,34 @@ function Calendar({ appointments = [] }) {
     "Diciembre",
   ];
 
-  // Cambiar al mes anterior
+  const daysOfWeek = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
+
+  // ============ LÓGICA DE NAVEGACIÓN Y CÁLCULOS ============
+
+  /**
+   * Cambia la vista al mes anterior.
+   */
   const handlePrevMonth = () => {
     setDisplayedDate(new Date(year, month - 1, 1));
   };
 
-  // Cambiar al mes siguiente
+  /**
+   * Cambia la vista al mes siguiente.
+   */
   const handleNextMonth = () => {
     setDisplayedDate(new Date(year, month + 1, 1));
   };
 
-  // Cálculo de los días del mes
+  // Cálculos para la maquetación de la cuadrícula mensual
   const firstDayIndex = new Date(year, month, 1).getDay();
-  const startingDay = firstDayIndex === 0 ? 6 : firstDayIndex - 1; // Lunes = 0
+  const startingDay = firstDayIndex === 0 ? 6 : firstDayIndex - 1; // Ajuste para iniciar en Lunes (0)
   const totalDaysInMonth = new Date(year, month + 1, 0).getDate();
 
-  const daysOfWeek = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
-
-  // Comprobar si un día concreto es hoy
   const today = new Date();
+
+  /**
+   * Comprueba si un número de día corresponde a la fecha actual de hoy.
+   */
   const isToday = (day) => {
     return (
       day === today.getDate() &&
@@ -48,7 +62,9 @@ function Calendar({ appointments = [] }) {
     );
   };
 
-  // 🛡️ Busca la cita en cualquier formato de fecha posible
+  /**
+   * Busca si existe una cita asociada a un día específico del mes desplegado.
+   */
   const getAppointmentForDay = (day) => {
     if (!Array.isArray(appointments)) return null;
 
@@ -69,6 +85,7 @@ function Calendar({ appointments = [] }) {
     });
   };
 
+  // ============ RENDERIZADO ============
   return (
     <div className="calendar">
       <div className="calendar__header">
@@ -76,6 +93,7 @@ function Calendar({ appointments = [] }) {
           type="button"
           className="calendar__btn-nav"
           onClick={handlePrevMonth}
+          aria-label="Mes anterior"
         >
           &lt;
         </button>
@@ -86,6 +104,7 @@ function Calendar({ appointments = [] }) {
           type="button"
           className="calendar__btn-nav"
           onClick={handleNextMonth}
+          aria-label="Mes siguiente"
         >
           &gt;
         </button>
@@ -130,6 +149,7 @@ function Calendar({ appointments = [] }) {
           })}
         </div>
 
+        {/* Leyenda de colores del calendario */}
         <div className="calendar__legend">
           <div className="calendar__legend-item">
             <span className="calendar__legend-color calendar__legend-color--today"></span>
