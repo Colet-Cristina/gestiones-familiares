@@ -66,6 +66,13 @@ function Appointments({
     setAppointments(appointments.filter((app) => app.id !== id));
   };
 
+  // ============ WHATSAPP LINK ============
+  // Texto del mensaje para avisar a la familia
+  const whatsappMessage = encodeURIComponent(
+    `¡Hola. Se ha actualizado la agenda de citas médicas en la app. Echadle un vistazo.`,
+  );
+  const whatsappUrl = `https://api.whatsapp.com/send?text=${whatsappMessage}`;
+
   // ============ RENDERIZADO ============
   return (
     <>
@@ -105,9 +112,25 @@ function Appointments({
           onChange={(e) => setTime(e.target.value)}
           required
         />
-        <button type="submit" className="detail__btn">
-          {editingId ? "Guardar Cambios" : "Añadir Cita"}
-        </button>
+
+        {/* Contenedor para los botones de acción del formulario */}
+        <div
+          className="detail__form-actions"
+          style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}
+        >
+          <button type="submit" className="detail__btn">
+            {editingId ? "Guardar Cambios" : "Añadir Cita"}
+          </button>
+
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="detail__btn detail__btn--whatsapp"
+          >
+            Avisar por WhatsApp
+          </a>
+        </div>
       </form>
 
       {/* Calendario interactivo integrado */}

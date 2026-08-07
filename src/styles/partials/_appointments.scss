@@ -42,8 +42,10 @@
   &__item--has-note {
     border-left: 0.25rem solid $color-primary;
   }
+  &__btn--whatsapp {
+    text-decoration: none;
+  }
 }
-
 // ============ Media Queries ============
 @media (min-width: $tablet) {
 }
