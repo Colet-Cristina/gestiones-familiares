@@ -5,12 +5,12 @@
 
 import logo from "../images/logo-family-today.png";
 
-function Header({ familyName, onLogout }) {
+function Header({ familyName, onLogout, onGoHome }) {
   // ============ RENDERIZADO ============
   return (
     <header className="header">
       <div className="header__content">
-        <div className="header__brand">
+        <div className="header__brand" onClick={onGoHome}>
           <img src={logo} alt="Family Today" className="header__logo" />
 
           <h1 className="header__title visually-hidden">Family Today</h1>

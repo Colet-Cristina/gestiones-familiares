@@ -1,9 +1,13 @@
 import { useState } from "react";
 import logo from "../images/logo-family-today.png";
+import { auth } from "../services/firebase";
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
 
 /**
- * Componente para autenticación y registro de usuarios.
- * Permite alternar entre inicio de sesión y registro, validando campos básicos.
+ * Componente para autenticación y registro de usuarios con Firebase.
  */
 function Login({ onLogin, onGuestLogin }) {
   // ============ ESTADOS Y UI ============
@@ -13,9 +17,10 @@ function Login({ onLogin, onGuestLogin }) {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   // ============ MANEJADORES DE EVENTOS (HANDLERS) ============
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!email.trim() || !password.trim()) {
@@ -29,13 +34,57 @@ function Login({ onLogin, onGuestLogin }) {
     }
 
     setError("");
+    setLoading(true);
 
-    const userData = {
-      name: isRegistering ? name.trim() : email.split("@")[0],
-      email: email.trim(),
-    };
+    try {
+      let userCredential;
 
-    onLogin(userData);
+      if (isRegistering) {
+        // Registro en Firebase
+        userCredential = await createUserWithEmailAndPassword(
+          auth,
+          email.trim(),
+          password,
+        );
+      } else {
+        // Inicio de sesión en Firebase (se valida contraseña y correo)
+        userCredential = await signInWithEmailAndPassword(
+          auth,
+          email.trim(),
+          password,
+        );
+      }
+
+      const user = userCredential.user;
+
+      const userData = {
+        name: isRegistering
+          ? name.trim()
+          : user.displayName || email.split("@")[0],
+        email: user.email,
+      };
+
+      onLogin(userData);
+    } catch (err) {
+      // Errores de contraseña o correo, capturamos el error
+      console.error("Error de autenticación:", err.code);
+
+      if (
+        err.code === "auth/invalid-credential" ||
+        err.code === "auth/wrong-password" ||
+        err.code === "auth/user-not-found"
+      ) {
+        setError("Correo o contraseña incorrectos.");
+      } else if (err.code === "auth/email-already-in-use") {
+        setError("Este correo ya está registrado. Prueba a iniciar sesión.");
+      } else if (err.code === "auth/weak-password") {
+        setError("La contraseña debe tener al menos 6 caracteres.");
+      } else {
+        setError("Ocurrió un error al autenticar. Revisa los datos.");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   // ============ RENDERIZADO ============
@@ -134,8 +183,12 @@ function Login({ onLogin, onGuestLogin }) {
 
           {error && <p className="login__error">{error}</p>}
 
-          <button type="submit" className="detail__btn">
-            {isRegistering ? "Crear Cuenta Familiar" : "Entrar"}
+          <button type="submit" className="detail__btn" disabled={loading}>
+            {loading
+              ? "Cargando..."
+              : isRegistering
+                ? "Crear Cuenta Familiar"
+                : "Entrar"}
           </button>
         </form>
 

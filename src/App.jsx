@@ -118,7 +118,11 @@ function App() {
 
   return (
     <div className="page">
-      <Header familyName={user?.name} onLogout={handleLogout} />
+      <Header
+        familyName={user?.name}
+        onLogout={handleLogout}
+        onGoHome={() => setActiveSection(null)}
+      />
       <main className="main">
         {!activeSection ? (
           <Dashboard
