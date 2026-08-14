@@ -207,7 +207,7 @@ function Expenses({ expenses = [], setExpenses, onBack }) {
                 <details>
                   <summary className="expenses__group-summary">
                     <span className="expenses__summary-info">
-                      👤 <strong>{person}</strong> ({items.length})
+                      👤 {person} ({items.length})
                     </span>
                     <span className="expenses__summary-total">
                       {personSubtotal.toFixed(2)} €

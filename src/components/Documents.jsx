@@ -232,7 +232,7 @@ function Documents({ documents = [], setDocuments, onBack }) {
                 <div className="detail__item-info">
                   <span className="detail__item-title">{doc.title}</span>
                   <span className="detail__item-date">
-                    👤 <strong>{doc.owner}</strong> | 📅 {doc.createdAt}
+                    👤 {doc.owner} | 📅 {doc.createdAt}
                   </span>
 
                   {doc.fileData && (

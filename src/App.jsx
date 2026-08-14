@@ -25,18 +25,8 @@ function App() {
   const [meds, setMeds] = useState([]);
   const [medicalInfo, setMedicalInfo] = useState([]);
   const [contacts, setContacts] = useState([]);
-  const [expenses, setExpenses] = useState([
-    { id: "1", concept: "Farmacia - Medicinas", amount: "24.50" },
-  ]);
-  const [documents, setDocuments] = useState([
-    {
-      id: "1",
-      title: "DNI",
-      owner: "Mamá",
-      location: "Carpeta roja de la entrada",
-      expirationDate: "2028-10-15",
-    },
-  ]);
+  const [expenses, setExpenses] = useState([]);
+  const [documents, setDocuments] = useState([]);
 
   // Cargar datos de Firebase al iniciar
   useEffect(() => {
