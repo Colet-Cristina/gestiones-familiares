@@ -30,7 +30,7 @@ function App() {
 
   // Cargar datos de Firebase al iniciar
   useEffect(() => {
-    if (user) {
+    if (user && !user.isGuest) {
       const fetchData = async () => {
         const collections = [
           "appointments",
@@ -61,9 +61,9 @@ function App() {
     }
   }, [user]);
 
-  // Guardar en Firebase cuando cambia el estado
+  // Guardar en Firebase cuando cambia el estado (solo si hay usuario real, no invitado)
   useEffect(() => {
-    if (user) {
+    if (user && !user.isGuest) {
       setDoc(doc(db, "data", "appointments"), { items: appointments });
       setDoc(doc(db, "data", "meds"), { items: meds });
       setDoc(doc(db, "data", "medical_info"), { items: medicalInfo });
