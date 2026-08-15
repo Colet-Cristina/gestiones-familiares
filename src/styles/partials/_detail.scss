@@ -95,16 +95,19 @@
     flex-direction: column;
     gap: 1rem;
     margin-bottom: 1.5rem;
+    width: 100%;
+    box-sizing: border-box; // <--- Asegura que respete los márgenes
   }
 
   &__input {
     padding: 0.75rem;
-    border: 0.0625rem solid $color-border;
+    border: 0.06rem solid $color-border;
     border-radius: $radius-medium;
     font-size: 0.95rem;
     color: $color-text;
     background-color: $color-white;
     width: 100%;
+    box-sizing: border-box;
 
     &:focus {
       outline: none;
