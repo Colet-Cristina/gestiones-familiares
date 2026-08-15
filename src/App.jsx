@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { db } from "./services/firebase";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, onSnapshot } from "firebase/firestore";
 
 import Login from "./components/Login";
 import Header from "./components/Header";
@@ -31,33 +31,37 @@ function App() {
   // Cargar datos de Firebase al iniciar
   useEffect(() => {
     if (user && !user.isGuest) {
-      const fetchData = async () => {
-        const collections = [
-          "appointments",
-          "meds",
-          "medical_info",
-          "contacts",
-          "expenses",
-          "documents",
-        ];
-        const setters = [
-          setAppointments,
-          setMeds,
-          setMedicalInfo,
-          setContacts,
-          setExpenses,
-          setDocuments,
-        ];
+      const collections = [
+        "appointments",
+        "meds",
+        "medical_info",
+        "contacts",
+        "expenses",
+        "documents",
+      ];
+      const setters = [
+        setAppointments,
+        setMeds,
+        setMedicalInfo,
+        setContacts,
+        setExpenses,
+        setDocuments,
+      ];
 
-        for (let i = 0; i < collections.length; i++) {
-          const docRef = doc(db, "data", collections[i]);
-          const docSnap = await getDoc(docRef);
+      // Creamos las suscripciones para cada colección
+      const unsubscribes = collections.map((colName, index) => {
+        const docRef = doc(db, "data", colName);
+
+        // onSnapshot escucha cambios en la base de datos constantemente
+        return onSnapshot(docRef, (docSnap) => {
           if (docSnap.exists()) {
-            setters[i](docSnap.data().items);
+            setters[index](docSnap.data().items);
           }
-        }
-      };
-      fetchData();
+        });
+      });
+
+      // Limpieza: dejamos de escuchar cuando el usuario cierra sesión o la app se desmonta
+      return () => unsubscribes.forEach((unsub) => unsub());
     }
   }, [user]);
 
