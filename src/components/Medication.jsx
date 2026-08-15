@@ -45,6 +45,11 @@ function Medication({ meds = [], setMeds, onBack }) {
     setName(med.name);
     setDose(med.dose);
     setEditingId(med.id);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   // Eliminar medicamento

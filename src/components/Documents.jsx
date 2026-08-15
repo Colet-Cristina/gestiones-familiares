@@ -87,6 +87,11 @@ function Documents({ documents = [], setDocuments, onBack }) {
     setFileData(doc.fileData || null);
     setFileType(doc.fileType || "");
     setEditingId(doc.id);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   const handleDelete = (id) => {

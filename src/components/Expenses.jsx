@@ -64,6 +64,11 @@ function Expenses({ expenses = [], setExpenses, onBack }) {
     setPayer(expense.payer || "");
     setMonth(expense.month || new Date().toISOString().slice(0, 7));
     setEditingId(expense.id);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   const handleDelete = (id) => {

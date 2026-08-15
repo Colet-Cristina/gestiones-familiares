@@ -40,6 +40,11 @@ function MedicalInfo({ medicalInfo = [], setMedicalInfo, onBack }) {
     setTitle(info.title);
     setDetail(info.detail);
     setEditingId(info.id);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   const handleDelete = (id) => {

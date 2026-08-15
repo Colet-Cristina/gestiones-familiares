@@ -40,6 +40,11 @@ function Contacts({ contacts = [], setContacts, onBack }) {
     setName(contact.name);
     setPhone(contact.phone);
     setEditingId(contact.id);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   const handleDelete = (id) => {

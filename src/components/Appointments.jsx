@@ -57,6 +57,11 @@ function Appointments({
     setDate(app.date);
     setTime(app.time);
     setEditingId(app.id);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   /**
