@@ -20,7 +20,7 @@ Una aplicación web modular, moderna y accesible orientada a la organización de
 ## 🛠️ Tecnologías Utilizadas
 
 - **React (Vite):** Gestión del estado inmutable (`useState`, `useEffect`).
-- **Firebase (Auth & Firestore):** Autenticación de usuarios y base de datos NoSQL en la nube para sincronización multi-dispositivo.
+- **Firebase (Auth & Firestore):** Autenticación de usuarios y base de datos en la nube para sincronización multi-dispositivo.
 - **Sass / SCSS:** Arquitectura modular basada en el patrón `core/` y `partials/` empleando la metodología de nombres **BEM** (medidas en `rem`).
 - **JavaScript (ES6+):** Métodos inmutables de array (`map`, `filter`, `reduce`), `FileReader API` y manejo seguro del DOM.
 - **HTML5 Semántico:** Formularios accesibles, soporte de cámara y etiquetas nativas estructuradas.

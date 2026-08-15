@@ -11,6 +11,7 @@ import Footer from "./components/Footer";
 import ScrollTopButton from "./components/ScrollTopButton";
 
 function App() {
+  //  ESTADOS DE USUARIO Y NAVEGACIÓN
   const [user, setUser] = useState(() => {
     const savedUser = localStorage.getItem("app_user");
     return savedUser ? JSON.parse(savedUser) : null;
@@ -19,9 +20,8 @@ function App() {
   const [activeSection, setActiveSection] = useState(null);
   const [activeModalId, setActiveModalId] = useState(null);
   const [modalNoteText, setModalNoteText] = useState("");
-  const [loading, setLoading] = useState(true);
 
-  // Estados iniciales vacíos
+  //  ESTADOS DE LOS DATOS DE LA APLICACIÓN
   const [appointments, setAppointments] = useState([]);
   const [meds, setMeds] = useState([]);
   const [medicalInfo, setMedicalInfo] = useState([]);
@@ -29,10 +29,9 @@ function App() {
   const [expenses, setExpenses] = useState([]);
   const [documents, setDocuments] = useState([]);
 
-  // Cargar datos de Firebase al iniciar
+  //  SINCRONIZACIÓN EN TIEMPO REAL (LECTURA)
   useEffect(() => {
     if (user && !user.isGuest) {
-      setLoading(true);
       const collections = [
         "appointments",
         "meds",
@@ -50,46 +49,63 @@ function App() {
         setDocuments,
       ];
 
-      // Creamos las suscripciones para cada colección
       const unsubscribes = collections.map((colName, index) => {
         const docRef = doc(db, "data", colName);
 
-        // onSnapshot escucha cambios en la base de datos constantemente
         return onSnapshot(docRef, (docSnap) => {
           if (docSnap.exists()) {
-            setters[index](docSnap.data().items);
+            setters[index](docSnap.data().items || []);
           }
-          setLoading(false);
         });
       });
 
-      // Limpieza: dejamos de escuchar cuando el usuario cierra sesión o la app se desmonta
       return () => unsubscribes.forEach((unsub) => unsub());
-    } else {
-      setLoading(false);
     }
   }, [user]);
 
-  // Guardar en Firebase cuando cambia el estado (solo si hay usuario real, no invitado)
-  useEffect(() => {
-    if (user && !user.isGuest && !loading) {
-      setDoc(doc(db, "data", "appointments"), { items: appointments });
-      setDoc(doc(db, "data", "meds"), { items: meds });
-      setDoc(doc(db, "data", "medical_info"), { items: medicalInfo });
-      setDoc(doc(db, "data", "contacts"), { items: contacts });
-      setDoc(doc(db, "data", "expenses"), { items: expenses });
-      setDoc(doc(db, "data", "documents"), { items: documents });
+  //  FUNCIÓN AUXILIAR DE ESCRITURA EN LA NUBE
+  // Función para guardar en Firestore de forma controlada.
+  const updateCloudData = async (collectionName, newItems) => {
+    if (user && !user.isGuest) {
+      try {
+        await setDoc(doc(db, "data", collectionName), { items: newItems });
+      } catch (error) {
+        console.error("Error al guardar en Firebase:", error);
+      }
     }
-  }, [
-    appointments,
-    meds,
-    medicalInfo,
-    contacts,
-    expenses,
-    documents,
-    user,
-    loading,
-  ]);
+  };
+  //  MANEJADORES DE DATOS (ESTADO + NUBE)
+  const handleAppointmentsChange = (newAppointments) => {
+    setAppointments(newAppointments);
+    updateCloudData("appointments", newAppointments);
+  };
+
+  const handleMedsChange = (newMeds) => {
+    setMeds(newMeds);
+    updateCloudData("meds", newMeds);
+  };
+
+  const handleMedicalInfoChange = (newMedicalInfo) => {
+    setMedicalInfo(newMedicalInfo);
+    updateCloudData("medical_info", newMedicalInfo);
+  };
+
+  const handleContactsChange = (newContacts) => {
+    setContacts(newContacts);
+    updateCloudData("contacts", newContacts);
+  };
+
+  const handleExpensesChange = (newExpenses) => {
+    setExpenses(newExpenses);
+    updateCloudData("expenses", newExpenses);
+  };
+
+  const handleDocumentsChange = (newDocuments) => {
+    setDocuments(newDocuments);
+    updateCloudData("documents", newDocuments);
+  };
+
+  // AUTENTICACIÓN Y SESIÓN
 
   const handleLogin = (userData) => {
     setUser(userData);
@@ -109,7 +125,6 @@ function App() {
     setActiveSection(null);
     setActiveModalId(null);
     localStorage.removeItem("app_user");
-    // Limpiamos estados al salir
     setAppointments([]);
     setMeds([]);
     setMedicalInfo([]);
@@ -117,6 +132,8 @@ function App() {
     setExpenses([]);
     setDocuments([]);
   };
+
+  // GESTIÓN DE NOTAS (MODAL)
 
   const handleOpenNoteModal = (id) => {
     const app = appointments.find((a) => a.id === id);
@@ -127,11 +144,11 @@ function App() {
   };
 
   const handleSaveNote = () => {
-    setAppointments((prevAppointments) =>
-      prevAppointments.map((app) =>
-        app.id === activeModalId ? { ...app, note: modalNoteText } : app,
-      ),
+    const updatedAppointments = appointments.map((app) =>
+      app.id === activeModalId ? { ...app, note: modalNoteText } : app,
     );
+    // Usamos la función unificada que actualiza estado y Firebase
+    handleAppointmentsChange(updatedAppointments);
     setActiveModalId(null);
   };
 
@@ -157,17 +174,17 @@ function App() {
             sectionId={activeSection}
             onBack={() => setActiveSection(null)}
             appointments={appointments}
-            setAppointments={setAppointments}
+            setAppointments={handleAppointmentsChange}
             meds={meds}
-            setMeds={setMeds}
+            setMeds={handleMedsChange}
             medicalInfo={medicalInfo}
-            setMedicalInfo={setMedicalInfo}
+            setMedicalInfo={handleMedicalInfoChange}
             contacts={contacts}
-            setContacts={setContacts}
+            setContacts={handleContactsChange}
             expenses={expenses}
-            setExpenses={setExpenses}
+            setExpenses={handleExpensesChange}
             documents={documents}
-            setDocuments={setDocuments}
+            setDocuments={handleDocumentsChange}
             onOpenModal={handleOpenNoteModal}
           />
         )}
