@@ -52,6 +52,13 @@ function Medication({ meds = [], setMeds, onBack }) {
     setMeds(meds.filter((med) => med.id !== id));
   };
 
+  // ============ WHATSAPP LINK ============
+  const whatsappMessage = encodeURIComponent(
+    `¡Hola. He actualizado la medicación en la app. Echadle un vistazo.`,
+  );
+  const whatsappUrl = `https://api.whatsapp.com/send?text=${whatsappMessage}`;
+
+  // ============ RENDERIZADO ============
   return (
     <>
       {/* Cabecera temática */}
@@ -86,9 +93,22 @@ function Medication({ meds = [], setMeds, onBack }) {
           onChange={(e) => setDose(e.target.value)}
           required
         />
-        <button type="submit" className="detail__btn">
-          {editingId ? "Guardar Cambios" : "Añadir Medicamento"}
-        </button>
+
+        {/* BOTONES */}
+        <div className="detail__form-actions">
+          <button type="submit" className="detail__btn">
+            {editingId ? "Guardar Cambios" : "Añadir Medicamento"}
+          </button>
+
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="detail__btn"
+          >
+            Avisar por WhatsApp
+          </a>
+        </div>
       </form>
 
       {/* Listado de medicamentos */}

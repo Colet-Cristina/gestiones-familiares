@@ -93,6 +93,12 @@ function Expenses({ expenses = [], setExpenses, onBack }) {
     0,
   );
 
+  // ============ WHATSAPP LINK ============
+  const whatsappMessage = encodeURIComponent(
+    `¡Hola. He actualizado los gastos en la app. Echadle un vistazo.`,
+  );
+  const whatsappUrl = `https://api.whatsapp.com/send?text=${whatsappMessage}`;
+
   // ============ RENDERIZADO ============
 
   return (
@@ -165,9 +171,21 @@ function Expenses({ expenses = [], setExpenses, onBack }) {
           required
         />
 
-        <button type="submit" className="detail__btn">
-          {editingId ? "Guardar Cambios" : "Añadir Gasto"}
-        </button>
+        {/* BOTONES */}
+        <div className="detail__form-actions">
+          <button type="submit" className="detail__btn">
+            {editingId ? "Guardar Cambios" : "Añadir Gasto"}
+          </button>
+
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="detail__btn"
+          >
+            Avisar por WhatsApp
+          </a>
+        </div>
       </form>
 
       {/* Filtro por mes */}

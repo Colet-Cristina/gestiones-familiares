@@ -112,6 +112,12 @@
     }
   }
 
+  &__form-actions {
+    display: flex;
+    gap: 2.3rem;
+    flex-wrap: wrap;
+  }
+
   &__btn {
     background-color: $color-sakura-warm;
     color: $color-white;
@@ -121,6 +127,7 @@
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
+    text-decoration: none;
     transition: background-color $transition-fast;
 
     &:hover {

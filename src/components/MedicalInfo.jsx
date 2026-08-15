@@ -46,6 +46,12 @@ function MedicalInfo({ medicalInfo = [], setMedicalInfo, onBack }) {
     setMedicalInfo(medicalInfo.filter((info) => info.id !== id));
   };
 
+  // ============ WHATSAPP LINK ============
+  const whatsappMessage = encodeURIComponent(
+    `¡Hola. He actualizado la información médica en la app. Echadle un vistazo.`,
+  );
+  const whatsappUrl = `https://api.whatsapp.com/send?text=${whatsappMessage}`;
+
   // ============ RENDERIZADO ============
   return (
     <>
@@ -81,9 +87,20 @@ function MedicalInfo({ medicalInfo = [], setMedicalInfo, onBack }) {
           onChange={(e) => setDetail(e.target.value)}
           required
         />
-        <button type="submit" className="detail__btn">
-          {editingId ? "Guardar Cambios" : "Añadir Información"}
-        </button>
+        <div className="detail__form-actions">
+          <button type="submit" className="detail__btn">
+            {editingId ? "Guardar Cambios" : "Añadir Información"}
+          </button>
+
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="detail__btn"
+          >
+            Avisar por WhatsApp
+          </a>
+        </div>
       </form>
 
       {/* Listado de información */}

@@ -97,6 +97,12 @@ function Documents({ documents = [], setDocuments, onBack }) {
     (doc) => filterOwner === "all" || doc.owner === filterOwner,
   );
 
+  // ============ WHATSAPP LINK ============
+  const whatsappMessage = encodeURIComponent(
+    `¡Hola. He actualizado la documentación en la app. Echadle un vistazo.`,
+  );
+  const whatsappUrl = `https://api.whatsapp.com/send?text=${whatsappMessage}`;
+
   // ============ RENDERIZADO ============
   return (
     <>
@@ -185,10 +191,21 @@ function Documents({ documents = [], setDocuments, onBack }) {
           </div>
         )}
 
-        {/* Botón añadir */}
-        <button type="submit" className="detail__btn">
-          {editingId ? "Guardar Cambios" : "Añadir Documento"}
-        </button>
+        {/* BOTONES */}
+        <div className="detail__form-actions">
+          <button type="submit" className="detail__btn">
+            {editingId ? "Guardar Cambios" : "Añadir Documento"}
+          </button>
+
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="detail__btn"
+          >
+            Avisar por WhatsApp
+          </a>
+        </div>
       </form>
 
       {existingOwners.length > 0 && (

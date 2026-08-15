@@ -46,6 +46,12 @@ function Contacts({ contacts = [], setContacts, onBack }) {
     setContacts(contacts.filter((contact) => contact.id !== id));
   };
 
+  // ============ WHATSAPP LINK ============
+  const whatsappMessage = encodeURIComponent(
+    `¡Hola. He actualizado los teléfonos en la app. Echadle un vistazo.`,
+  );
+  const whatsappUrl = `https://api.whatsapp.com/send?text=${whatsappMessage}`;
+
   // ============ RENDERIZADO ============
 
   return (
@@ -82,9 +88,22 @@ function Contacts({ contacts = [], setContacts, onBack }) {
           onChange={(e) => setPhone(e.target.value)}
           required
         />
-        <button type="submit" className="detail__btn">
-          {editingId ? "Guardar Cambios" : "Añadir Contacto"}
-        </button>
+
+        {/* BOTONES */}
+        <div className="detail__form-actions">
+          <button type="submit" className="detail__btn">
+            {editingId ? "Guardar Cambios" : "Añadir Contacto"}
+          </button>
+
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="detail__btn"
+          >
+            Avisar por WhatsApp
+          </a>
+        </div>
       </form>
 
       {/* LISTADO DE CONTACTOS */}

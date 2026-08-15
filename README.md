@@ -13,7 +13,7 @@ Una aplicación web modular, moderna y accesible orientada a la organización de
 - **📄 Gestión de Documentación:** Registro de documentos con opción para adjuntar archivos en PDF o utilizar la cámara del dispositivo (`capture="environment"`) para fotografías instantáneas con previsualización.
 - **💊 Medicación y Ficha Médica:** Control de dosis, horarios y notas médicas importantes.
 - **📞 Contactos:** Directorio con acceso directo a llamadas.
-- **🏠 Navegación Intuitiva:** Botón de retorno rápido al panel principal integrado directamente en la cabecera (Header) de la aplicación.
+- **🏠 Navegación Intuitiva:** **🏠 Navegación Intuitiva y Accesibilidad:** Botón de retorno rápido al panel principal integrado en la cabecera (Header) y botón flotante de desplazamiento hacia arriba (**Scroll Top**).
 
 ---
 
@@ -48,7 +48,8 @@ src/
 │   ├── Medication.jsx
 │   ├── ModalNote.jsx
 │   └── Welcome.jsx
-├── services/
+services/
+│   ├── data.jsx        # Configuración de las tarjetas del Dashboard (iconos y títulos)
 │   └── firebase.js     # Configuración e inicialización de Firebase (Auth y Firestore)
 └── styles/
     ├── core/           # Configuración global
@@ -100,6 +101,6 @@ npm run build
 
 ## 📝 Próximos Pasos (Roadmap)
 
-[ ] Desarrollo de un sistema avanzado de invitaciones por correo electrónico para permitir el acceso multiusuario independiente al espacio familiar.
+[ ] Vincular varios correos independientes a la misma cuenta familiar introduciéndolos desde la app.
 
 [ ] Compresión automática de imágenes antes de la persistencia para optimización de almacenamiento.

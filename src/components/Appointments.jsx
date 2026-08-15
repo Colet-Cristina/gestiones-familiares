@@ -67,9 +67,9 @@ function Appointments({
   };
 
   // ============ WHATSAPP LINK ============
-  // Texto del mensaje para avisar a la familia
+
   const whatsappMessage = encodeURIComponent(
-    `¡Hola. Se ha actualizado la agenda de citas médicas en la app. Echadle un vistazo.`,
+    `¡Hola. He actualizado la agenda de citas en la app. Echadle un vistazo.`,
   );
   const whatsappUrl = `https://api.whatsapp.com/send?text=${whatsappMessage}`;
 
@@ -113,11 +113,8 @@ function Appointments({
           required
         />
 
-        {/* Contenedor para los botones de acción del formulario */}
-        <div
-          className="detail__form-actions"
-          style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}
-        >
+        {/* BOTONES */}
+        <div className="detail__form-actions">
           <button type="submit" className="detail__btn">
             {editingId ? "Guardar Cambios" : "Añadir Cita"}
           </button>
@@ -126,7 +123,7 @@ function Appointments({
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="detail__btn detail__btn--whatsapp"
+            className="detail__btn"
           >
             Avisar por WhatsApp
           </a>
