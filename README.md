@@ -1,24 +1,27 @@
-# 📅 Family Today | Gestor de Citas y Organización
+# 📅 Family Today | Gestor de Citas y Organización Familiar
 
-Una aplicación web modular, moderna y accesible orientada a la organización de tareas, documentos, contactos, medicación y gastos del hogar. Diseñada con una arquitectura limpia de componentes en **React** y organizada bajo estándares profesionales de **SCSS (BEM)**.
+Una aplicación web modular, moderna y accesible orientada a la organización de tareas, documentos, contactos, medicación y gastos del hogar. Diseñada con una arquitectura limpia de componentes en **React**, organizada bajo estándares profesionales de **SCSS (BEM)** y conectada a la nube mediante **Firebase**.
 
 ---
 
 ## 🚀 Características Principales
 
+- **🔐 Autenticación y Seguridad:** Sistema de inicio de sesión y registro integrado con **Firebase Authentication**, garantizando un acceso seguro y privado para la familia.
+- **☁️ Sincronización en la Nube:** Persistencia de datos en tiempo real mediante **Cloud Firestore**, permitiendo que la información se mantenga sincronizada entre diferentes dispositivos.
 - **📅 Control de Citas y Calendario:** Visualización interactiva para el seguimiento de eventos y citas médicas.
 - **💳 Gastos Compartidos:** Vista tipo acordeón agrupada por persona con desglose de subtotales y cálculo automático del total conjunto.
 - **📄 Gestión de Documentación:** Registro de documentos con opción para adjuntar archivos en PDF o utilizar la cámara del dispositivo (`capture="environment"`) para fotografías instantáneas con previsualización.
 - **💊 Medicación y Ficha Médica:** Control de dosis, horarios y notas médicas importantes.
 - **📞 Contactos:** Directorio con acceso directo a llamadas.
-- **💾 Persistencia de Datos:** Uso de `localStorage` para el almacenamiento local inmutable mediante identificadores únicos (`crypto.randomUUID()`).
+- **🏠 Navegación Intuitiva:** Botón de retorno rápido al panel principal integrado directamente en la cabecera (Header) de la aplicación.
 
 ---
 
 ## 🛠️ Tecnologías Utilizadas
 
 - **React (Vite):** Gestión del estado inmutable (`useState`, `useEffect`).
-- **Sass / SCSS:** Arquitectura modular basada en el patrón `core/` y `partials/` empleando la metodología de nombres **BEM**.
+- **Firebase (Auth & Firestore):** Autenticación de usuarios y base de datos NoSQL en la nube para sincronización multi-dispositivo.
+- **Sass / SCSS:** Arquitectura modular basada en el patrón `core/` y `partials/` empleando la metodología de nombres **BEM** (medidas en `rem`).
 - **JavaScript (ES6+):** Métodos inmutables de array (`map`, `filter`, `reduce`), `FileReader API` y manejo seguro del DOM.
 - **HTML5 Semántico:** Formularios accesibles, soporte de cámara y etiquetas nativas estructuradas.
 
@@ -30,7 +33,7 @@ El código fuente sigue un patrón modular en el que los componentes globales y 
 
 ```text
 src/
-├── components/          # Componentes independientes de React
+├── components/         # Componentes independientes de React
 │   ├── Appointments.jsx
 │   ├── Calendar.jsx
 │   ├── Card.jsx
@@ -46,28 +49,29 @@ src/
 │   ├── ModalNote.jsx
 │   └── Welcome.jsx
 ├── services/
-│   └── data.jsx          # Datos iniciales / de prueba
+│   └── firebase.js     # Configuración e inicialización de Firebase (Auth y Firestore)
 └── styles/
-    ├── core/            # Configuración global
+    ├── core/           # Configuración global
     │   ├── _reset.scss
     │   └── _variables.scss
-    ├── partials/        # Estilos específicos por módulo
+    ├── partials/       # Estilos específicos por módulo
     │   ├── _appointments.scss
     │   ├── _calendar.scss
     │   ├── _card.scss
     │   ├── _dashboard.scss
-    │   ├── _detail.scss   # Estilos base compartidos (DRY)
+    │   ├── _detail.scss   # Estilos base compartidos
     │   ├── _documents.scss
     │   ├── _expenses.scss
     │   ├── _footer.scss
     │   ├── _header.scss
     │   ├── _modal.scss
     │   └── _welcome.scss
-    └── App.scss         # Importación centralizada
+    └── App.scss    # Importación centralizada
 
 ```
 
-📦 Instalación y Uso Local
+## 📦 Instalación y Uso Local
+
 Clonar el repositorio:
 
 ```Bash
@@ -94,7 +98,8 @@ Compilar para producción:
 npm run build
 ```
 
-📝 Próximos Pasos (Roadmap)
-[ ] Integración con Firebase / Supabase para la sincronización de datos en la nube en tiempo real entre múltiples dispositivos familiares.
+## 📝 Próximos Pasos (Roadmap)
+
+[ ] Desarrollo de un sistema avanzado de invitaciones por correo electrónico para permitir el acceso multiusuario independiente al espacio familiar.
 
 [ ] Compresión automática de imágenes antes de la persistencia para optimización de almacenamiento.
