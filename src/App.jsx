@@ -19,6 +19,7 @@ function App() {
   const [activeSection, setActiveSection] = useState(null);
   const [activeModalId, setActiveModalId] = useState(null);
   const [modalNoteText, setModalNoteText] = useState("");
+  const [loading, setLoading] = useState(true);
 
   // Estados iniciales vacíos
   const [appointments, setAppointments] = useState([]);
@@ -31,6 +32,7 @@ function App() {
   // Cargar datos de Firebase al iniciar
   useEffect(() => {
     if (user && !user.isGuest) {
+      setLoading(true);
       const collections = [
         "appointments",
         "meds",
@@ -57,17 +59,20 @@ function App() {
           if (docSnap.exists()) {
             setters[index](docSnap.data().items);
           }
+          setLoading(false);
         });
       });
 
       // Limpieza: dejamos de escuchar cuando el usuario cierra sesión o la app se desmonta
       return () => unsubscribes.forEach((unsub) => unsub());
+    } else {
+      setLoading(false);
     }
   }, [user]);
 
   // Guardar en Firebase cuando cambia el estado (solo si hay usuario real, no invitado)
   useEffect(() => {
-    if (user && !user.isGuest) {
+    if (user && !user.isGuest && !loading) {
       setDoc(doc(db, "data", "appointments"), { items: appointments });
       setDoc(doc(db, "data", "meds"), { items: meds });
       setDoc(doc(db, "data", "medical_info"), { items: medicalInfo });
@@ -75,7 +80,16 @@ function App() {
       setDoc(doc(db, "data", "expenses"), { items: expenses });
       setDoc(doc(db, "data", "documents"), { items: documents });
     }
-  }, [appointments, meds, medicalInfo, contacts, expenses, documents, user]);
+  }, [
+    appointments,
+    meds,
+    medicalInfo,
+    contacts,
+    expenses,
+    documents,
+    user,
+    loading,
+  ]);
 
   const handleLogin = (userData) => {
     setUser(userData);
@@ -95,6 +109,13 @@ function App() {
     setActiveSection(null);
     setActiveModalId(null);
     localStorage.removeItem("app_user");
+    // Limpiamos estados al salir
+    setAppointments([]);
+    setMeds([]);
+    setMedicalInfo([]);
+    setContacts([]);
+    setExpenses([]);
+    setDocuments([]);
   };
 
   const handleOpenNoteModal = (id) => {
@@ -119,7 +140,6 @@ function App() {
   if (!user) {
     return <Login onLogin={handleLogin} onGuestLogin={handleGuestLogin} />;
   }
-
   return (
     <div className="page">
       <Header
