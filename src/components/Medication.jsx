@@ -82,16 +82,24 @@ function Medication({ meds = [], setMeds, onBack }) {
 
       {/* Formulario principal (añadir / editar) */}
       <form className="detail__form" onSubmit={handleSubmit}>
+        <label className="detail__label" htmlFor="med-name">
+          Nombre del medicamento
+        </label>
         <input
           type="text"
+          id="med-name"
           placeholder="Nombre del medicamento"
           className="detail__input"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
         />
+        <label className="detail__label" htmlFor="med-dose">
+          Dosis
+        </label>
         <input
           type="text"
+          id="med-dose"
           placeholder="Dosis (ej: 1 cada 8h)"
           className="detail__input"
           value={dose}

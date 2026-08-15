@@ -76,16 +76,24 @@ function MedicalInfo({ medicalInfo = [], setMedicalInfo, onBack }) {
 
       {/* Formulario principal */}
       <form className="detail__form" onSubmit={handleSubmit}>
+        <label className="detail__label" htmlFor="medical-title">
+          Dato
+        </label>
         <input
           type="text"
+          id="medical-title"
           placeholder="Dato clave (ej: Grupo sanguíneo, Alergias)"
           className="detail__input"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
         />
+        <label className="detail__label" htmlFor="medical-detail">
+          Detalle
+        </label>
         <input
           type="text"
+          id="medical-detail"
           placeholder="Detalle (ej: A+, Penicilina)"
           className="detail__input"
           value={detail}

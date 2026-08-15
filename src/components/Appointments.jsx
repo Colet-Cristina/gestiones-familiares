@@ -95,23 +95,37 @@ function Appointments({
       </div>
 
       <form className="detail__form" onSubmit={handleSubmit}>
+        <label className="detail__label" htmlFor="spec-input">
+          Cita
+        </label>
         <input
           type="text"
+          id="spec-input"
           placeholder="Cita / Especialidad"
           className="detail__input"
           value={spec}
           onChange={(e) => setSpec(e.target.value)}
           required
         />
+
+        <label className="detail__label" htmlFor="date-input">
+          Fecha
+        </label>
         <input
           type="date"
+          id="date-input"
           className="detail__input"
           value={date}
           onChange={(e) => setDate(e.target.value)}
           required
         />
+
+        <label className="detail__label" htmlFor="time-input">
+          Hora
+        </label>
         <input
           type="time"
+          id="time-input"
           className="detail__input"
           value={time}
           onChange={(e) => setTime(e.target.value)}

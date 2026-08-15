@@ -124,16 +124,24 @@ function Expenses({ expenses = [], setExpenses, onBack }) {
 
       {/* Formulario */}
       <form className="detail__form" onSubmit={handleSubmit}>
+        <label className="detail__label" htmlFor="expense-concept">
+          Concepto
+        </label>
         <input
           type="text"
+          id="expense-concept"
           placeholder="Concepto (ej: Farmacia)"
           className="detail__input"
           value={concept}
           onChange={(e) => setConcept(e.target.value)}
           required
         />
+        <label className="detail__label" htmlFor="expense-amount">
+          Importe
+        </label>
         <input
           type="number"
+          id="expense-amount"
           step="0.01"
           placeholder="Importe (€)"
           className="detail__input"
@@ -141,7 +149,9 @@ function Expenses({ expenses = [], setExpenses, onBack }) {
           onChange={(e) => setAmount(e.target.value)}
           required
         />
-
+        <label className="detail__label" htmlFor="expense-payer">
+          Persona
+        </label>
         <select
           className="detail__input"
           value={payer}
@@ -167,7 +177,9 @@ function Expenses({ expenses = [], setExpenses, onBack }) {
             required
           />
         )}
-
+        <label className="detail__label" htmlFor="expense-month">
+          Mes
+        </label>
         <input
           type="month"
           className="detail__input"
@@ -196,6 +208,9 @@ function Expenses({ expenses = [], setExpenses, onBack }) {
       {/* Filtro por mes */}
       <div className="expenses__filters">
         <div className="expenses__filters-row">
+          <label className="detail__label" htmlFor="expense-month">
+            Fitrar
+          </label>
           <input
             type="month"
             className="detail__input expenses__filter-item"

@@ -77,16 +77,24 @@ function Contacts({ contacts = [], setContacts, onBack }) {
 
       {/* FORMULARIO */}
       <form className="detail__form" onSubmit={handleSubmit}>
+        <label className="detail__label" htmlFor="contact-name">
+          Nombre
+        </label>
         <input
           type="text"
+          id="contact-name"
           placeholder="Nombre (ej: centro dr día)"
           className="detail__input"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
         />
+        <label className="detail__label" htmlFor="contact-phone">
+          Teléfono
+        </label>
         <input
           type="tel"
+          id="contact-phone"
           placeholder="Teléfono"
           className="detail__input"
           value={phone}

@@ -5,32 +5,22 @@ import {
   FaTrash,
   FaCamera,
   FaFilePdf,
-  FaFilter,
   FaEye,
   FaTimes,
 } from "react-icons/fa";
 
 /**
  * Componente para gestionar documentos adjuntos (imágenes o PDF),
- * permitiendo subir archivos mediante cámara o archivo local, visualizarlos y filtrarlos.
+ * permitiendo subir archivos mediante cámara o archivo local y visualizarlos.
  */
 
 function Documents({ documents = [], setDocuments, onBack }) {
   const [title, setTitle] = useState("");
-  const [owner, setOwner] = useState("");
-  const [customOwner, setCustomOwner] = useState("");
-  const [fileData, setFileData] = useState(null); // Guardará la imagen en Base64
+  const [fileData, setFileData] = useState(null); // Guardará la imagen/PDF en Base64
   const [fileType, setFileType] = useState(""); // Saber si es imagen o PDF
   const [editingId, setEditingId] = useState(null);
 
   const [selectedDoc, setSelectedDoc] = useState(null);
-
-  // Filtro por persona
-  const [filterOwner, setFilterOwner] = useState("all");
-
-  const existingOwners = Array.from(
-    new Set(documents.map((doc) => doc.owner).filter(Boolean)),
-  );
 
   // ============ MANEJADORES DE EVENTOS (HANDLERS) ============
 
@@ -50,15 +40,12 @@ function Documents({ documents = [], setDocuments, onBack }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const finalOwner = owner === "NEW" ? customOwner.trim() : owner;
-    if (!finalOwner) return;
+    if (!title.trim()) return;
 
     if (editingId) {
       setDocuments(
         documents.map((doc) =>
-          doc.id === editingId
-            ? { ...doc, title, owner: finalOwner, fileData, fileType }
-            : doc,
+          doc.id === editingId ? { ...doc, title, fileData, fileType } : doc,
         ),
       );
       setEditingId(null);
@@ -66,7 +53,6 @@ function Documents({ documents = [], setDocuments, onBack }) {
       const newDocument = {
         id: crypto.randomUUID(),
         title,
-        owner: finalOwner,
         fileData,
         fileType,
         createdAt: new Date().toLocaleDateString("es-ES"),
@@ -75,15 +61,12 @@ function Documents({ documents = [], setDocuments, onBack }) {
     }
 
     setTitle("");
-    setOwner("");
-    setCustomOwner("");
     setFileData(null);
     setFileType("");
   };
 
   const handleEdit = (doc) => {
     setTitle(doc.title);
-    setOwner(doc.owner || "");
     setFileData(doc.fileData || null);
     setFileType(doc.fileType || "");
     setEditingId(doc.id);
@@ -97,10 +80,6 @@ function Documents({ documents = [], setDocuments, onBack }) {
   const handleDelete = (id) => {
     setDocuments(documents.filter((doc) => doc.id !== id));
   };
-
-  const filteredDocuments = documents.filter(
-    (doc) => filterOwner === "all" || doc.owner === filterOwner,
-  );
 
   // ============ WHATSAPP LINK ============
   const whatsappMessage = encodeURIComponent(
@@ -128,40 +107,18 @@ function Documents({ documents = [], setDocuments, onBack }) {
 
       {/* Formulario */}
       <form className="detail__form" onSubmit={handleSubmit}>
+        <label className="detail__label" htmlFor="doc-title">
+          Nombre del documento
+        </label>
         <input
           type="text"
+          id="doc-title"
           placeholder="Nombre (ej: Recetas, Tarjeta Sanitaria)"
           className="detail__input"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
         />
-
-        <select
-          className="detail__input"
-          value={owner}
-          onChange={(e) => setOwner(e.target.value)}
-          required
-        >
-          <option value="">-- ¿De quién es el documento? --</option>
-          {existingOwners.map((person) => (
-            <option key={person} value={person}>
-              {person}
-            </option>
-          ))}
-          <option value="NEW"> + Añadir...</option>
-        </select>
-
-        {owner === "NEW" && (
-          <input
-            type="text"
-            placeholder="Nombre de la persona"
-            className="detail__input"
-            value={customOwner}
-            onChange={(e) => setCustomOwner(e.target.value)}
-            required
-          />
-        )}
 
         {/* Input de archivos */}
         <div className="documents__file-input-wrapper">
@@ -213,49 +170,17 @@ function Documents({ documents = [], setDocuments, onBack }) {
         </div>
       </form>
 
-      {existingOwners.length > 0 && (
-        <div className="documents__filters">
-          <div className="documents__filters-row">
-            <select
-              className="detail__input"
-              value={filterOwner}
-              onChange={(e) => setFilterOwner(e.target.value)}
-            >
-              <option value="all">Ver todos los documentos</option>
-              {existingOwners.map((person) => (
-                <option key={person} value={person}>
-                  {person}
-                </option>
-              ))}
-            </select>
-            {filterOwner !== "all" && (
-              <button
-                type="button"
-                className="detail__action-btn"
-                onClick={() => setFilterOwner("all")}
-              >
-                <FaFilter /> Ver todos
-              </button>
-            )}
-          </div>
-        </div>
-      )}
-
       {/* Listado de documentos */}
       <div className="documents__summary">
         <ul className="detail__list">
-          {filteredDocuments.length === 0 ? (
-            <li className="detail__item">
-              No hay documentos guardados para este filtro.
-            </li>
+          {documents.length === 0 ? (
+            <li className="detail__item">No hay documentos guardados.</li>
           ) : (
-            filteredDocuments.map((doc) => (
+            documents.map((doc) => (
               <li key={doc.id} className="detail__item documents__item">
                 <div className="detail__item-info">
                   <span className="detail__item-title">{doc.title}</span>
-                  <span className="detail__item-date">
-                    👤 {doc.owner} | 📅 {doc.createdAt}
-                  </span>
+                  <span className="detail__item-date">📅 {doc.createdAt}</span>
 
                   {doc.fileData && (
                     <div className="documents__file-container">
