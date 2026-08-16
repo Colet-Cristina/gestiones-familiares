@@ -28,7 +28,7 @@
   }
 
   &__item-date {
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     color: $color-grey-500;
   }
 
@@ -42,7 +42,4 @@
   &__item--has-note {
     border-left: 0.25rem solid $color-primary;
   }
-}
-// ============ Media Queries ============
-@media (min-width: $tablet) {
 }

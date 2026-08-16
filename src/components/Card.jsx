@@ -12,10 +12,9 @@ function Card({ cardData, onSelectCard }) {
       tabIndex={0}
     >
       <div className="card__left">
-        {/* Cajita con fondo pastel para el icono */}
-        <div className="card__icon-box">
-          <div className="card__icon-box">{cardData.icon}</div>
-        </div>
+        {/* Cajita para el icono */}
+
+        <div className="card__icon-box">{cardData.icon}</div>
 
         <div className="card__content">
           <h3 className="card__title">{cardData.title}</h3>
