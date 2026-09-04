@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { db } from "./services/firebase";
+import { db, auth } from "./services/firebase";
 import { doc, setDoc, onSnapshot } from "firebase/firestore";
 
 import Login from "./components/Login";
@@ -31,7 +31,8 @@ function App() {
 
   //  SINCRONIZACIÓN EN TIEMPO REAL (LECTURA)
   useEffect(() => {
-    if (user && !user.isGuest) {
+    if (user && !user.isGuest && auth.currentUser) {
+      const userId = auth.currentUser.uid;
       const collections = [
         "appointments",
         "meds",
@@ -50,11 +51,13 @@ function App() {
       ];
 
       const unsubscribes = collections.map((colName, index) => {
-        const docRef = doc(db, "data", colName);
+        const docRef = doc(db, "users", userId, "data", colName);
 
         return onSnapshot(docRef, (docSnap) => {
           if (docSnap.exists()) {
             setters[index](docSnap.data().items || []);
+          } else {
+            setters[index]([]);
           }
         });
       });
@@ -66,9 +69,12 @@ function App() {
   //  FUNCIÓN AUXILIAR DE ESCRITURA EN LA NUBE
   // Función para guardar en Firestore de forma controlada.
   const updateCloudData = async (collectionName, newItems) => {
-    if (user && !user.isGuest) {
+    if (user && !user.isGuest && auth.currentUser) {
+      const userId = auth.currentUser.uid;
       try {
-        await setDoc(doc(db, "data", collectionName), { items: newItems });
+        await setDoc(doc(db, "users", userId, "data", collectionName), {
+          items: newItems,
+        });
       } catch (error) {
         console.error("Error al guardar en Firebase:", error);
       }
