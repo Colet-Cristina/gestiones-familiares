@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { db, auth } from "./services/firebase";
+import { db } from "./services/firebase";
 import { doc, setDoc, onSnapshot } from "firebase/firestore";
 
 import Login from "./components/Login";
@@ -31,8 +31,9 @@ function App() {
 
   //  SINCRONIZACIÓN EN TIEMPO REAL (LECTURA)
   useEffect(() => {
-    if (user && !user.isGuest && auth.currentUser) {
-      const userId = auth.currentUser.uid;
+    // Usamos user.uid directamente en vez de auth.currentUser
+    if (user && !user.isGuest && user.uid) {
+      const userId = user.uid;
       const collections = [
         "appointments",
         "meds",
@@ -68,9 +69,10 @@ function App() {
 
   //  FUNCIÓN AUXILIAR DE ESCRITURA EN LA NUBE
   // Función para guardar en Firestore de forma controlada.
+
   const updateCloudData = async (collectionName, newItems) => {
-    if (user && !user.isGuest && auth.currentUser) {
-      const userId = auth.currentUser.uid;
+    if (user && !user.isGuest && user.uid) {
+      const userId = user.uid;
       try {
         await setDoc(doc(db, "users", userId, "data", collectionName), {
           items: newItems,
@@ -80,6 +82,7 @@ function App() {
       }
     }
   };
+
   //  MANEJADORES DE DATOS (ESTADO + NUBE)
   const handleAppointmentsChange = (newAppointments) => {
     setAppointments(newAppointments);

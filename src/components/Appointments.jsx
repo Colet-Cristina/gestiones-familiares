@@ -149,10 +149,10 @@ function Appointments({
         </div>
       </form>
 
-      {/* Calendario interactivo integrado */}
+      {/* Calendario interactivo integrado - Selecciona la fecha para el input */}
       <Calendar
         appointments={appointments}
-        onSelectAppointment={(app) => onOpenModal(app.id)}
+        onSelectDate={(selectedIsoDate) => setDate(selectedIsoDate)}
       />
 
       <div className="appointments-summary">

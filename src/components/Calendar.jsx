@@ -4,7 +4,7 @@ import { useState } from "react";
  * Componente de Calendario interactivo para el marcado mensual de citas.
  */
 
-function Calendar({ appointments = [], onSelectAppointment }) {
+function Calendar({ appointments = [], onSelectDate }) {
   // ============ ESTADOS Y CONFIGURACIÓN ============
   const [displayedDate, setDisplayedDate] = useState(new Date());
   const year = displayedDate.getFullYear();
@@ -87,9 +87,13 @@ function Calendar({ appointments = [], onSelectAppointment }) {
   };
 
   // ============ MANEJADOR DE CLIC EN EL DÍA ============
-  const handleDayClick = (app) => {
-    if (app && onSelectAppointment) {
-      onSelectAppointment(app);
+  const handleDayClick = (dayNumber) => {
+    const formattedMonth = String(month + 1).padStart(2, "0");
+    const formattedDay = String(dayNumber).padStart(2, "0");
+    const isoDate = `${year}-${formattedMonth}-${formattedDay}`;
+
+    if (onSelectDate) {
+      onSelectDate(isoDate);
     }
   };
 
@@ -157,7 +161,7 @@ function Calendar({ appointments = [], onSelectAppointment }) {
                 key={dayNumber}
                 type="button"
                 className={dayClasses}
-                onClick={() => handleDayClick(app)}
+                onClick={() => handleDayClick(dayNumber)}
               >
                 {dayNumber}
               </button>
