@@ -4,6 +4,7 @@ import { auth } from "../services/firebase";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 
 /**
@@ -82,6 +83,39 @@ function Login({ onLogin, onGuestLogin }) {
         setError("La contraseña debe tener al menos 6 caracteres.");
       } else {
         setError("Ocurrió un error al autenticar. Revisa los datos.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  /**
+   * Envía un correo electrónico para restablecer la contraseña.
+   */
+  const handleForgotPassword = async () => {
+    if (!email.trim()) {
+      setError(
+        "Por favor, introduce tu correo electrónico arriba para recuperar la contraseña.",
+      );
+      return;
+    }
+
+    try {
+      setError("");
+      setLoading(true);
+      await sendPasswordResetEmail(auth, email.trim());
+      alert(
+        "¡Correo enviado! Revisa tu bandeja de entrada para restablecer tu contraseña.",
+      );
+    } catch (err) {
+      console.error("Error al enviar el correo de recuperación:", err.code);
+
+      if (err.code === "auth/user-not-found") {
+        setError("No existe ninguna cuenta registrada con este correo.");
+      } else if (err.code === "auth/invalid-email") {
+        setError("El formato del correo electrónico no es válido.");
+      } else {
+        setError("Ocurrió un error al enviar el correo de recuperación.");
       }
     } finally {
       setLoading(false);
@@ -180,6 +214,27 @@ function Login({ onLogin, onGuestLogin }) {
                 {showPassword ? "🐵" : "🙈"}
               </button>
             </div>
+
+            {/* Enlace de recuperación de contraseña (solo en Iniciar Sesión) */}
+            {!isRegistering && (
+              <button
+                type="button"
+                onClick={handleForgotPassword}
+                className="login__forgot-btn"
+                style={{
+                  background: "none",
+                  border: "none",
+                  color: "var(--color-primary, #6b46c1)",
+                  cursor: "pointer",
+                  padding: "0.4rem 0",
+                  fontSize: "0.85rem",
+                  textAlign: "left",
+                  textDecoration: "underline",
+                }}
+              >
+                ¿Has olvidado tu contraseña?
+              </button>
+            )}
           </div>
 
           {error && <p className="login__error">{error}</p>}
