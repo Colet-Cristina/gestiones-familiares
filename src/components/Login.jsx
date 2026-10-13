@@ -58,6 +58,7 @@ function Login({ onLogin, onGuestLogin }) {
       const user = userCredential.user;
 
       const userData = {
+        uid: user.uid,
         name: isRegistering
           ? name.trim()
           : user.displayName || email.split("@")[0],
