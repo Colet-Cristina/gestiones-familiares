@@ -102,5 +102,3 @@ npm run build
 ## 📝 Próximos Pasos (Roadmap)
 
 [ ] Vincular varios correos independientes a la misma cuenta familiar introduciéndolos desde la app.
-
-[ ] Compresión automática de imágenes antes de la persistencia para optimización de almacenamiento.
